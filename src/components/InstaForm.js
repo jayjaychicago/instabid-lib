@@ -9,9 +9,11 @@ const InstaForm = () => {
   const [qty, setQty] = useState("");
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
+  const [buttonState, setButtonState] = useState(false);
  
     let handleSubmit = async (e) => {
         e.preventDefault();
+        setButtonState(true);
         try {
           let res = await fetch("https://api.instabid.io/order", {
             method: "POST",
@@ -27,10 +29,11 @@ const InstaForm = () => {
           });
           let resJson = await res.json();
           if (res.status === 200) {
-            setSide("");
+            //setSide("");
+            setButtonState(false);
             setQty("");
             setPrice("");
-            setMessage("Done!");
+            //setMessage("Done!");
 
           } else {
             setMessage("Some error occured");
@@ -50,12 +53,12 @@ return (
     <div className="InstaForm" class="d-flex justify-content-center">
       <form class="form-horizontal d-inline-flex p-2" onSubmit={handleSubmit}>
 
-      <div class="btn-group m-2" role="group" data-toggle="buttons">
+      <div class="btn-group m-2" role="group" data-toggle="buttons" onChange={(e) => setSide(e.target.value)}>
                              
-        <input type="radio" class="btn-check" name="buySell" id="placeBidBuytest" value="B" autocomplete="off" onChange={(e) => setSide(e.target.value)}></input>
+        <input type="radio" class="btn-check" name="buySell" id="placeBidBuytest" value="B" autocomplete="off" ></input>
         <label class="btn btn-outline-primary" for="placeBidBuytest">Buy</label>    
 
-        <input type="radio" class="btn-check" name="buySell" id="placeBidSelltest" value="S" autocomplete="off" onChange={(e) => setSide(e.target.value)}></input>
+        <input type="radio" class="btn-check" name="buySell" id="placeBidSelltest" value="S" autocomplete="off" ></input>
         <label class="btn btn-outline-primary" for="placeBidSelltest">Sell</label>    
 
       </div>
@@ -81,7 +84,7 @@ return (
             
         </div>
 
-        <button class="btn btn-primary btn-sm m-2"type="submit">Trade</button>
+        <button disabled={buttonState} class="btn btn-primary btn-sm m-2"type="submit">Trade</button>
 
         <div className="message">{message ? <p>{message}</p> : null}</div>
       </form>

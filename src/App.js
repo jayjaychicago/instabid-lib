@@ -1,4 +1,5 @@
-import InstaTable from "./components/InstaTable";
+//import InstaTable from "./components/InstaTable";
+import {DepthTable} from "./components/DepthTable";
 import InstaForm from "./components/InstaForm";
 import Button from "react-bootstrap/Button";
 //import {Button} from 'react-bootstrap';
@@ -9,8 +10,8 @@ function App() {
 
   return (
       <main className="column">
-      
-        <InstaTable></InstaTable>
+        
+        <DepthTable exchange="Insta" product="prod"></DepthTable>
         <InstaForm></InstaForm>
 
       </main>
