@@ -4,7 +4,7 @@ import * as Pusher from "pusher-js";
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";
 
-export function DepthTable({exchange, product}) {
+export function DepthTable({exchange, product, user}) {
   const [buys, setBuys] = useState([]);
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);

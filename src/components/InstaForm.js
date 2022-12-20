@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const InstaForm = () => {
+const InstaForm = ({exchange, product, user}) => {
     const  isAuthenticated  = true;
 
     const [side, setSide] = useState("");
@@ -15,15 +15,19 @@ const InstaForm = () => {
         e.preventDefault();
         setButtonState(true);
         try {
+          if (exchange == undefined) { exchange = "Insta"};
+          if (product == undefined) { product = "prod"};
+          if (user == undefined) { user = "julien"};
+      
           let res = await fetch("https://api.instabid.io/order", {
             method: "POST",
             body: JSON.stringify({
-              exchange: "Insta",
-              product: "prod",
+              exchange: exchange,
+              product: product,
               side: side,
               qty: qty,
               price: price,
-              user: "julien",
+              user: user,
               apiKey: "12345"
             }),
           });
