@@ -7,7 +7,7 @@ import Instabid from "./components/Instabid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-function App() {
+function App() { 
 
   return (
       <main >
