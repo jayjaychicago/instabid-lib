@@ -3,10 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Instabid = void 0;
+exports.InstaBid = void 0;
 var _depthTable = require("./depth-table");
 var _instaForm = require("./insta-form");
-const Instabid = _ref => {
+const InstaBid = _ref => {
   let {
     exchange,
     product,
@@ -22,4 +22,4 @@ const Instabid = _ref => {
     user: user
   }));
 };
-exports.Instabid = Instabid;
+exports.InstaBid = InstaBid;

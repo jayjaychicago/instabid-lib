@@ -1,7 +1,7 @@
 import { DepthTable } from "./depth-table";
 import { InstaForm } from "./insta-form";
 
-export const Instabid = ({ exchange, product, user }) => {
+export const InstaBid = ({ exchange, product, user }) => {
   return (
     <div>
       <DepthTable

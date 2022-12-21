@@ -1,4 +1,4 @@
-import { useState, useEffect, user } from "react";
+import { useState, useEffect } from "react";
 import * as Pusher from "pusher-js";
 
 const EVENT_NAME = "DEPTHUPDATE";
