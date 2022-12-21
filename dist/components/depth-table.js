@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.DepthTable = DepthTable;
-var _react = require("react");
+var _react = _interopRequireWildcard(require("react"));
 var Pusher = _interopRequireWildcard(require("pusher-js"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -69,39 +69,39 @@ function DepthTable(_ref) {
     }
     return [...a, ...orders];
   }
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     class: "h-100 d-flex align-items-center justify-content-center"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     id: "sells"
-  }, /*#__PURE__*/React.createElement("table", {
+  }, /*#__PURE__*/_react.default.createElement("table", {
     class: "table table-hover"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+  }, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", {
     scope: "col"
-  }, "Bids"), /*#__PURE__*/React.createElement("th", {
+  }, "Bids"), /*#__PURE__*/_react.default.createElement("th", {
     scope: "col"
-  }, "Bid Price"), /*#__PURE__*/React.createElement("th", {
+  }, "Bid Price"), /*#__PURE__*/_react.default.createElement("th", {
     scope: "col"
-  }, "Sale Price"), /*#__PURE__*/React.createElement("th", {
+  }, "Sale Price"), /*#__PURE__*/_react.default.createElement("th", {
     scope: "col"
-  }, "Qty for sale"))), /*#__PURE__*/React.createElement("tbody", null, sells.filter(order => order.qty).map((order, i) => /*#__PURE__*/React.createElement("tr", {
+  }, "Qty for sale"))), /*#__PURE__*/_react.default.createElement("tbody", null, sells.filter(order => order.qty).map((order, i) => /*#__PURE__*/_react.default.createElement("tr", {
     key: i
-  }, /*#__PURE__*/React.createElement("td", {
+  }, /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, "\xA0"), /*#__PURE__*/React.createElement("td", {
+  }, "\xA0"), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, "\xA0"), /*#__PURE__*/React.createElement("td", {
+  }, "\xA0"), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, "$", order.price), /*#__PURE__*/React.createElement("td", {
+  }, "$", order.price), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, order.qty))), buys.filter(order => order.qty).map((order, i) => /*#__PURE__*/React.createElement("tr", {
+  }, order.qty))), buys.filter(order => order.qty).map((order, i) => /*#__PURE__*/_react.default.createElement("tr", {
     key: i
-  }, /*#__PURE__*/React.createElement("td", {
+  }, /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, order.qty), /*#__PURE__*/React.createElement("td", {
+  }, order.qty), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, "$", order.price), /*#__PURE__*/React.createElement("td", {
+  }, "$", order.price), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
-  }, "\xA0"), /*#__PURE__*/React.createElement("td", {
+  }, "\xA0"), /*#__PURE__*/_react.default.createElement("td", {
     className: "table-data text-center"
   }, "\xA0")))))));
 }

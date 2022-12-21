@@ -1,3 +1,4 @@
+import React from "react";
 import { DepthTable } from "./depth-table";
 import { InstaForm } from "./insta-form";
 

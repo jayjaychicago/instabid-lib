@@ -4,7 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.InstaForm = void 0;
-var _react = require("react");
+var _react = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 const InstaForm = _ref => {
   let {
     exchange,
@@ -56,61 +58,61 @@ const InstaForm = _ref => {
       console.log(err);
     }
   };
-  return isAuthenticated ? /*#__PURE__*/React.createElement("div", {
+  return isAuthenticated ? /*#__PURE__*/_react.default.createElement("div", {
     className: "InstaForm",
     class: "d-flex justify-content-center"
-  }, /*#__PURE__*/React.createElement("form", {
+  }, /*#__PURE__*/_react.default.createElement("form", {
     class: "form-horizontal d-inline-flex p-2",
     onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     class: "btn-group m-2",
     role: "group",
     "data-toggle": "buttons",
     onChange: e => setSide(e.target.value)
-  }, /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/_react.default.createElement("input", {
     type: "radio",
     class: "btn-check",
     name: "buySell",
     id: "placeBidBuytest",
     value: "B",
     autocomplete: "off"
-  }), /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/_react.default.createElement("label", {
     class: "btn btn-outline-primary",
     for: "placeBidBuytest"
-  }, "Buy"), /*#__PURE__*/React.createElement("input", {
+  }, "Buy"), /*#__PURE__*/_react.default.createElement("input", {
     type: "radio",
     class: "btn-check",
     name: "buySell",
     id: "placeBidSelltest",
     value: "S",
     autocomplete: "off"
-  }), /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/_react.default.createElement("label", {
     class: "btn btn-outline-primary",
     for: "placeBidSelltest"
-  }, "Sell")), /*#__PURE__*/React.createElement("input", {
+  }, "Sell")), /*#__PURE__*/_react.default.createElement("input", {
     class: "form-control m-2",
     type: "number",
     value: qty,
     placeholder: "Qty",
     onChange: e => setQty(e.target.value)
-  }), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/_react.default.createElement("div", {
     class: "input-group m-2"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     class: "input-group-prepend"
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/_react.default.createElement("span", {
     class: "input-group-text"
-  }, "$")), /*#__PURE__*/React.createElement("input", {
+  }, "$")), /*#__PURE__*/_react.default.createElement("input", {
     class: "form-control",
     type: "number",
     value: price,
     placeholder: "Price",
     onChange: e => setPrice(e.target.value)
-  })), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/_react.default.createElement("button", {
     disabled: buttonState,
     class: "btn btn-primary btn-sm m-2",
     type: "submit"
-  }, "Trade"), /*#__PURE__*/React.createElement("div", {
+  }, "Trade"), /*#__PURE__*/_react.default.createElement("div", {
     className: "message"
-  }, message ? /*#__PURE__*/React.createElement("p", null, message) : null))) : /*#__PURE__*/React.createElement("div", null, "This is where you put your authentication process or components");
+  }, message ? /*#__PURE__*/_react.default.createElement("p", null, message) : null))) : /*#__PURE__*/_react.default.createElement("div", null, "This is where you put your authentication process or components");
 };
 exports.InstaForm = InstaForm;
