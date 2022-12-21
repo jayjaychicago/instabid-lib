@@ -4,7 +4,7 @@ import * as Pusher from "pusher-js";
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";
 
-export function DepthTable({exchange, product, user}) {
+export function DepthTable({ exchange, product, user }) {
   const [buys, setBuys] = useState([]);
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);
@@ -17,28 +17,37 @@ export function DepthTable({exchange, product, user}) {
     );
   }, []);
 
-  useEffect( () => {
+  useEffect(() => {
     if (!pusher) return;
 
-(async() => {
-    if (exchange == undefined) { exchange = "Insta"};
-    if (product == undefined) { product = "prod"};
-    if (user == undefined) { user = "julien"};
-    const res = await fetch("https://api.instabid.io/depth?exchange=" + exchange +  "&product=" + product + "&user=" + user)
-      handleData(await res.json())
+    (async () => {
+      if (exchange === undefined) {
+        exchange = "Insta";
+      }
+      if (product === undefined) {
+        product = "prod";
+      }
+      if (user === undefined) {
+        user = "julien";
+      }
+      const res = await fetch(
+        "https://api.instabid.io/depth?exchange=" +
+          exchange +
+          "&product=" +
+          product +
+          "&user=" +
+          user
+      );
+      handleData(await res.json());
 
-    //const channel = pusher.subscribe(CHANNEL_NAME);
-    const channel = pusher.subscribe(exchange + "@" + product);
-    channel.bind(EVENT_NAME, handleData);
+      //const channel = pusher.subscribe(CHANNEL_NAME);
+      const channel = pusher.subscribe(exchange + "@" + product);
+      channel.bind(EVENT_NAME, handleData);
 
-
-    return () => {
+      return () => {
         channel.unbind(EVENT_NAME);
       };
-
-})()
-
-
+    })();
   }, [pusher]);
 
   function handleData({ sells, buys }) {
@@ -46,7 +55,7 @@ export function DepthTable({exchange, product, user}) {
     if (buys.length > 0)
       setBuys((prev) => update(prev, buys).sort((a, b) => b.price - a.price));
     if (sells.length > 0)
-      setSells((prev) => update(prev, sells).sort((a, b) =>  b.price - a.price));
+      setSells((prev) => update(prev, sells).sort((a, b) => b.price - a.price));
   }
 
   function update(a, orders) {
@@ -65,18 +74,17 @@ export function DepthTable({exchange, product, user}) {
 
   return (
     <div class="h-100 d-flex align-items-center justify-content-center">
-        <div id="sells">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Bids</th>
-                <th scope="col">Bid Price</th>
-                <th scope="col">Sale Price</th>
-                <th scope="col">Qty for sale</th>
-              </tr>
-            </thead>
-            <tbody>
-                
+      <div id="sells">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Bids</th>
+              <th scope="col">Bid Price</th>
+              <th scope="col">Sale Price</th>
+              <th scope="col">Qty for sale</th>
+            </tr>
+          </thead>
+          <tbody>
             {sells
               .filter((order) => order.qty)
               .map((order, i) => (
