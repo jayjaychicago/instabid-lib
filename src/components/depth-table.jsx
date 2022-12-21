@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as Pusher from "pusher-js";
+import Pusher from "pusher-js";
 
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";

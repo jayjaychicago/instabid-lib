@@ -5,7 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DepthTable = DepthTable;
 var _react = _interopRequireWildcard(require("react"));
-var Pusher = _interopRequireWildcard(require("pusher-js"));
+var _pusherJs = _interopRequireDefault(require("pusher-js"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 const EVENT_NAME = "DEPTHUPDATE";
@@ -21,7 +22,7 @@ function DepthTable(_ref) {
   const [sells, setSells] = (0, _react.useState)([]);
   const [pusher, setPusher] = (0, _react.useState)(undefined);
   (0, _react.useEffect)(() => {
-    setPusher(new Pusher("122f17b065e8921fa6e0", {
+    setPusher(new _pusherJs.default("122f17b065e8921fa6e0", {
       cluster: "us2"
     }));
   }, []);
