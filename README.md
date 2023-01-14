@@ -4,11 +4,14 @@ This creates a universal trading UI
 
 ## to install
 
-edit package.json and bump version
+npx create-react-app myInstabidClient
+cd myInstabidClient
+npm install instabidclient-dev
 
+then in the App.js add the following imports
 ```
-yarn build
-git add .
-git commit -m"message"
-npm publish
-```
+import Instabid from "instabidclient-dev";
+import "bootstrap/dist/css/bootstrap.min.css";
+```        
+and in the main render method, add the following component
+`      <Instabid exchange="Insta" product="prod" user="julien"></Instabid>`
