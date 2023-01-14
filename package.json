@@ -1,5 +1,5 @@
 {
-  "name": "instabidclient-dev",
+  "name": "instabid",
   "version": "0.2.1",
   "private": false,
   "main": "dist/index.js",

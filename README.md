@@ -6,11 +6,11 @@ This creates a universal trading UI
 
 npx create-react-app myInstabidClient
 cd myInstabidClient
-npm install instabidclient-dev
+npm install instabid
 
 then in the App.js add the following imports
 ```
-import Instabid from "instabidclient-dev";
+import Instabid from "instabid";
 import "bootstrap/dist/css/bootstrap.min.css";
 ```        
 and in the main render method, add the following component
