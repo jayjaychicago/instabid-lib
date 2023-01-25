@@ -1,8 +1,8 @@
 import React from "react";
-import { DepthTable } from "./depth-table";
-import { InstaForm } from "./insta-form";
+import { DepthTable } from "./DepthTable.jsx";
+import { InstaForm } from "./InstaForm.jsx";
 
-export const InstaBid = ({ exchange, product, user }) => {
+export const Instabid = ({ exchange, product, user }) => {
   return (
     <div>
       <DepthTable

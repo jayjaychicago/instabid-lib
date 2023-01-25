@@ -1,7 +1,7 @@
-import { DepthTable } from "./components/depth-table";
-import { InstaBid } from "./components/insta-bid";
-import { InstaForm } from "./components/insta-form";
+import { DepthTable } from "./components/DepthTable.jsx";
+import { Instabid } from "./components/Instabid.jsx";
+import { InstaForm } from "./components/InstaForm.jsx";
 
-export default InstaBid;
+export default Instabid;
 
 export { DepthTable, InstaForm };
