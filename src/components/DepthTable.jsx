@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Pusher from "pusher-js";
 
+import { updateSortedOrders } from "../util";
+
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";
 
@@ -50,26 +52,15 @@ export function DepthTable({ exchange, product, user }) {
     })();
   }, [pusher]);
 
-  function handleData({ sells, buys }) {
-    console.dir({ sells, buys });
-    if (buys.length > 0)
-      setBuys((prev) => update(prev, buys).sort((a, b) => b.price - a.price));
-    if (sells.length > 0)
-      setSells((prev) => update(prev, sells).sort((a, b) => b.price - a.price));
-  }
-
-  function update(a, orders) {
-    if (
-      orders.find((_order) => a.find((order) => order.price === _order.price))
-    ) {
-      return a.flatMap((_order) =>
-        orders.map((order) => {
-          console.dir(order.price === _order.price);
-          return order.price === _order.price ? order : _order;
-        })
-      );
+  function handleData(data) {
+    let orderedSells = data.sells;
+    let orderedBuys = data.buys;
+    if (orderedBuys.length > 0) {
+      setBuys((prev) => updateSortedOrders(prev, orderedBuys));
     }
-    return [...a, ...orders];
+    if (orderedSells.length > 0) {
+      setSells((prev) => updateSortedOrders(prev, orderedSells));
+    }
   }
 
   return (

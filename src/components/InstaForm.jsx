@@ -23,17 +23,19 @@ export const InstaForm = ({ exchange, product, user }) => {
         user = "julien";
       }
 
+      let body = {
+        exchange: exchange,
+        product: product,
+        side: side,
+        qty: qty,
+        price: price,
+        user: user,
+        apiKey: "12345",
+      };
+
       let res = await fetch("https://api.instabid.io/order", {
         method: "POST",
-        body: JSON.stringify({
-          exchange: exchange,
-          product: product,
-          side: side,
-          qty: qty,
-          price: price,
-          user: user,
-          apiKey: "12345",
-        }),
+        body: JSON.stringify(body),
       });
       let resJson = await res.json();
       if (res.status === 200) {
