@@ -5,5 +5,6 @@ edit package.json and bump version
 yarn build
 git add .
 git commit -m"message"
+npm login // if expired
 npm publish
 ```
