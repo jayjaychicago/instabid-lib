@@ -4,6 +4,7 @@ This creates a universal trading UI
 
 ## to install
 
+Create an account on https://instabid.io to get an API key
 ```
 npx create-react-app myInstabidClient
 cd myInstabidClient
@@ -16,4 +17,4 @@ import Instabid from "instabid";
 import "bootstrap/dist/css/bootstrap.min.css";
 ```        
 and in the main render method, add the following component
-`      <Instabid exchange="Insta" product="prod" user="julien"></Instabid>`
+`      <Instabid exchange="Insta" product="prod" user="julien" apiKey="YOUR_API_KEY"></Instabid>`

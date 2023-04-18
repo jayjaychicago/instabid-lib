@@ -39,7 +39,7 @@ const formStyles = {
     width: "130px", // Adjust this value as needed
   };
 
-export const InstaForm = ({ exchange, product, user }) => {
+export const InstaForm = ({ exchange, product, user, apiKey }) => {
   const isAuthenticated = true;
 
   const [side, setSide] = useState("");
@@ -61,6 +61,9 @@ export const InstaForm = ({ exchange, product, user }) => {
       if (user == undefined) {
         user = "julien";
       }
+      if (apiKey == undefined) {
+        apiKey = "12345";
+      }
 
       let body = {
         exchange: exchange,
@@ -69,7 +72,7 @@ export const InstaForm = ({ exchange, product, user }) => {
         qty: qty,
         price: price,
         user: user,
-        apiKey: "12345",
+        apiKey: apiKey,
       };
 
       let res = await fetch("https://api.instabid.io/order", {
