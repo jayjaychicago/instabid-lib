@@ -103,7 +103,6 @@ export const InstaForm = ({ exchange, product, user }) => {
             </div>
             <input
               className="form-control"
-              readOnly
               type="number"
               id="qty"
               value={qty}
@@ -123,7 +122,6 @@ export const InstaForm = ({ exchange, product, user }) => {
             </div>
             <input
               className="form-control"
-              readOnly
               type="number"
               id="price"
               value={price}
