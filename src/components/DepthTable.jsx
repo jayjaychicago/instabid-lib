@@ -64,9 +64,9 @@ export function DepthTable({ exchange, product, user }) {
   }
 
   return (
-    <div class="h-100 d-flex align-items-center justify-content-center">
+    <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="sells">
-        <table class="table table-hover">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">Bids</th>
