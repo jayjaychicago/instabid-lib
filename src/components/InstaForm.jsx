@@ -1,5 +1,44 @@
 import React, { useState } from "react";
 
+const formStyles = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "600px",
+    margin: "0 auto",
+  };
+  
+  const formRowStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "1rem",
+    width: "100%",
+    maxWidth: "400px",
+  };
+  
+  const inputGroupPrependStyles = {
+    backgroundColor: "#e9ecef",
+    color: "#495057",
+    borderTopLeftRadius: ".25rem",
+    borderBottomLeftRadius: ".25rem",
+    padding: ".5rem .75rem",
+    borderRight: "1px solid #ced4da",
+  };
+
+  const labelStyles = {
+    color: "black"
+  };
+
+  const tradeButtonStyles = {
+    height: "38px", // Adjust this value as needed
+    width: "120px"
+  };
+
+  const buttonGroupStyles = {
+    width: "130px", // Adjust this value as needed
+  };
+
 export const InstaForm = ({ exchange, product, user }) => {
   const isAuthenticated = true;
 
@@ -53,68 +92,96 @@ export const InstaForm = ({ exchange, product, user }) => {
   };
 
   return isAuthenticated ? (
-    <div className="InstaForm" class="d-flex justify-content-center">
-      <form class="form-horizontal d-inline-flex p-2" onSubmit={handleSubmit}>
-        <div
-          class="btn-group m-2"
-          role="group"
-          data-toggle="buttons"
-          onChange={(e) => setSide(e.target.value)}>
-          <input
-            type="radio"
-            class="btn-check"
-            name="buySell"
-            id="placeBidBuytest"
-            value="B"
-            autocomplete="off"></input>
-          <label class="btn btn-outline-primary" for="placeBidBuytest">
-            Buy
-          </label>
-
-          <input
-            type="radio"
-            class="btn-check"
-            name="buySell"
-            id="placeBidSelltest"
-            value="S"
-            autocomplete="off"></input>
-          <label class="btn btn-outline-primary" for="placeBidSelltest">
-            Sell
-          </label>
-        </div>
-
-        <input
-          class="form-control m-2"
-          type="number"
-          value={qty}
-          placeholder="Qty"
-          onChange={(e) => setQty(e.target.value)}
-        />
-
-        <div class="input-group m-2">
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+    <div className="InstaForm" style={formStyles}>
+      <form className="insta-form" onSubmit={handleSubmit}>
+        <div className="form-row" style={formRowStyles}>
+          <div className="input-group">
+            <div className="input-group-prepend" style={inputGroupPrependStyles}>
+              <label htmlFor="qty" className="m-0" style={labelStyles}>
+                Qty
+              </label>
+            </div>
+            <input
+              className="form-control"
+              readOnly
+              type="number"
+              id="qty"
+              value={qty}
+              placeholder="Qty"
+              autocomplete="off"
+              onChange={(e) => setQty(e.target.value)}
+            />
           </div>
-          <input
-            class="form-control"
-            type="number"
-            value={price}
-            placeholder="Price"
-            onChange={(e) => setPrice(e.target.value)}
-          />
         </div>
-
-        <button
-          disabled={buttonState}
-          class="btn btn-primary btn-sm m-2"
-          type="submit">
-          Trade
-        </button>
-
+  
+        <div className="form-row" style={formRowStyles}>
+          <div className="input-group">
+            <div className="input-group-prepend" style={inputGroupPrependStyles}>
+              <label htmlFor="price" className="m-0" style={labelStyles}>
+                Price
+              </label>
+            </div>
+            <input
+              className="form-control"
+              readOnly
+              type="number"
+              id="price"
+              value={price}
+              placeholder="Price"
+              autocomplete="off"
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+        </div>
+  
+        <div className="form-row" style={formRowStyles}>
+          <div className="col">
+            <div className="btn-group" role="group" data-toggle="buttons" style={buttonGroupStyles}>
+              <input
+                type="radio"
+                className="btn-check"
+                name="buySell"
+                id="placeBidBuytest"
+                value="B"
+                autoComplete="off"
+                onChange={(e) => setSide(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="placeBidBuytest">
+                Buy
+              </label>
+  
+              <input
+                type="radio"
+                className="btn-check"
+                name="buySell"
+                id="placeBidSelltest"
+                value="S"
+                autoComplete="off"
+                onChange={(e) => setSide(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="placeBidSelltest">
+                Sell
+              </label>
+            </div>
+          </div>
+          <div className="col">
+            <button
+              disabled={buttonState}
+              className="btn btn-primary btn-sm"
+              type="submit"
+              style={tradeButtonStyles}
+            >
+              Trade
+            </button>
+          </div>
+        </div>
+  
         <div className="message">{message ? <p>{message}</p> : null}</div>
       </form>
     </div>
   ) : (
-    <div>This is where you put your authentication process or components</div>
+    <div>
+      This is where you put your authentication process or components
+    </div>
   );
 };
