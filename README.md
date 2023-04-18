@@ -4,9 +4,11 @@ This creates a universal trading UI
 
 ## to install
 
+```
 npx create-react-app myInstabidClient
 cd myInstabidClient
 npm install instabid
+```
 
 then in the App.js add the following imports
 ```
