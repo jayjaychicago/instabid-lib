@@ -151,7 +151,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
                 autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
-              <label className="btn btn-outline-primary" htmlFor="placeBidBuytest">
+              <label className="btn btn-outline-secondary" htmlFor="placeBidBuytest">
                 Buy
               </label>
   
@@ -164,7 +164,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
                 autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
-              <label className="btn btn-outline-primary" htmlFor="placeBidSelltest">
+              <label className="btn btn-outline-secondary" htmlFor="placeBidSelltest">
                 Sell
               </label>
             </div>
