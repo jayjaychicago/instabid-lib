@@ -64,7 +64,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
       if (devModeApiKey == undefined) {
         devModeApiKey = "undefined";
       }
-      if (apiProxy == undefined) {
+      if ((apiProxy == undefined) || apiProxy == "") {
         apiProxy = "https://api.instabid.io/order";
         devModeApiKey = "not_needed"; // the whole point of an API proxy is to avoid publishing a key
       }
