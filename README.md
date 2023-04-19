@@ -17,4 +17,7 @@ import Instabid from "instabid";
 import "bootstrap/dist/css/bootstrap.min.css";
 ```        
 and in the main render method, add the following component
-`      <Instabid exchange="Insta" product="prod" user="julien" apiKey="YOUR_API_KEY"></Instabid>`
+`      <Instabid exchange="Insta" product="prod" user="YOUR_USER_IDENTIFIER" apiKey="YOUR_API_KEY"></Instabid>`
+Do NOT use dev mode publicly to avoid making your secret key visible
+For secure Prod, use your own self-autenticated API proxy to hide your secret API keys:
+`      <Instabid exchange="Insta" product="prod" user="YOUR_USER_IDENTIFIER" apiProxy="https://myapi.proxy.com/order"></Instabid>`

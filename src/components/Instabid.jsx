@@ -9,7 +9,7 @@ export const Instabid = ({ exchange, product, user, apiKey }) => {
         exchange={exchange}
         product={product}
         user={user}></DepthTable>
-      <InstaForm exchange={exchange} product={product} user={user} apiKey={apiKey}></InstaForm>
+      <InstaForm exchange={exchange} product={product} user={user} apiKey={apiKey} apiProxy={apiProxy}></InstaForm>
     </div>
   );
 };

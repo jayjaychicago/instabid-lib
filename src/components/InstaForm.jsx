@@ -39,7 +39,7 @@ const formStyles = {
     width: "130px", // Adjust this value as needed
   };
 
-export const InstaForm = ({ exchange, product, user, apiKey }) => {
+export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) => {
   const isAuthenticated = true;
 
   const [side, setSide] = useState("");
@@ -61,8 +61,12 @@ export const InstaForm = ({ exchange, product, user, apiKey }) => {
       if (user == undefined) {
         user = "julien";
       }
-      if (apiKey == undefined) {
-        apiKey = "12345";
+      if (devModeApiKey == undefined) {
+        devModeApiKey = "undefined";
+      }
+      if (apiProxy == undefined) {
+        apiProxy = "https://api.instabid.io/order";
+        devModeApiKey = "not_needed"; // the whole point of an API proxy is to avoid publishing a key
       }
 
       let body = {
@@ -72,10 +76,10 @@ export const InstaForm = ({ exchange, product, user, apiKey }) => {
         qty: qty,
         price: price,
         user: user,
-        apiKey: apiKey,
+        apiKey: devModeApiKey,
       };
 
-      let res = await fetch("https://api.instabid.io/order", {
+      let res = await fetch(apiProxy, {
         method: "POST",
         body: JSON.stringify(body),
       });
