@@ -39,16 +39,26 @@ const formStyles = {
     width: "130px", // Adjust this value as needed
   };
 
-  const customRadioButtonStyles = {
+  const customRadioButtonStylesBuy = {
     borderTopLeftRadius: ".25rem",
     borderBottomLeftRadius: ".25rem",
   };
   
-  const customRadioButtonLabelStyles = {
+  const customRadioButtonLabelStylesBuy = {
     borderTopLeftRadius: ".25rem",
-  borderBottomLeftRadius: ".25rem",
+    borderBottomLeftRadius: ".25rem",
+  };
+
+  const customRadioButtonStylesSell = {
+    borderTopRightRadius: ".25rem",
+    borderBottomRightRadius: ".25rem",
   };
   
+  const customRadioButtonLabelStylesSell = {
+    borderTopRightRadius: ".25rem",
+    borderBottomRightRadius: ".25rem",
+  };
+
 
 export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) => {
   const isAuthenticated = true;
@@ -166,7 +176,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
               <label
                 className="btn btn-outline-secondary"
                 htmlFor="placeBidBuytest"
-                style={{ ...customRadioButtonStyles, ...customRadioButtonLabelStyles }}
+                style={{ ...customRadioButtonStylesBuy, ...customRadioButtonLabelStylesBuy }}
               >
                 Buy
               </label>
@@ -183,7 +193,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
               <label
   className="btn btn-outline-secondary"
   htmlFor="placeBidSelltest"
-  style={{ ...customRadioButtonStyles, ...customRadioButtonLabelStyles }}
+  style={{ ...customRadioButtonStylesSell, ...customRadioButtonLabelStylesSell }}
 >
   Sell
 </label>
