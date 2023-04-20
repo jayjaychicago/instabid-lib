@@ -60,8 +60,7 @@ const formStyles = {
   };
 
 
-export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) => {
-  const isAuthenticated = true;
+export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl }) => {
 
   const [side, setSide] = useState("");
   const [qty, setQty] = useState("");
@@ -72,6 +71,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
   let handleSubmit = async (e) => {
     e.preventDefault();
     setButtonState(true);
+
 
     if (exchange == undefined) {
       exchange = "Insta";
@@ -138,7 +138,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
     }
   };
 
-  return isAuthenticated ? (
+  return (authUrl == undefined) ? (
     <div className="InstaForm" style={formStyles}>
       <form className="insta-form" onSubmit={handleSubmit}>
         <div className="form-row" style={formRowStyles}>
@@ -237,7 +237,13 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
     </div>
   ) : (
     <div>
-      This is where you put your authentication process or components
+      <button
+              disabled={buttonState}
+              className="btn btn-primary btn-sm"
+              style={tradeButtonStyles}
+            >
+              Login to trade
+            </button>
     </div>
   );
 };
