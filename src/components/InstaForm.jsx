@@ -72,50 +72,69 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
   let handleSubmit = async (e) => {
     e.preventDefault();
     setButtonState(true);
-    try {
-      if (exchange == undefined) {
-        exchange = "Insta";
-      }
-      if (product == undefined) {
-        product = "prod";
-      }
-      if (user == undefined) {
-        user = "julien";
-      }
-      if (devModeApiKey == undefined) {
-        devModeApiKey = "undefined";
-      }
-      if ((apiProxy == undefined) || apiProxy == "") {
-        apiProxy = "https://api.instabid.io/order";
-        devModeApiKey = "not_needed"; // the whole point of an API proxy is to avoid publishing a key
-      }
 
-      let body = {
-        exchange: exchange,
-        product: product,
-        side: side,
-        qty: qty,
-        price: price,
-        user: user,
-        apiKey: devModeApiKey,
-      };
+    if (exchange == undefined) {
+      exchange = "Insta";
+    }
+    if (product == undefined) {
+      product = "prod";
+    }
+    if (user == undefined) {
+      user = "julien";
+    }
+    if (devModeApiKey == undefined) {
+      devModeApiKey = "undefined";
+    }
+    if ((apiProxy == undefined) || apiProxy == "") {
+      apiProxy = "https://api.instabid.io/order";    
+      try {
+        let body = {
+          exchange: exchange,
+          product: product,
+          side: side,
+          qty: qty,
+          price: price,
+          user: user,
+          apiKey: devModeApiKey,
+        };
 
-      let res = await fetch(apiProxy, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        //setSide("");
-        setButtonState(false);
-        setQty("");
-        setPrice("");
-        //setMessage("Done!");
-      } else {
-        setMessage("Some error occured");
+        let res = await fetch(apiProxy, {
+          method: "POST",
+          body: JSON.stringify(body),
+        });
+        let resJson = await res.json();
+        if (res.status === 200) {
+          //setSide("");
+          setButtonState(false);
+          setQty("");
+          setPrice("");
+          //setMessage("Done!");
+        } else {
+          setMessage("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      // we're using a proxy to hide the private key
+      // so we'll use get methods locally instead that will in turn pass the POST to the server
+      try {
+        let res2 = await fetch(apiProxy + "?type=orderPost&exchange=" + exchange + "&product=" + product + "&side=" + side + "&qty=" + qty + "&price=" + price + "&user=" + user, {
+          method: "GET"
+        });
+        let resJson = await res2.json();
+        if (res2.status === 200) {
+          //setSide("");
+          setButtonState(false);
+          setQty("");
+          setPrice("");
+          //setMessage("Done!");
+        } else {
+          setMessage("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
