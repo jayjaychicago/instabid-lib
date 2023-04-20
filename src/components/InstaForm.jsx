@@ -39,6 +39,17 @@ const formStyles = {
     width: "130px", // Adjust this value as needed
   };
 
+  const customRadioButtonStyles = {
+    borderRadius: "50%",
+    border: "1px solid #ced4da",
+    padding: "2px",
+  };
+  
+  const customRadioButtonLabelStyles = {
+    borderRadius: "50%",
+  };
+  
+
 export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) => {
   const isAuthenticated = true;
 
@@ -151,7 +162,12 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
                 autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
-              <label className="btn btn-outline-secondary" htmlFor="placeBidBuytest">
+
+              <label
+                className="btn btn-outline-secondary"
+                htmlFor="placeBidBuytest"
+                style={{ ...customRadioButtonStyles, ...customRadioButtonLabelStyles }}
+              >
                 Buy
               </label>
   
@@ -164,9 +180,13 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
                 autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
-              <label className="btn btn-outline-secondary" htmlFor="placeBidSelltest">
-                Sell
-              </label>
+              <label
+  className="btn btn-outline-secondary"
+  htmlFor="placeBidSelltest"
+  style={{ ...customRadioButtonStyles, ...customRadioButtonLabelStyles }}
+>
+  Sell
+</label>
             </div>
           </div>
           <div className="col">

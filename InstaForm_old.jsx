@@ -118,3 +118,14 @@ export const InstaForm = ({ exchange, product, user }) => {
     <div>This is where you put your authentication process or components</div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
