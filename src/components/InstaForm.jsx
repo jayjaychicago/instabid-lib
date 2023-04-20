@@ -136,6 +136,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
               value={qty}
               placeholder="Qty"
               autocomplete="off"
+              style={{height: "40px"}}
               onChange={(e) => setQty(e.target.value)}
             />
           </div>
@@ -155,6 +156,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy }) 
               value={price}
               placeholder="Price"
               autocomplete="off"
+              style={{height: "40px"}}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
