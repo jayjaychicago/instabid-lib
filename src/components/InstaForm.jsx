@@ -40,13 +40,13 @@ const formStyles = {
   };
 
   const customRadioButtonStyles = {
-    borderRadius: "50%",
-    border: "1px solid #ced4da",
-    padding: "2px",
+    borderTopLeftRadius: ".25rem",
+    borderBottomLeftRadius: ".25rem",
   };
   
   const customRadioButtonLabelStyles = {
-    borderRadius: "50%",
+    borderTopLeftRadius: ".25rem",
+  borderBottomLeftRadius: ".25rem",
   };
   
 
