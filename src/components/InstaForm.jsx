@@ -236,15 +236,16 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
       </form>
     </div>
   ) : (
-    <div>
-      <button
-              disabled={buttonState}
-              className="btn btn-primary btn-sm"
-              href={authUrl}
-              style={tradeButtonStyles}
-            >
-              Login to trade
-            </button>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <a href={authUrl} style={{ textDecoration: 'none' }}>
+        <button
+          disabled={buttonState}
+          className="btn btn-primary btn-sm"
+          style={tradeButtonStyles}
+        >
+          Login to trade
+        </button>
+      </a>
     </div>
   );
 };
