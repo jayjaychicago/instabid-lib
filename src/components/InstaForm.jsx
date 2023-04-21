@@ -32,7 +32,7 @@ const formStyles = {
 
   const tradeButtonStyles = {
     height: "38px", // Adjust this value as needed
-    width: "120px"
+    width: "90px",
   };
 
   const buttonGroupStyles = {
@@ -220,7 +220,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
 </label>
             </div>
           </div>
-          <div className="col">
+          <div className="col text-end">
             <button
               disabled={buttonState}
               className="btn btn-primary btn-sm"
