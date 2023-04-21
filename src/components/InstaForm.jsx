@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const formStyles = {
     display: "flex",
@@ -67,6 +67,21 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
   const [buttonState, setButtonState] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // New function to parse the URL parameters
+  const getURLParameter = (paramName) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(paramName);
+  };
+
+  // New useEffect hook to update isAuthenticated state based on URL parameter
+  useEffect(() => {
+    const isAuthenticatedParam = getURLParameter("authenticated");
+    setIsAuthenticated(isAuthenticatedParam === "true");
+  }, []);
+
 
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -224,7 +239,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
             <button
               disabled={buttonState}
               className="btn btn-primary btn-sm"
-              type={(authUrl == undefined) ? "submit" : "button" }
+              type={(authUrl == undefined || isAuthenticated) ? "submit" : "button" }
               onClick={() => {
                 if (authUrl !== undefined) {
                   window.location.href = authUrl;
