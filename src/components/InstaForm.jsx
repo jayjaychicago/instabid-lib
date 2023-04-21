@@ -241,7 +241,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
         <button
           disabled={buttonState}
           className="btn btn-primary btn-sm"
-          style={tradeButtonStyles}
+          onClick={() => window.location.href = authUrl}
         >
           Login to trade
         </button>
