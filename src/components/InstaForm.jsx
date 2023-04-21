@@ -138,7 +138,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     }
   };
 
-  return (authUrl == undefined) ? (
+  return (
     <div className="InstaForm" style={formStyles}>
       <form className="insta-form" onSubmit={handleSubmit}>
         <div className="form-row" style={formRowStyles}>
@@ -224,7 +224,11 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
             <button
               disabled={buttonState}
               className="btn btn-primary btn-sm"
-              type="submit"
+              type={(authUrl == undefined) ? type="submit" : button }
+              onClick={() => {
+                if (authUrl !== undefined) {
+                  window.location.href = authUrl;
+                }}}
               style={tradeButtonStyles}
             >
               Trade
@@ -235,17 +239,4 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
         <div className="message">{message ? <p>{message}</p> : null}</div>
       </form>
     </div>
-  ) : (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <a href={authUrl} style={{ textDecoration: 'none' }}>
-        <button
-          disabled={buttonState}
-          className="btn btn-primary btn-sm"
-          onClick={() => window.location.href = authUrl}
-        >
-          Login to trade
-        </button>
-      </a>
-    </div>
-  );
-};
+  ) };
