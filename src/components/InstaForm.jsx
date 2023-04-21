@@ -67,21 +67,6 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
   const [buttonState, setButtonState] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // New function to parse the URL parameters
-  const getURLParameter = (paramName) => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    return urlParams.get(paramName);
-  };
-
-  // New useEffect hook to update isAuthenticated state based on URL parameter
-  useEffect(() => {
-    const isAuthenticatedParam = getURLParameter("authenticated");
-    setIsAuthenticated(isAuthenticatedParam === "true");
-    console.log("URL PARAM " + isAuthenticatedParam);
-  }, []);
 
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,7 +80,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
       product = "prod";
     }
     if (user == undefined) {
-      user = "julien";
+      user = "";
     }
     if (devModeApiKey == undefined) {
       devModeApiKey = "undefined";
@@ -153,7 +138,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     }
   };
 
-  return ((authUrl == undefined || isAuthenticated) ? (
+  return ((authUrl == undefined || user != "") ? (
     <div className="InstaForm" style={formStyles}>
       <form className="insta-form" onSubmit={handleSubmit}>
         <div className="form-row" style={formRowStyles}>
