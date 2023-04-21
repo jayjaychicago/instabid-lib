@@ -80,6 +80,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   useEffect(() => {
     const isAuthenticatedParam = getURLParameter("authenticated");
     setIsAuthenticated(isAuthenticatedParam === "true");
+    console.log(isAuthenticated);
   }, []);
 
   let handleSubmit = async (e) => {
