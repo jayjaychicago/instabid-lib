@@ -80,7 +80,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
       product = "prod";
     }
     if (user == undefined) {
-      user = "";
+      user = "undefined";
     }
     if (devModeApiKey == undefined) {
       devModeApiKey = "undefined";
@@ -138,7 +138,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     }
   };
 
-  return ((authUrl == undefined || user != "") ? (
+  return ((authUrl == undefined || user != "undefined") ? (
     <div className="InstaForm" style={formStyles}>
       <form className="insta-form" onSubmit={handleSubmit}>
         <div className="form-row" style={formRowStyles}>
