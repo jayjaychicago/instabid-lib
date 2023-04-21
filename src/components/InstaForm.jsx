@@ -224,7 +224,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
             <button
               disabled={buttonState}
               className="btn btn-primary btn-sm"
-              type={(authUrl == undefined) ? type="submit" : button }
+              type={(authUrl == undefined) ? "submit" : "button" }
               onClick={() => {
                 if (authUrl !== undefined) {
                   window.location.href = authUrl;
