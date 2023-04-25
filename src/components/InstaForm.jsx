@@ -103,8 +103,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           body: JSON.stringify(body),
         });
         let resJson = await res.json();
-        alert(JSON.stringify(resJson));
-        alert(res.status);
+        //console.log("received back", JSON.stringify(resJson));
+        //console.log(res.status);
         if (res.status === 200) {
           //setSide("");
           setButtonState(false);
