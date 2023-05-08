@@ -124,7 +124,7 @@ export function OrderTable({ exchange, product, user }) {
           components={{
             Pagination: () => (
               <div style={{ display: "flex", alignItems: "center" }}>
-                <DataGrid.Pagination />
+                {/* Remove this line: <DataGrid.Pagination /> */}
               </div>
             ),
           }}
@@ -132,5 +132,6 @@ export function OrderTable({ exchange, product, user }) {
       </div>
     </div>
   );
+  
 
         }
