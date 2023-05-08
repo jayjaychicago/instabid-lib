@@ -69,6 +69,7 @@
 
         const channel = pusher.subscribe(exchange + "@" + product);
         channel.bind(EVENT_NAME, handlePusherData);
+        console.log("Pusher subscribed channels:", pusher.channels.channels);
 
         return () => {
             channel.unbind(EVENT_NAME);
