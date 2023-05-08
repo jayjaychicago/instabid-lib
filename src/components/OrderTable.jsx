@@ -50,9 +50,9 @@ export function OrderTable({ exchange, product, user }) {
 
   function handleData(data) {
     console.log("Instabidlib processing " + JSON.stringify(data));
-    let orderedData = data.result.sort((a, b) => b.timestamp - a.timestamp);
-    setOrders((prev) => [...prev, ...orderedData]);
+    setOrders((prev) => [...prev, ...data.result]);
   }
+  
 
   function dateFormatter(timestamp) {
     const date = new Date(timestamp);
@@ -104,10 +104,12 @@ export function OrderTable({ exchange, product, user }) {
       <div id="orders" style={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={orders}
-          columns={columns}
-          pageSize={50}
-          rowsPerPageOptions={[50]}
-          rowHeight={40}
+          columns={columns.map((col) => ({
+            ...col,
+            headerClassName: "font-weight-bold",
+          }))}
+          pageSize={20}
+          rowsPerPageOptions={[20]}
           disableSelectionOnClick
           sortingOrder={['desc', 'asc']}
           sortModel={[
@@ -120,20 +122,15 @@ export function OrderTable({ exchange, product, user }) {
             `${row.exchange}-${row.product}-${row.side}-${row.timestamp}-${row.orderNumber}`
           }
           components={{
-            columnHeader: {
-              style: {
-                fontWeight: 'bold',
-              },
-            },
-            pagination: {
-              style: {
-                display: 'flex',
-                alignItems: 'center',
-              },
-            },
+            Pagination: () => (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <DataGrid.Pagination />
+              </div>
+            ),
           }}
         />
       </div>
     </div>
   );
+
         }
