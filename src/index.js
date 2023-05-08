@@ -5,4 +5,4 @@ import { OrderTable } from "./components/OrderTable.jsx";
 
 export default Instabid;
 
-export { DepthTable, InstaForm };
+export { InstabidWithOrders, DepthTable, InstaForm, OrderTable };
