@@ -3,12 +3,10 @@ import Pusher from "pusher-js";
 import { DataGrid } from "@mui/x-data-grid";
 
 
-import { updateSortedOrders } from "../util";
-
 const EVENT_NAME = "ORDERUPDATE";
 
 const cancelButtonStyles = {
-    height: "38px", // Adjust this value as needed
+    height: "38px",
     width: "90px",
   };
 
@@ -150,19 +148,35 @@ export function OrderTable({ exchange, product, user }) {
   ];
 
   return (
-    <div className="h-100 d-flex align-items-center justify-content-center">
-      <div id="orders" className="order-table-container" style={{ height: 1000, width: "90%" }}>
-        <div className="order-table-inner">
-          <DataGrid
-            rows={orders}
-            columns={columns}
-            pageSize={50}
-            rowsPerPageOptions={[50]}
-            disableSelectionOnClick
-          />
+    <>
+      <style>
+        {`
+          .order-table-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            overflow: auto;
+          }
+        `}
+      </style>
+      <div className="order-table-wrapper">
+        <div
+          id="orders"
+          className="order-table-container"
+          style={{ height: 1000, width: "90%" }}
+        >
+          <div className="order-table-inner">
+            <DataGrid
+              rows={orders}
+              columns={columns}
+              pageSize={50}
+              rowsPerPageOptions={[50]}
+              disableSelectionOnClick
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
-  
 }
