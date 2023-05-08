@@ -29,9 +29,11 @@ export function OrderTable({ exchange, product, user }) {
 
     (async () => {
       if (exchange === undefined) {
+        console.log("Empty exchange so defaulting to Insta");
         exchange = "Insta";
       }
       if (product === undefined) {
+        console.log("Empty product so defaulting to prod");
         product = "prod";
       }
       if (user === undefined) {
