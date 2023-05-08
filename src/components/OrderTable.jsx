@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Pusher from "pusher-js";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
-import { Pagination } from "@mui/lab";
+import { DataGrid } from "@mui/x-data-grid";
+
+import { updateSortedOrders } from "../util";
 
 const EVENT_NAME = "ORDERUPDATE";
 
 export function OrderTable({ exchange, product, user }) {
-    const [orders, setOrders] = useState([]);
-    const [pusher, setPusher] = useState(undefined);
-    const [page, setPage] = useState(1);
-    const itemsPerPage = 10;
+  const [orders, setOrders] = useState([]);
+  const [pusher, setPusher] = useState(undefined);
 
   useEffect(() => {
     setPusher(
@@ -95,50 +86,61 @@ export function OrderTable({ exchange, product, user }) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const columns = [
+    { field: "orderNumber", headerName: "Order Number", width: 150, sortable: true },
+    { field: "exchange", headerName: "Exchange", width: 150, sortable: true, filterable: true },
+    { field: "product", headerName: "Product", width: 150, sortable: true, filterable: true },
+    { field: "side", headerName: "Side", width: 120, sortable: true, filterable: true },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 150,
+      sortable: true,
+      valueGetter: (params) => dateFormatter(params.row.timestamp),
+    },
+    {
+      field: "time",
+      headerName: "Time",
+      width: 150,
+      sortable: true,
+      valueGetter: (params) => timeFormatter(params.row.timestamp),
+    },
+    { field: "price", headerName: "Price", width: 120, sortable: true },
+    { field: "qty", headerName: "Qty", width: 120, sortable: true },
+    { field: "qtyLeft", headerName: "Qty Left", width: 120, sortable: true },
+    {
+      field: "cancel",
+      headerName: "Cancel",
+      width: 150,
+      renderCell: (params) =>
+        params.row.user === "julien@instabid.io" && params.row.qtyLeft !== 0 ? (
+          <button className="cancel-button">Cancel</button>
+        ) : (
+          ""
+        ),
+    },
+  ];
 
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
-      <div id="orders">
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Exchange</TableCell>
-                <TableCell>Product</TableCell>
-                <TableCell>Side</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Qty</TableCell>
-                <TableCell>Cancel</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {orders
-                .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-                .map((order) => (
-                  <TableRow key={order.orderNumber}>
-                    <TableCell>{order.exchange}</TableCell>
-                    <TableCell>{order.product}</TableCell>
-                    <TableCell>{order.side}</TableCell>
-                    <TableCell>{dateFormatter(order.timestamp)}</TableCell>
-                    <TableCell>{timeFormatter(order.timestamp)}</TableCell>
-                    <TableCell>${order.price}</TableCell>
-                    <TableCell>{order.qty}</TableCell>
-                    <TableCell>
-                      {cancelOrderBtn("", order)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Pagination
-          count={Math.ceil(orders.length / itemsPerPage)}
-          page={page}
-          onChange={handleChangePage}
-          color="primary"
-          style={{ marginTop: "1rem" }}
+      <div id="orders" style={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={orders}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          disableSelectionOnClick
+          sortingOrder={['desc', 'asc']}
+          sortModel={[
+            {
+              field: 'date',
+              sort: 'desc',
+            },
+            {
+              field: 'time',
+              sort: 'desc',
+            },
+          ]}
         />
       </div>
     </div>
