@@ -158,14 +158,6 @@ export function OrderTable({ exchange, product, user }) {
   pageSize={50}
   rowsPerPageOptions={[50]}
   disableSelectionOnClick
-  sortingOrder={['desc', 'asc']}
-  sortModel={[
-    {
-      field: 'orderNumber',
-      sort: 'desc',
-    },
-  ]}
-  sortable
 />
 
 
