@@ -156,6 +156,7 @@ export function OrderTable({ exchange, product, user }) {
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            min-height: 100%;
             overflow: auto;
           }
 
