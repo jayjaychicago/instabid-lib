@@ -157,11 +157,12 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               value={qty}
               placeholder="Qty"
               autoComplete="new-password"
-              style={{height: "40px",
-              WebkitAppearance: "none", // For Chrome and Safari
-              MozAppearance: "textfield", // For Firefox
-              }}
+              style={{height: "40px"}}
               onChange={(e) => setQty(e.target.value)}
+              onMouseDown={(e) => {
+                // Prevent the user from changing the value with their mouse
+                e.preventDefault();
+              }}
             />
           </div>
         </div>
@@ -180,11 +181,12 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               value={price}
               placeholder="Price"
               autoComplete="new-password"
-              style={{height: "40px",
-              WebkitAppearance: "none", // For Chrome and Safari
-              MozAppearance: "textfield", // For Firefox
-              }}
+              style={{height: "40px"}}
               onChange={(e) => setPrice(e.target.value)}
+              onMouseDown={(e) => {
+                // Prevent the user from changing the value with their mouse
+                e.preventDefault();
+              }}
             />
           </div>
         </div>
