@@ -13,7 +13,7 @@ const cancelButtonStyles = {
 export function OrderTable({ exchange, product, user }) {
   const [orders, setOrders] = useState([]);
   const [pusher, setPusher] = useState(undefined);
-  const [tableHeight, setTableHeight] = useState(200);
+  const [tableHeight, setTableHeight] = useState(300);
 
   const rowHeight = 52; // Set the desired row height (default is 52px)
   const headerHeight = 52; // Set the desired header height (default is 52px)
@@ -202,14 +202,14 @@ export function OrderTable({ exchange, product, user }) {
         <div
           id="orders"
           className="order-table-container"
-          style={{ height: tableHeight, width: "90%" }}
+          style={{ height: tableHeight, width: "90%", maxWidth: "95%" }}
         >
           <div className="order-table-inner">
             <DataGrid
               rows={orders}
               columns={columns}
-              pageSize={13}
-              rowsPerPageOptions={[13]}
+              pageSize={50}
+              rowsPerPageOptions={[50]}
               disableSelectionOnClick
             />
           </div>
