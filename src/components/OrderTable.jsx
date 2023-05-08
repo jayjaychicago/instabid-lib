@@ -60,6 +60,7 @@ export function OrderTable({ exchange, product, user }) {
   }, [pusher]);
 
   function handleData(data) {
+    console.log("Instabidlib processing " + JSON.stringify(data));
     let orderedData = data.result.sort((a, b) => b.timestamp - a.timestamp);
     setOrders((prev) => [...prev, ...orderedData]);
   }
