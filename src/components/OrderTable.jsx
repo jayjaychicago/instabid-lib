@@ -67,6 +67,7 @@
         );
         handleData(await res.json());
 
+        console.log("Asking Pusher to connect me to these channels:", exchange + "@" + product );
         const channel = pusher.subscribe(exchange + "@" + product);
         channel.bind(EVENT_NAME, handlePusherData);
         console.log("Pusher subscribed channels:", pusher.channels.channels);
