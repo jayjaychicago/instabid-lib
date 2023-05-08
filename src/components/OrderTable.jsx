@@ -69,6 +69,8 @@ export function OrderTable({ exchange, product, user }) {
     const updatedData = data.result.map((item) => ({
       ...item,
       id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
+      key: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
+
     }));
     setOrders((prev) => [...prev, ...updatedData]);
   }
