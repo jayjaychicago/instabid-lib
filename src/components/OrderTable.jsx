@@ -135,7 +135,7 @@ export function OrderTable({ exchange, product, user }) {
     { field: "price", headerName: "Price", width: 50, sortable: true },
     { field: "qty", headerName: "Qty", width: 100, sortable: true },
     { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
-    { field: "user", headerName: "User", width: 100, sortable: true },
+    { field: "user", headerName: "User", width: 200, sortable: true },
     {
       field: "cancel",
       headerName: "Cancel",
@@ -202,8 +202,8 @@ export function OrderTable({ exchange, product, user }) {
             <DataGrid
               rows={orders}
               columns={columns}
-              pageSize={25}
-              rowsPerPageOptions={[25]}
+              pageSize={13}
+              rowsPerPageOptions={[13]}
               disableSelectionOnClick
             />
           </div>
