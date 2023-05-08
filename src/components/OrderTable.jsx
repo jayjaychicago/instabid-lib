@@ -66,12 +66,13 @@ export function OrderTable({ exchange, product, user }) {
 
   function handleData(data) {
     console.log("Instabidlib processing " + JSON.stringify(data));
-    const newData = data.result.map((item) => ({
+    const updatedData = data.result.map((item) => ({
       ...item,
-      key: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
+      id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
     }));
-    setOrders((prev) => [...prev, ...newData]);
+    setOrders((prev) => [...prev, ...updatedData]);
   }
+  
   
   
 
@@ -151,22 +152,20 @@ export function OrderTable({ exchange, product, user }) {
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="orders" style={{ height: 1000, width: "100%" }}>
       <DataGrid
-        rows={orders}
-        columns={columns}
-        pageSize={50}
-        rowsPerPageOptions={[50]}
-        disableSelectionOnClick
-        sortingOrder={['desc', 'asc']}
-        sortModel={[
-            {
-            field: 'orderNumber',
-            sort: 'desc',
-            }
-        ]}
-        getRowId={(row) =>
-            `${row.exchange}-${row.product}-${row.side}-${row.timestamp}-${row.orderNumber}`
-        }
-        />
+  rows={orders}
+  columns={columns}
+  pageSize={50}
+  rowsPerPageOptions={[50]}
+  disableSelectionOnClick
+  sortingOrder={['desc', 'asc']}
+  sortModel={[
+    {
+      field: 'orderNumber',
+      sort: 'desc',
+    },
+  ]}
+/>
+
 
       </div>
     </div>
