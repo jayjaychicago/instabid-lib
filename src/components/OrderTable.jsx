@@ -106,32 +106,32 @@ export function OrderTable({ exchange, product, user }) {
     setPage(newPage);
   };
   const columns = [
-    { field: "orderNumber", headerName: "#", width: 100, sortable: true },
+    { field: "orderNumber", headerName: "#", width: 50, sortable: true },
     { field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
     { field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
-    { field: "side", headerName: "Side", width: 100, sortable: true, filterable: true },
+    { field: "side", headerName: "Side", width: 50, sortable: true, filterable: true },
     {
       field: "date",
       headerName: "Date",
-      width: 150,
+      width: 100,
       sortable: true,
       valueGetter: (params) => dateFormatter(params.row.timestamp),
     },
     {
       field: "time",
       headerName: "Time",
-      width: 150,
+      width: 100,
       sortable: true,
       valueGetter: (params) => timeFormatter(params.row.timestamp),
     },
-    { field: "price", headerName: "Price", width: 100, sortable: true },
-    { field: "qty", headerName: "Qty", width: 100, sortable: true },
-    { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
-    { field: "user", headerName: "User", width: 100, sortable: true },
+    { field: "price", headerName: "Price", width: 50, sortable: true },
+    { field: "qty", headerName: "Qty", width: 50, sortable: true },
+    { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
+    { field: "user", headerName: "User", width: 50, sortable: true },
     {
       field: "cancel",
       headerName: "Cancel",
-      width: 200,
+      width: 150,
       renderCell: (params) =>
         params.row.user === user && params.row.qtyLeft !== 0 ? (
             <button
