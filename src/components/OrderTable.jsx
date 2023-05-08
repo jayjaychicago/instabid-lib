@@ -18,16 +18,17 @@ export function OrderTable({ exchange, product, user }) {
   const rowHeight = 52; // Set the desired row height (default is 52px)
   const headerHeight = 52; // Set the desired header height (default is 52px)
   const maxHeight = 500; // Set the maximum height for the DataGrid
-  setTableHeight(Math.min(orders.length * rowHeight + headerHeight, maxHeight));
+  
 
 
   useEffect(() => {
-    setPusher(
+    setTableHeight(Math.min(orders.length * rowHeight + headerHeight, maxHeight));
+      setPusher(
       new Pusher("122f17b065e8921fa6e0", {
         cluster: "us2",
       })
     );
-  }, []);
+  }, [orders]);
 
   useEffect(() => {
     if (!pusher) return;
