@@ -131,7 +131,7 @@ export function OrderTable({ exchange, product, user }) {
     {
       field: "cancel",
       headerName: "Cancel",
-      width: 150,
+      width: 250,
       renderCell: (params) =>
         params.row.user === user && params.row.qtyLeft !== 0 ? (
             <button
@@ -157,6 +157,20 @@ export function OrderTable({ exchange, product, user }) {
             align-items: center;
             flex-grow: 1;
             overflow: auto;
+          }
+
+          @media (max-width: 768px) {
+            .order-table-wrapper .MuiDataGrid-colCell[data-field="date"],
+            .order-table-wrapper .MuiDataGrid-colCell[data-field="time"],
+            .order-table-wrapper .MuiDataGrid-colCell[data-field="user"] {
+              display: none;
+            }
+
+            .order-table-wrapper .MuiDataGrid-cell[data-field="date"],
+            .order-table-wrapper .MuiDataGrid-cell[data-field="time"],
+            .order-table-wrapper .MuiDataGrid-cell[data-field="user"] {
+              display: none;
+            }
           }
         `}
       </style>
