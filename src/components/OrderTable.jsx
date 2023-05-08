@@ -13,11 +13,11 @@ const cancelButtonStyles = {
 export function OrderTable({ exchange, product, user }) {
   const [orders, setOrders] = useState([]);
   const [pusher, setPusher] = useState(undefined);
-  const [tableHeight, setTableHeight] = useState(100);
+  const [tableHeight, setTableHeight] = useState(200);
 
   const rowHeight = 52; // Set the desired row height (default is 52px)
   const headerHeight = 52; // Set the desired header height (default is 52px)
-  const maxHeight = 500; // Set the maximum height for the DataGrid
+  const maxHeight = 750; // Set the maximum height for the DataGrid
   
 
 
@@ -133,9 +133,9 @@ export function OrderTable({ exchange, product, user }) {
       valueGetter: (params) => timeFormatter(params.row.timestamp),
     },
     { field: "price", headerName: "Price", width: 50, sortable: true },
-    { field: "qty", headerName: "Qty", width: 50, sortable: true },
+    { field: "qty", headerName: "Qty", width: 100, sortable: true },
     { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
-    { field: "user", headerName: "User", width: 200, sortable: true },
+    { field: "user", headerName: "User", width: 100, sortable: true },
     {
       field: "cancel",
       headerName: "Cancel",
@@ -202,8 +202,8 @@ export function OrderTable({ exchange, product, user }) {
             <DataGrid
               rows={orders}
               columns={columns}
-              pageSize={50}
-              rowsPerPageOptions={[50]}
+              pageSize={25}
+              rowsPerPageOptions={[25]}
               disableSelectionOnClick
             />
           </div>
