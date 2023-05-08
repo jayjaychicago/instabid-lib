@@ -20,15 +20,20 @@ export function OrderTable({ exchange, product, user }) {
   const maxHeight = 750; // Set the maximum height for the DataGrid
   
 
-
   useEffect(() => {
-    setTableHeight(Math.min(orders.length * rowHeight + headerHeight, maxHeight));
-      setPusher(
+    setPusher(
       new Pusher("122f17b065e8921fa6e0", {
         cluster: "us2",
       })
     );
+    // This will run only once when the component mounts
+  }, []);
+  
+  useEffect(() => {
+    setTableHeight(Math.min(orders.length * rowHeight + headerHeight, maxHeight));
+    // This will run every time orders change
   }, [orders]);
+  
 
   useEffect(() => {
     if (!pusher) return;
