@@ -124,24 +124,28 @@ export function OrderTable({ exchange, product, user }) {
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="orders" style={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={orders}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          disableSelectionOnClick
-          sortingOrder={['desc', 'asc']}
-          sortModel={[
+      <DataGrid
+        rows={orders}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
+        disableSelectionOnClick
+        sortingOrder={['desc', 'asc']}
+        sortModel={[
             {
-              field: 'date',
-              sort: 'desc',
+            field: 'date',
+            sort: 'desc',
             },
             {
-              field: 'time',
-              sort: 'desc',
+            field: 'time',
+            sort: 'desc',
             },
-          ]}
+        ]}
+        getRowId={(row) =>
+            `${row.exchange}-${row.product}-${row.side}-${row.timestamp}-${row.orderNumber}`
+        }
         />
+
       </div>
     </div>
   );
