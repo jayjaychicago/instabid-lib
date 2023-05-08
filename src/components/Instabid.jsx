@@ -1,8 +1,33 @@
 import React from "react";
 import { DepthTable } from "./DepthTable.jsx";
 import { InstaForm } from "./InstaForm.jsx";
+import { OrderTable } from "./OrderTable.jsx";
+import {Tabs, Tab} from 'react-bootstrap';
 
-export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl }) => {
+export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode }) => {
+  if (mode == "withOrders") {
+    return (
+      <div className="d-flex flex-column w-100 align-items-center">
+                  <Tabs defaultActiveKey="makeBid"
+                    id="uncontrolled-tab"
+                    className="justify-content-center">
+                    <Tab eventKey="makeBid" title="Make a Bid">
+                    <DepthTable
+              exchange={exchange}
+              product={product}
+              user={user}></DepthTable>
+            <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
+                  </Tab>
+                  <Tab eventKey="orders" title="Orders">
+                  <OrderTable
+              exchange={exchange}
+              product={product}
+              user={user}></OrderTable>
+                  </Tab>
+                  </Tabs>
+      </div>
+        );
+  } else {
   return (  <div>
     <DepthTable
       exchange={exchange}
@@ -10,7 +35,6 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
       user={user}></DepthTable>
     <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
   </div>
-
-
   );
+  }
 };
