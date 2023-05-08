@@ -7,6 +7,11 @@ import { updateSortedOrders } from "../util";
 
 const EVENT_NAME = "ORDERUPDATE";
 
+const cancelButtonStyles = {
+    height: "38px", // Adjust this value as needed
+    width: "90px",
+  };
+
 export function OrderTable({ exchange, product, user }) {
   const [orders, setOrders] = useState([]);
   const [pusher, setPusher] = useState(undefined);
@@ -119,7 +124,7 @@ export function OrderTable({ exchange, product, user }) {
             <button
               className="btn btn-primary btn-sm"
               type="submit"
-              style={tradeButtonStyles}
+              style={cancelButtonStyles}
             >
               Cancel
             </button>
