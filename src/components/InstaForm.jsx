@@ -157,7 +157,14 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               value={qty}
               placeholder="Qty"
               autoComplete="new-password"
-              style={{height: "40px"}}
+              style={{
+                height: "40px",
+                MozAppearance: "textfield", // For Firefox
+                WebkitAppearance: "none", // For Chrome and Safari
+                margin: 0,
+                padding: 0,
+                border: "none",
+              }}
               onChange={(e) => setQty(e.target.value)}
             />
           </div>
@@ -177,7 +184,14 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               value={price}
               placeholder="Price"
               autoComplete="new-password"
-              style={{height: "40px"}}
+              style={{
+                height: "40px",
+                MozAppearance: "textfield", // For Firefox
+                WebkitAppearance: "none", // For Chrome and Safari
+                margin: 0,
+                padding: 0,
+                border: "none",
+              }}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
