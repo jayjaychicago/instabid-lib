@@ -2,6 +2,7 @@ import React from "react";
 import { DepthTable } from "./DepthTable.jsx";
 import { InstaForm } from "./InstaForm.jsx";
 import { OrderTable } from "./OrderTable.jsx";
+import {Tabs, tab} from 'react-bootstrap';
 
 export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl }) => {
   return (

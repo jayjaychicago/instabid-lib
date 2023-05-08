@@ -1,6 +1,6 @@
 {
   "name": "instabid",
-  "version": "0.2.70",
+  "version": "0.2.71",
   "private": false,
   "main": "dist/index.bundle.js",
   "module": "dist/index.bundle.js",
@@ -18,7 +18,7 @@
     "bootstrap": "^5.2.3",
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.1",
-    "react-bootstrap": "^2.7.0"
+    "react-bootstrap": "^2.7.4"
   },
   "peerDependencies": {
     "react": "^18.2.0",
