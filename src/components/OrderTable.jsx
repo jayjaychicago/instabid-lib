@@ -152,16 +152,17 @@ export function OrderTable({ exchange, product, user }) {
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="orders" className="order-table-container" style={{ height: 1000, width: "100%" }}>
-      <DataGrid
-  rows={orders}
-  columns={columns}
-  pageSize={50}
-  rowsPerPageOptions={[50]}
-  disableSelectionOnClick
-/>
-
-
+        <div className="order-table-inner">
+          <DataGrid
+            rows={orders}
+            columns={columns}
+            pageSize={50}
+            rowsPerPageOptions={[50]}
+            disableSelectionOnClick
+          />
+        </div>
       </div>
     </div>
   );
+  
 }
