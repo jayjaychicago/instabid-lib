@@ -69,8 +69,7 @@ export function OrderTable({ exchange, product, user }) {
     const updatedData = data.result.map((item) => ({
       ...item,
       id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
-      key: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
-
+      
     }));
     setOrders((prev) => [...prev, ...updatedData]);
   }
@@ -154,6 +153,7 @@ export function OrderTable({ exchange, product, user }) {
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="orders" style={{ height: 1000, width: "100%" }}>
       <DataGrid
+      key="test"
   rows={orders}
   columns={columns}
   pageSize={50}
