@@ -151,7 +151,7 @@ export function OrderTable({ exchange, product, user }) {
 
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
-      <div id="orders" style={{ height: 1000, width: "100%" }}>
+      <div id="orders" className="order-table-container" style={{ height: 1000, width: "100%" }}>
       <DataGrid
   rows={orders}
   columns={columns}
