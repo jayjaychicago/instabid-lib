@@ -155,10 +155,19 @@ export function OrderTable({ exchange, product, user }) {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-grow: 1;
-            min-height: 100%;
+            height: 100%;
             overflow: auto;
           }
+          
+          .order-table-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+          }
+          
+          
+          
 
           @media (max-width: 768px) {
             .order-table-wrapper .MuiDataGrid-colCell[data-field="date"],
