@@ -30,8 +30,9 @@ export function OrderTable({ exchange, product, user }) {
   }, []);
   
   useEffect(() => {
-    setTableHeight(Math.min(orders.length * rowHeight + headerHeight, maxHeight));
-    // This will run every time orders change
+    const minHeight = 300;
+    setTableHeight(Math.max(Math.min(orders.length * rowHeight + headerHeight, maxHeight), minHeight));
+        // This will run every time orders change
   }, [orders]);
   
 
