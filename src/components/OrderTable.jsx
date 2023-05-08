@@ -140,13 +140,13 @@ export function OrderTable({ exchange, product, user }) {
       <DataGrid
         rows={orders}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
+        pageSize={50}
+        rowsPerPageOptions={[50]}
         disableSelectionOnClick
         sortingOrder={['desc', 'asc']}
         sortModel={[
             {
-            field: 'date',
+            field: 'orderNumber',
             sort: 'desc',
             }
         ]}
