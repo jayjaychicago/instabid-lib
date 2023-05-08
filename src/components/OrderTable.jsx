@@ -39,6 +39,12 @@ export function OrderTable({ exchange, product, user }) {
       if (user === undefined) {
         user = "";
       }
+      console.log("Requesting orders " + "https://api.instabid.io/orders?exchange=" +
+      exchange +
+      "&product=" +
+      product +
+      "&user=" +
+      user);
       const res = await fetch(
         "https://api.instabid.io/orders?exchange=" +
           exchange +
