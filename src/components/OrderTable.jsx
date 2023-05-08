@@ -153,7 +153,6 @@ export function OrderTable({ exchange, product, user }) {
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="orders" style={{ height: 1000, width: "100%" }}>
       <DataGrid
-      key="test"
   rows={orders}
   columns={columns}
   pageSize={50}
@@ -166,6 +165,7 @@ export function OrderTable({ exchange, product, user }) {
       sort: 'desc',
     },
   ]}
+  sortable
 />
 
 
