@@ -12,9 +12,10 @@ const cancelButtonStyles = {
     width: "90px",
   };
 
-export function OrderTable({ exchange, product, user }) {
+export function OrderTable({ exchange, product, user, height, width  }) {
   const [orders, setOrders] = useState([]);
   const [pusher, setPusher] = useState(undefined);
+
 
   useEffect(() => {
     setPusher(
@@ -39,6 +40,15 @@ export function OrderTable({ exchange, product, user }) {
       if (user === undefined) {
         user = "";
       }
+      if (height === undefined) {
+        console.log("Empty height so defaulting to 1000");
+        exchange = 1000;
+      }
+      if (width === undefined) {
+        console.log("Empty width so defaulting to 90%");
+        exchange = "90%";
+      }
+
       console.log("Requesting orders " + "https://api.instabid.io/orders?exchange=" +
       exchange +
       "&product=" +
@@ -151,7 +161,7 @@ export function OrderTable({ exchange, product, user }) {
 
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
-      <div id="orders" className="order-table-container" style={{ height: 1000, width: "100%" }}>
+      <div id="orders" className="order-table-container" style={{ height, width }}>
         <div className="order-table-inner">
           <DataGrid
             rows={orders}
