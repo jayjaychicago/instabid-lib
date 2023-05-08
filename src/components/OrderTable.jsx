@@ -66,8 +66,13 @@ export function OrderTable({ exchange, product, user }) {
 
   function handleData(data) {
     console.log("Instabidlib processing " + JSON.stringify(data));
-    setOrders((prev) => [...prev, ...data.result]);
+    const newData = data.result.map((item) => ({
+      ...item,
+      key: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
+    }));
+    setOrders((prev) => [...prev, ...newData]);
   }
+  
   
 
   function dateFormatter(timestamp) {
