@@ -41,7 +41,7 @@ export function OrderTable({ exchange, product, user }) {
         user = "";
       }
       const res = await fetch(
-        "https://api.instabid.io/order?exchange=" +
+        "https://api.instabid.io/orders?exchange=" +
           exchange +
           "&product=" +
           product +
