@@ -1,6 +1,7 @@
 import React from "react";
 import { DepthTable } from "./DepthTable.jsx";
 import { InstaForm } from "./InstaForm.jsx";
+import { OrderTable } from "./OrderTable.jsx";
 
 export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl }) => {
   return (
