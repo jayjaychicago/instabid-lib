@@ -156,15 +156,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               id="qty"
               value={qty}
               placeholder="Qty"
-              autoComplete="new-password"
-              style={{
-                height: "40px",
-                MozAppearance: "textfield", // For Firefox
-                WebkitAppearance: "none", // For Chrome and Safari
-                margin: 0,
-                padding: 0,
-                border: "none",
-              }}
+              autoComplete="off"
+              style={{height: "40px"}}
               onChange={(e) => setQty(e.target.value)}
             />
           </div>
@@ -183,15 +176,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               id="price"
               value={price}
               placeholder="Price"
-              autoComplete="new-password"
-              style={{
-                height: "40px",
-                MozAppearance: "textfield", // For Firefox
-                WebkitAppearance: "none", // For Chrome and Safari
-                margin: 0,
-                padding: 0,
-                border: "none",
-              }}
+              autoComplete="off"
+              style={{height: "40px"}}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
@@ -206,7 +192,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
                 name="buySell"
                 id="placeBidBuytest"
                 value="B"
-                autoComplete="new-password"
+                autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
 
@@ -224,7 +210,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
                 name="buySell"
                 id="placeBidSelltest"
                 value="S"
-                autoComplete="new-password"
+                autoComplete="off"
                 onChange={(e) => setSide(e.target.value)}
               />
               <label
