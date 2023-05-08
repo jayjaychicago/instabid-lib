@@ -116,7 +116,13 @@ export function OrderTable({ exchange, product, user }) {
       width: 200,
       renderCell: (params) =>
         params.row.user === user && params.row.qtyLeft !== 0 ? (
-          <button className="cancel-button">Cancel</button>
+            <button
+              className="btn btn-primary btn-sm"
+              type="submit"
+              style={tradeButtonStyles}
+            >
+              Cancel
+            </button>
         ) : (
           ""
         ),
