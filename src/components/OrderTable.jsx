@@ -214,19 +214,6 @@
                 overflow: auto;
             }
     
-            @media (max-width: 768px) {
-                .order-table-wrapper .MuiDataGrid-colCell[data-field="date"],
-                .order-table-wrapper .MuiDataGrid-colCell[data-field="time"],
-                .order-table-wrapper .MuiDataGrid-colCell[data-field="user"] {
-                display: none;
-                }
-    
-                .order-table-wrapper .MuiDataGrid-cell[data-field="date"],
-                .order-table-wrapper .MuiDataGrid-cell[data-field="time"],
-                .order-table-wrapper .MuiDataGrid-cell[data-field="user"] {
-                display: none;
-                }
-            }
             `}
         </style>
         <div className="order-table-wrapper">
