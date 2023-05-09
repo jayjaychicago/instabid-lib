@@ -208,7 +208,8 @@
         <style>
             {`
             .order-table-container {
-                height: ${tableHeight+1}px; 
+                height: ${tableHeight}px; 
+                min-height: 301px
                 width: 90%; 
                 max-width: 95%;
                 overflow: auto;
@@ -216,7 +217,7 @@
     
             `}
         </style>
-        <div className="order-table-wrapper" style={{height:"301px"}}>
+        <div className="order-table-wrapper" style={{minHeight:"301px"}}>
             <div id="orders" className="order-table-container">
                 <DataGrid
                 rows={orders}
