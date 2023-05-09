@@ -13,6 +13,22 @@ export function OrderTable({ exchange, product, user }) {
     const [orders, setOrders] = useState([]);
     const [pusher, setPusher] = useState(undefined);
     const [currentChannel, setCurrentChannel] = useState(undefined);
+    const [tableHeight, setTableHeight] = useState(300);
+
+        const rowHeight = 52; // Set the desired row height (default is 52px)
+        const headerHeight = 52; // Set the desired header height (default is 52px)
+        const maxHeight = 750; // Set the maximum height for the DataGrid
+        
+        const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+        useEffect(() => {
+            const handleResize = () => setWindowWidth(window.innerWidth);
+            window.addEventListener('resize', handleResize);
+        
+            return () => {
+            window.removeEventListener('resize', handleResize);
+            };
+        }, []);
 
         useEffect(() => {
             setPusher(
@@ -122,7 +138,16 @@ export function OrderTable({ exchange, product, user }) {
             return time.toLocaleTimeString();
         }
 
-       
+        function cancelOrderBtn(cell, row) {
+            if (row.qtyLeft !== 0 && row.user === "julien@instabid.io") {
+            return (
+                <button className="btn btn-danger btn-sm" onClick={() => cancelOrder(row.orderNumber)}>
+                Cancel
+                </button>
+            );
+            }
+            return "";
+        }
 
         function cancelOrder(orderNumber) {
             console.log("Cancel order:", orderNumber);
@@ -130,6 +155,9 @@ export function OrderTable({ exchange, product, user }) {
         }
 
 
+        const handleChangePage = (event, newPage) => {
+            setPage(newPage);
+        };
         const columns = [
             { field: "orderNumber", headerName: "#", width: 50, sortable: true },
             { field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
@@ -140,6 +168,7 @@ export function OrderTable({ exchange, product, user }) {
             headerName: "Date",
             width: 100,
             sortable: true,
+            hide: windowWidth < 768,
             valueGetter: (params) => dateFormatter(params.row.timestamp),
             },
             {
@@ -147,6 +176,7 @@ export function OrderTable({ exchange, product, user }) {
             headerName: "Time",
             width: 120,
             sortable: true,
+            hide: windowWidth < 768,
             valueGetter: (params) => timeFormatter(params.row.timestamp),
             },
             { field: "price", headerName: "Price", width: 50, sortable: true },
@@ -157,6 +187,7 @@ export function OrderTable({ exchange, product, user }) {
             headerName: "User",
             width: 200,
             sortable: true,
+            hide: windowWidth < 768,
             },
             {
             field: "cancel",
@@ -165,7 +196,7 @@ export function OrderTable({ exchange, product, user }) {
             renderCell: (params) =>
                 params.row.user === user && params.row.qtyLeft !== 0 ? (
                 <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-primary btn-sm"
                     type="submit"
                     style={cancelButtonStyles}
                 >
@@ -182,6 +213,7 @@ export function OrderTable({ exchange, product, user }) {
             <style>
                 {`
                 .order-table-container {
+                    height: ${tableHeight}px; 
                     min-height: 301px
                     width: 90%; 
                     max-width: 95%;
