@@ -1,19 +1,19 @@
-        import React, { useState, useEffect } from "react";
-        import Pusher from "pusher-js";
-        import { DataGrid } from "@mui/x-data-grid";
+import React, { useState, useEffect } from "react";
+import Pusher from "pusher-js";
+import { DataGrid } from "@mui/x-data-grid";
 
+const EVENT_NAME = "ORDERUPDATE";
 
-        const EVENT_NAME = "ORDERUPDATE";
+const cancelButtonStyles = {
+    height: "38px",
+    width: "90px",
+};
 
-        const cancelButtonStyles = {
-            height: "38px",
-            width: "90px",
-        };
-
-        export function OrderTable({ exchange, product, user }) {
-        const [orders, setOrders] = useState([]);
-        const [pusher, setPusher] = useState(undefined);
-        const [tableHeight, setTableHeight] = useState(300);
+export function OrderTable({ exchange, product, user }) {
+    const [orders, setOrders] = useState([]);
+    const [pusher, setPusher] = useState(undefined);
+    const [currentChannel, setCurrentChannel] = useState(undefined);
+    const [tableHeight, setTableHeight] = useState(300);
 
         const rowHeight = 52; // Set the desired row height (default is 52px)
         const headerHeight = 52; // Set the desired header height (default is 52px)
@@ -52,49 +52,55 @@
 
         useEffect(() => {
             if (!pusher) return;
-
+    
             (async () => {
-                const exchangeValue = exchange === undefined ? "Insta" : exchange;
-                const productValue = product === undefined ? "prod" : product;
-                const userValue = user === undefined ? "" : user;
-
-            console.log("Requesting orders " + "https://api.instabid.io/orders?exchange=" +
-            exchangeValue +
-            "&product=" +
-            productValue +
-            "&user=" +
-            userValue);
-            const res = await fetch(
-                "https://api.instabid.io/orders?exchange=" +
-                exchangeValue +
-                "&product=" +
-                productValue +
-                "&user=" +
-                userValue
-            );
-            handleData(await res.json());
-
-            console.log("Asking Pusher to connect me to these channels:", exchangeValue + "@" + product );
-            const channel = pusher.subscribe(exchangeValue + "@" + productValue);
-            channel.bind(EVENT_NAME, handlePusherData);
-            console.log("Pusher subscribed channels:", pusher.channels.channels);
-
-            return () => {
-                channel.unbind(EVENT_NAME);
-                channel.unsubscribe();
-                console.log("Pusher unsubscribed from channel:", exchangeValue + "@" + productValue);
-            };
+                const exchangeValue = exchange || "Insta";
+                const productValue = product || "prod";
+                const userValue = user || "";
+    
+                try {
+                    const res = await fetch(
+                        `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}&user=${userValue}`
+                    );
+    
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+    
+                    handleData(await res.json());
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+    
+                const newChannelName = `${exchangeValue}@${productValue}`;
+    
+                if (newChannelName !== currentChannel) {
+                    if (currentChannel) {
+                        const oldChannel = pusher.channel(currentChannel);
+                        if (oldChannel) {
+                            oldChannel.unbind(EVENT_NAME);
+                            oldChannel.unsubscribe();
+                        }
+                    }
+    
+                    try {
+                        const channel = pusher.subscribe(newChannelName);
+                        channel.bind(EVENT_NAME, handlePusherData);
+                        setCurrentChannel(newChannelName);
+                    } catch (error) {
+                        console.error('Pusher error:', error);
+                    }
+                }
             })();
-        }, [exchange, product, user, pusher]);
+        }, [exchange, product, user, pusher, currentChannel]);
 
         function handleData(data) {
-            console.log("Instabidlib ORDER TABLE processing via API " + JSON.stringify(data));
             const updatedData = data.result.map((item) => ({
-            ...item,
-            id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
-            
+                ...item,
+                id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
             }));
-            setOrders((prev) => [...prev, ...updatedData]);
+    
+            setOrders(updatedData); // Replace old data
         }
         
         function handlePusherData(data) {
