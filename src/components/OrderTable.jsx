@@ -163,8 +163,8 @@
         valueGetter: (params) => timeFormatter(params.row.timestamp),
         },
         { field: "price", headerName: "Price", width: 50, sortable: true },
-        { field: "qty", headerName: "Qty", width: 100, sortable: true },
-        { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
+        { field: "qty", headerName: "Qty", width: 50, sortable: true },
+        { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
         { field: "user", headerName: "User", width: 200, sortable: true },
         {
         field: "cancel",
@@ -235,6 +235,7 @@
                 pageSize={50}
                 rowsPerPageOptions={[50]}
                 disableSelectionOnClick
+                disableExtendRowFullWidth
                 />
             </div>
             </div>
