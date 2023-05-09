@@ -43,7 +43,7 @@
         const minHeight = 300;
         setTableHeight(Math.max(Math.min(orders.length * rowHeight + headerHeight, maxHeight), minHeight));
             // This will run every time orders change
-    }, [orders]);
+    }, [orders, windowWidth]);
     
 
     useEffect(() => {
