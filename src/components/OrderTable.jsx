@@ -21,14 +21,14 @@
     
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
 
     useEffect(() => {
         setPusher(
@@ -208,7 +208,7 @@
         <style>
             {`
             .order-table-container {
-                height: ${tableHeight}px; 
+                height: ${tableHeight+1}px; 
                 width: 90%; 
                 max-width: 95%;
                 overflow: auto;
