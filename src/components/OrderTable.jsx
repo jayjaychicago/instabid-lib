@@ -54,43 +54,38 @@
             if (!pusher) return;
 
             (async () => {
-            if (exchange === undefined) {
-                console.log("Empty exchange so defaulting to Insta");
-                exchange = "Insta";
-            }
-            if (product === undefined) {
-                console.log("Empty product so defaulting to prod");
-                product = "prod";
-            }
-            if (user === undefined) {
-                user = "";
-            }
+                const exchangeValue = exchange === undefined ? "Insta" : exchange;
+                const productValue = product === undefined ? "prod" : product;
+                const userValue = user === undefined ? "" : user;
+
             console.log("Requesting orders " + "https://api.instabid.io/orders?exchange=" +
-            exchange +
+            exchangeValue +
             "&product=" +
-            product +
+            productValue +
             "&user=" +
-            user);
+            userValue);
             const res = await fetch(
                 "https://api.instabid.io/orders?exchange=" +
-                exchange +
+                exchangeValue +
                 "&product=" +
-                product +
+                productValue +
                 "&user=" +
-                user
+                userValue
             );
             handleData(await res.json());
 
-            console.log("Asking Pusher to connect me to these channels:", exchange + "@" + product );
-            const channel = pusher.subscribe(exchange + "@" + product);
+            console.log("Asking Pusher to connect me to these channels:", exchangeValue + "@" + product );
+            const channel = pusher.subscribe(exchangeValue + "@" + productValue);
             channel.bind(EVENT_NAME, handlePusherData);
             console.log("Pusher subscribed channels:", pusher.channels.channels);
 
             return () => {
                 channel.unbind(EVENT_NAME);
+                channel.unsubscribe();
+                console.log("Pusher unsubscribed from channel:", exchangeValue + "@" + productValue);
             };
             })();
-        }, [pusher]);
+        }, [exchange, product, user, pusher]);
 
         function handleData(data) {
             console.log("Instabidlib ORDER TABLE processing via API " + JSON.stringify(data));
