@@ -216,7 +216,7 @@
     
             `}
         </style>
-        <div className="order-table-wrapper">
+        <div className="order-table-wrapper" style={{height:"301px"}}>
             <div id="orders" className="order-table-container">
                 <DataGrid
                 rows={orders}
