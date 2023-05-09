@@ -19,6 +19,16 @@
     const headerHeight = 52; // Set the desired header height (default is 52px)
     const maxHeight = 750; // Set the maximum height for the DataGrid
     
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
     useEffect(() => {
         setPusher(
@@ -149,41 +159,49 @@
         { field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
         { field: "side", headerName: "Side", width: 50, sortable: true, filterable: true },
         {
-        field: "date",
-        headerName: "Date",
-        width: 100,
-        sortable: true,
-        valueGetter: (params) => dateFormatter(params.row.timestamp),
+          field: "date",
+          headerName: "Date",
+          width: 100,
+          sortable: true,
+          hide: windowWidth < 768,
+          valueGetter: (params) => dateFormatter(params.row.timestamp),
         },
         {
-        field: "time",
-        headerName: "Time",
-        width: 120,
-        sortable: true,
-        valueGetter: (params) => timeFormatter(params.row.timestamp),
+          field: "time",
+          headerName: "Time",
+          width: 120,
+          sortable: true,
+          hide: windowWidth < 768,
+          valueGetter: (params) => timeFormatter(params.row.timestamp),
         },
         { field: "price", headerName: "Price", width: 50, sortable: true },
-        { field: "qty", headerName: "Qty", width: 50, sortable: true },
-        { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
-        { field: "user", headerName: "User", width: 200, sortable: true },
+        { field: "qty", headerName: "Qty", width: 100, sortable: true },
+        { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
         {
-        field: "cancel",
-        headerName: "Cancel",
-        width: 250,
-        renderCell: (params) =>
+          field: "user",
+          headerName: "User",
+          width: 200,
+          sortable: true,
+          hide: windowWidth < 768,
+        },
+        {
+          field: "cancel",
+          headerName: "Cancel",
+          width: 250,
+          renderCell: (params) =>
             params.row.user === user && params.row.qtyLeft !== 0 ? (
-                <button
+              <button
                 className="btn btn-primary btn-sm"
                 type="submit"
                 style={cancelButtonStyles}
-                >
+              >
                 Cancel
-                </button>
+              </button>
             ) : (
-            ""
+              ""
             ),
         },
-    ];
+      ];
 
     return (
         <>
