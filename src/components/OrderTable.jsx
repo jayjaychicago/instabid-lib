@@ -189,31 +189,20 @@
         <>
         <style>
             {`
-            .order-table-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
+            .order-table-container {
+                height: ${tableHeight}px; 
+                width: 90%; 
+                max-width: 95%;
                 overflow: auto;
             }
-            
-            .order-table-inner {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
-            
-            
-            
-
+    
             @media (max-width: 768px) {
                 .order-table-wrapper .MuiDataGrid-colCell[data-field="date"],
                 .order-table-wrapper .MuiDataGrid-colCell[data-field="time"],
                 .order-table-wrapper .MuiDataGrid-colCell[data-field="user"] {
                 display: none;
                 }
-
+    
                 .order-table-wrapper .MuiDataGrid-cell[data-field="date"],
                 .order-table-wrapper .MuiDataGrid-cell[data-field="time"],
                 .order-table-wrapper .MuiDataGrid-cell[data-field="user"] {
@@ -223,12 +212,7 @@
             `}
         </style>
         <div className="order-table-wrapper">
-            <div
-            id="orders"
-            className="order-table-container"
-            style={{ height: tableHeight, width: "90%", maxWidth: "95%" }}
-            >
-            <div className="order-table-inner">
+            <div id="orders" className="order-table-container">
                 <DataGrid
                 rows={orders}
                 columns={columns}
@@ -238,8 +222,8 @@
                 disableExtendRowFullWidth
                 />
             </div>
-            </div>
         </div>
         </>
     );
+    
     }
