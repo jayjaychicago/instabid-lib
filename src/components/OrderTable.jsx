@@ -104,7 +104,7 @@ export function OrderTable({ exchange, product, user }) {
         }
         
         function handlePusherData(data) {
-            console.log("Instabidlib ORDER TABLE processing via PUSHER " + JSON.stringify(data));
+            console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
         
             if (data.side != "CANCEL") {
                 // Add the new order to the top of the DataGrid
