@@ -22,7 +22,8 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
                   <OrderTable
               exchange={exchange}
               product={product}
-              user={user}></OrderTable>
+              user={user}
+              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></OrderTable>
                   </Tab>
                   </Tabs>
       </div>
