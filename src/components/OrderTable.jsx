@@ -106,23 +106,33 @@ export function OrderTable({ exchange, product, user }) {
         function handlePusherData(data) {
             console.log("Instabidlib ORDER TABLE processing via PUSHER " + JSON.stringify(data));
         
-            // Add the new order to the top of the DataGrid
-            const newOrder = {
-                ...data,
-                id: `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`,
-            };
-            setOrders((prev) => [newOrder, ...prev]);
-        
-            // Update the existing orders based on the fills array
-            data.fills.forEach((fill) => {
+            if (data.side != "CANCEL") {
+                // Add the new order to the top of the DataGrid
+                const newOrder = {
+                    ...data,
+                    id: `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`,
+                };
+                setOrders((prev) => [newOrder, ...prev]);
+            
+                // Update the existing orders based on the fills array
+                data.fills.forEach((fill) => {
+                    setOrders((prev) =>
+                        prev.map((order) =>
+                            order.orderNumber === fill.orderNumber
+                                ? { ...order, qtyLeft: order.qtyLeft - parseInt(fill.qty) }
+                                : order
+                        )
+                    );
+                });
+            } else {
                 setOrders((prev) =>
-                    prev.map((order) =>
-                        order.orderNumber === fill.orderNumber
-                            ? { ...order, qtyLeft: order.qtyLeft - parseInt(fill.qty) }
-                            : order
-                    )
-                );
-            });
+                        prev.map((order) =>
+                            order.orderNumber === data.orderNumber
+                                ? { ...order, qtyLeft: 0 }
+                                : order
+                        )
+                    );
+            }
         }
         
         
