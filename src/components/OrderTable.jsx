@@ -64,6 +64,7 @@
         } else {
             // we're using a proxy to hide the private key
             // so we'll use get methods locally instead that will in turn pass the POST to the server
+            let apiProxyValue = apiProxy
             try {
             let res2 = await fetch(apiProxyValue + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user, {
                 method: "GET"
