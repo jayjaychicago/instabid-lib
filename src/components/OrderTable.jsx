@@ -35,7 +35,7 @@
             devModeApiKey = "undefined";
         }
         if ((apiProxy == undefined) || apiProxy == "") {
-            apiProxy = "https://api.instabid.io/cancel";    
+            let apiProxyValue = "https://api.instabid.io/cancel";    
             try {
             let body = {
                 exchange: exchange,
@@ -44,7 +44,7 @@
                 apiKey: devModeApiKey,
             };
     
-            let res = await fetch(apiProxy, {
+            let res = await fetch(apiProxyValue, {
                 method: "POST",
                 body: JSON.stringify(body),
             });
@@ -65,7 +65,7 @@
             // we're using a proxy to hide the private key
             // so we'll use get methods locally instead that will in turn pass the POST to the server
             try {
-            let res2 = await fetch(apiProxy + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user, {
+            let res2 = await fetch(apiProxyValue + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user, {
                 method: "GET"
             });
             let resJson = await res2.json();
@@ -122,14 +122,19 @@
                 if (!pusher) return;
         
                 (async () => {
-                    const exchangeValue = exchange || "Insta";
-                    const productValue = product || "prod";
+                    const exchangeValue = exchange;
+                    const productValue = product;
                     const userValue = user || "";
-        
+                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}&user=${userValue}`
+                    console.log("API Proxy value seen " + apiProxy)
                     try { // TODO: ALLOW API PROXYING TOO
-                        const res = await fetch(
-                            `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}&user=${userValue}`
-                        );
+                        if ((apiProxy == undefined) || (apiProxy == "")) {
+                            console.log("using default API proxy")                            
+                        } else {
+                            apiProxyGetValue = apiProxy + "?type=orderGet&exchange=" + `${exchangeValue}&product=${productValue}&user=${userValue}`
+                        }
+
+                        const res = await fetch(apiProxyGetValue);
         
                         if (!res.ok) {
                             throw new Error(`HTTP error! status: ${res.status}`);
