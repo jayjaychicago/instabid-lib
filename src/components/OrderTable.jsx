@@ -18,7 +18,7 @@
 
         const handleSubmit = async (orderNumber, exchange, user, devModeApiKey, apiProxy) => {
         console.log("Cancel has been called for OrderNumber " + orderNumber + " exchange: " + exchange + " user: " + user + " devModeApiKey: " + devModeApiKey + " apiProxy: " + apiProxy);
-        e.preventDefault();
+        
         setButtonState(true);
     
     
