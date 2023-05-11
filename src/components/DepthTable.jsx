@@ -38,7 +38,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy })
           if ((apiProxy == undefined) || (apiProxy == "")) {
               console.log("using default API proxy")                            
           } else {
-              apiProxyGetValue = apiProxy + "?type=depthGet&exchange=" + `${exchangeValue}&product=${productValue}&user=${userValue}`
+              apiProxyGetValue = apiProxy + "?type=depthGet&exchange=" + `${exchange}&product=${product}&user=${user}`
           }
           const res = await fetch(apiProxyGetValue);
           handleData(await res.json());
