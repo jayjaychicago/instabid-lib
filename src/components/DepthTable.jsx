@@ -32,14 +32,17 @@ export function DepthTable({ exchange, product, user }) {
       if (user === undefined) {
         user = "julien";
       }
-      const res = await fetch(
-        "https://api.instabid.io/depth?exchange=" +
-          exchange +
-          "&product=" +
-          product +
-          "&user=" +
-          user
-      );
+      let apiProxyGetValue = `https://api.instabid.io/depth?exchange=${exchange}&product=${product}&user=${user}`
+      console.log("API Proxy value seen for depthGet " + apiProxy)
+      try { // TODO: ALLOW API PROXYING TOO
+          if ((apiProxy == undefined) || (apiProxy == "")) {
+              console.log("using default API proxy")                            
+          } else {
+              apiProxyGetValue = apiProxy + "?type=depthGet&exchange=" + `${exchangeValue}&product=${productValue}&user=${userValue}`
+          }
+
+
+      const res = await fetch(apiProxyGetValue);
       handleData(await res.json());
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
