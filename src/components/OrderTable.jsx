@@ -64,9 +64,9 @@
         } else {
             // we're using a proxy to hide the private key
             // so we'll use get methods locally instead that will in turn pass the POST to the server
-            let apiProxyValue = apiProxy
+            let apiProxyValue = apiProxy + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user
             try {
-            let res2 = await fetch(apiProxyValue + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user, {
+            let res2 = await fetch(apiProxyValue, {
                 method: "GET"
             });
             let resJson = await res2.json();
@@ -265,7 +265,7 @@
                 },
                 { field: "price", headerName: "Price", width: 50, sortable: true },
                 { field: "qty", headerName: "Qty", width: 100, sortable: true },
-                { field: "qtyLeft", headerName: "Qty Left", width: 50, sortable: true },
+                { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
                 {
                 field: "user",
                 headerName: "User",
