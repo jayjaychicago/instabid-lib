@@ -6,7 +6,7 @@ import { updateSortedOrders } from "../util";
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";
 
-export function DepthTable({ exchange, product, user }) {
+export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy }) {
   const [buys, setBuys] = useState([]);
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);
@@ -34,7 +34,7 @@ export function DepthTable({ exchange, product, user }) {
       }
       let apiProxyGetValue = `https://api.instabid.io/depth?exchange=${exchange}&product=${product}&user=${user}`
       console.log("API Proxy value seen for depthGet " + apiProxy)
-      try { // TODO: ALLOW API PROXYING TOO
+      try { 
           if ((apiProxy == undefined) || (apiProxy == "")) {
               console.log("using default API proxy")                            
           } else {

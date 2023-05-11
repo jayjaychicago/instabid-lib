@@ -15,7 +15,8 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
                     <DepthTable
               exchange={exchange}
               product={product}
-              user={user}></DepthTable>
+              user={user}
+              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></DepthTable>
             <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
                   </Tab>
                   <Tab eventKey="orders" title="Orders">
