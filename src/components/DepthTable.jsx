@@ -40,9 +40,11 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy })
           } else {
               apiProxyGetValue = apiProxy + "?type=depthGet&exchange=" + `${exchangeValue}&product=${productValue}&user=${userValue}`
           }
-
-
-      const res = await fetch(apiProxyGetValue);
+          const res = await fetch(apiProxyGetValue);
+        } catch(e)
+        {
+            console.error("Problem getting depths ",e)
+      }
       handleData(await res.json());
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
