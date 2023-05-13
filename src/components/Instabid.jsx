@@ -5,6 +5,13 @@ import { OrderTable } from "./OrderTable.jsx";
 import {Tabs, Tab} from 'react-bootstrap';
 
 export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode }) => {
+
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const handleOrderSelect = (order) => {
+    setSelectedOrder(order);
+  }
+
   if (mode == "withOrders") {
     return (
       <div className="d-flex flex-column w-100 align-items-center">
@@ -15,9 +22,10 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
                     <DepthTable
               exchange={exchange}
               product={product}
+              onSelect={handleOrderSelect}
               user={user}
               devModeApiKey={devModeApiKey} apiProxy={apiProxy}></DepthTable>
-            <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
+            <InstaForm exchange={exchange} product={product} selectedOrder={selectedOrder} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
                   </Tab>
                   <Tab eventKey="orders" title="Orders">
                   <OrderTable

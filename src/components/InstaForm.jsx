@@ -61,13 +61,21 @@ const formStyles = {
   };
 
 
-export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl }) => {
+export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, selectedOrder }) => {
 
-  const [side, setSide] = useState("");
-  const [qty, setQty] = useState("");
-  const [price, setPrice] = useState("");
+  const [side, setSide] = useState(selectedOrder?.side || "");
+  const [qty, setQty] = useState(selectedOrder?.qty || "");
+  const [price, setPrice] = useState(selectedOrder?.price || "");
   const [message, setMessage] = useState("");
   const [buttonState, setButtonState] = useState(false);
+
+  useEffect(() => {
+    if (selectedOrder) {
+      setSide(selectedOrder.side);
+      setQty(selectedOrder.qty);
+      setPrice(selectedOrder.price);
+    }
+  }, [selectedOrder]);
 
   let handleSubmit = async (e) => {
     e.preventDefault();

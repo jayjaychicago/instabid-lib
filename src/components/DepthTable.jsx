@@ -85,7 +85,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy })
             {sells
               .filter((order) => order.qty)
               .map((order, i) => (
-                <tr key={i}>
+                <tr key={i} onClick={() => onSelect({ side: 'B', ...order })}>
                   <td className="table-data text-center">&nbsp;</td>
                   <td className="table-data text-center">&nbsp;</td>
                   <td className="table-data text-center">${order.price}</td>
@@ -95,7 +95,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy })
             {buys
               .filter((order) => order.qty)
               .map((order, i) => (
-                <tr key={i}>
+                <tr key={i} onClick={() => onSelect({ side: 'S', ...order })}>
                   <td className="table-data text-center">{order.qty}</td>
                   <td className="table-data text-center">${order.price}</td>
                   <td className="table-data text-center">&nbsp;</td>
