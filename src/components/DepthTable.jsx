@@ -6,7 +6,7 @@ import { updateSortedOrders } from "../util";
 const EVENT_NAME = "DEPTHUPDATE";
 //const CHANNEL_NAME = "Insta@prod";
 
-export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy }) {
+export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, onSelect }) {
   const [buys, setBuys] = useState([]);
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);
