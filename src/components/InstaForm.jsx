@@ -130,7 +130,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           setButtonState(false);
           setQty("");
           setPrice("");
-          //setMessage("Done!");
+          setMessage("order excecuted successfully!");
         } else {
           setMessage("Some error occured");
         }
@@ -243,7 +243,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           </div>
         </div>
   
-        <div className="message">{message ? <p>{message}</p> : null}</div>
+        <div className="alert-primary" role="alert">{message ? <p>{message}</p> : null}</div>
       </form>
     </div>
   ) : (
