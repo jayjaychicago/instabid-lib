@@ -8,7 +8,9 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-  const handleOrderSelect = (order) => {
+
+
+  const onSelect = (order) => {
     setSelectedOrder(order);
   }
 
@@ -22,7 +24,7 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
                     <DepthTable
               exchange={exchange}
               product={product}
-              onSelect={handleOrderSelect}
+              onSelect={onSelect}
               user={user}
               devModeApiKey={devModeApiKey} apiProxy={apiProxy}></DepthTable>
             <InstaForm exchange={exchange} product={product} selectedOrder={selectedOrder} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
