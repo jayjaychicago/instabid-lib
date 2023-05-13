@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Alert} from 'react-bootstrap';
+import {Alert, Spinner} from 'react-bootstrap';
 
 const formStyles = {
     display: "flex",
@@ -239,11 +239,30 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               type="submit"
               style={tradeButtonStyles}
             >
-              Trade
+              {buttonState ? (
+    <Spinner 
+      as="span"
+      animation="border"
+      size="sm"
+      role="status"
+      aria-hidden="true"
+    />
+  ) : (
+    "Trade"
+  )}
             </button>
           </div>
         </div>
-        {message ? <Alert className="alert-primary" style={{height: '35px', textAlign: "center"}} role="alert">{message}</Alert> : null}
+        {message ? 
+          <Alert 
+            variant="primary" 
+            onClose={() => setMessage("")} 
+            dismissible
+            style={{ textAlign: "center" }}
+          >
+            {message}
+          </Alert> 
+          : null}
         
       </form>
     </div>
