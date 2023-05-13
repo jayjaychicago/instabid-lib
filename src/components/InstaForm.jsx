@@ -243,8 +243,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
             </button>
           </div>
         </div>
-  
-        <Alert className="alert-primary" role="alert">{message ? <p>{message}</p> : null}</Alert>
+        {message ? <Alert className="alert-primary" role="alert"></Alert> : null}
+        
       </form>
     </div>
   ) : (
