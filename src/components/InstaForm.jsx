@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Alert, Spinner} from 'react-bootstrap';
+import {Alert} from 'react-bootstrap';
 
 const formStyles = {
     display: "flex",
@@ -239,17 +239,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               type="submit"
               style={tradeButtonStyles}
             >
-              {buttonState ? (
-    <Spinner 
-      as="span"
-      animation="border"
-      size="sm"
-      role="status"
-      aria-hidden="true"
-    />
-  ) : (
-    "Trade"
-  )}
+              Trade
             </button>
           </div>
         </div>
