@@ -1,6 +1,8 @@
     import React, { useState, useEffect } from "react";
     import Pusher from "pusher-js";
     import { DataGrid } from "@mui/x-data-grid";
+    import Spinner from 'react-bootstrap/Spinner';
+
 
     const EVENT_NAME = "ORDERUPDATE";
 
@@ -15,6 +17,8 @@
         const [currentChannel, setCurrentChannel] = useState(undefined);
         const [tableHeight, setTableHeight] = useState(300);
         const [buttonState, setButtonState] = useState(false);
+        const [cancellingOrderNumber, setCancellingOrderNumber] = useState(null);
+
 
         const handleSubmit = async (orderNumber, exchange, user, devModeApiKey, apiProxy) => {
         console.log("Cancel has been called for OrderNumber " + orderNumber + " exchange: " + exchange + " user: " + user + " devModeApiKey: " + devModeApiKey + " apiProxy: " + apiProxy);
@@ -54,6 +58,7 @@
             if (res.status === 200) {
                 //setSide("");
                 setButtonState(false);
+                setCancellingOrderNumber(null);
                 //setMessage("Done!");
             } else {
                 setMessage("Some error occured");
@@ -200,11 +205,13 @@
                     });
                 } else {
                     setOrders((prev) =>
-                            prev.map((order) =>
+                            prev.map((order) => {
+                                console.log(order.orderNumber, data.orderNumber, order.orderNumber === data.orderNumber);
+                                return order.orderNumber === data.orderNumber
                                 order.orderNumber === data.orderNumber
                                     ? { ...order, qtyLeft: 0 }
                                     : order
-                            )
+                })
                         );
                 }
             }
@@ -283,16 +290,24 @@
                         className="btn btn-primary btn-sm"
                         type="submit"
                         style={cancelButtonStyles}
-                        onClick={() => handleSubmit(
-                            params.row.orderNumber, 
-                            params.row.exchange, 
-                            user, 
-                            devModeApiKey, 
-                            apiProxy
-                          )}
+                        onClick={() => {
+                            setCancellingOrderNumber(params.row.orderNumber);
+                            handleSubmit(
+                              params.row.orderNumber, 
+                              params.row.exchange, 
+                              user, 
+                              devModeApiKey, 
+                              apiProxy
+                            )
+                          }}
+                          
                         disabled={buttonState}
                     >
-                        Cancel
+                        {cancellingOrderNumber === params.row.orderNumber ? (
+        <Spinner animation="border" role="status" size="sm" />
+      ) : (
+        "Cancel"
+      )}
                     </button>
                     ) : (
                     ""
