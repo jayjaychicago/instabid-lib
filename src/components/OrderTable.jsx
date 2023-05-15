@@ -223,8 +223,9 @@
                         );
                     });
                 } else {
-                    setOrders((prev) =>
-                        prev.map((order) =>
+                    // Find the corresponding order and update its qtyLeft property to 0
+                    setOrders((prevOrders) =>
+                        prevOrders.map((order) =>
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
