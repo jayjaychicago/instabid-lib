@@ -174,22 +174,31 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
-                const updatedData = data.result.map((item) => ({
-                    ...item,
-                    id: `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`,
-                }));
-        
-                setOrders(updatedData); // Replace old data
-            }
+                const updatedData = data.result.map((item, index) => {
+                    const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
+                        ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
+                        : `missing-id-${index}`;
             
+                    return {
+                        ...item,
+                        id,
+                    };
+                });
+            
+                setOrders(updatedData); // Replace old data
+            }            
             function handlePusherData(data) {
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
+                    const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
+                        ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
+                        : `missing-id-${Date.now()}`;
+            
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id: `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`,
+                        id,
                     };
                     setOrders((prev) => [newOrder, ...prev]);
                 
@@ -205,14 +214,12 @@
                     });
                 } else {
                     setOrders((prev) =>
-                            prev.map((order) => {
-                                console.log(order.orderNumber, data.orderNumber, order.orderNumber === data.orderNumber);
-                                return order.orderNumber === data.orderNumber
-                                order.orderNumber === data.orderNumber
-                                    ? { ...order, qtyLeft: 0 }
-                                    : order
-                })
-                        );
+                        prev.map((order) =>
+                            order.orderNumber === data.orderNumber
+                                ? { ...order, qtyLeft: 0 }
+                                : order
+                        )
+                    );
                 }
             }
             
