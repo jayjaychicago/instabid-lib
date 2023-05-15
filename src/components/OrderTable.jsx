@@ -62,9 +62,13 @@
                 //setMessage("Done!");
             } else {
                 setMessage("Some error occured");
+                setButtonState(false);
+                setCancellingOrderNumber(null);
             }
             } catch (err) {
             console.log(err);
+            setButtonState(false);
+            setCancellingOrderNumber(null);
             }
         } else {
             // we're using a proxy to hide the private key
@@ -78,12 +82,18 @@
             if (res2.status === 200) {
                 //setSide("");
                 setButtonState(false);
+                setButtonState(false);
+                setCancellingOrderNumber(null);
                 //setMessage("Done!");
             } else {
                 setMessage("Some error occured");
+                setButtonState(false);
+                setCancellingOrderNumber(null);
             }
             } catch (err) {
             console.log(err);
+            setButtonState(false);
+            setCancellingOrderNumber(null);
             }
         }
         };
