@@ -238,7 +238,7 @@
                                 // console.log('Order before:', order, 'Data:', data);
                                 console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
                             }
-                            if (order.orderNumber === data.orderNumber) {
+                            if (parseInt(order.orderNumber) === parseInt(data.orderNumber)) {
                                 console.log("YEAH! WE ARE REPLACING!!")
                                 return { ...order, qtyLeft: 0 }
                             }
