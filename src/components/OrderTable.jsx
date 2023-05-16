@@ -190,10 +190,7 @@
 
             function handleData(data) {
                 console.log("BOUM " + data.result.length, data)
-                if (data.result.length == 0) {
-                    console.log("Nothing to show");
-                    return;
-                }
+
                 
                 const updatedData = data.result.map((item, index) => {
                     if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
@@ -242,6 +239,7 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
+                    console.log("INCOMING NON-CANCEL DATA ", data);
                     setOrders((prevOrders) =>
                         prevOrders.map((order) => {
                             if (!order || !data) {
