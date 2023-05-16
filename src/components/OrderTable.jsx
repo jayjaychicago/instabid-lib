@@ -214,6 +214,7 @@
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
+                    console.log("INCOMING NON-CANCEL DATA ", data);
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
@@ -239,7 +240,7 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
-                    console.log("INCOMING NON-CANCEL DATA ", data);
+                    console.log("INCOMING CANCEL DATA ", data);
                     setOrders((prevOrders) =>
                         prevOrders.map((order) => {
                             if (!order || !data) {
