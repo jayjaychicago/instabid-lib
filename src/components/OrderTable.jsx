@@ -204,7 +204,7 @@
             
                     return {
                         ...item,
-                        id, key: id + index,
+                        id, 
                     };
                 });
                 console.log("here1");
@@ -224,7 +224,7 @@
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id, key: id + index,
+                        id, 
                     };
                     console.log("Here2");
                     setOrders((prev) => [newOrder, ...prev]);
@@ -385,6 +385,7 @@
                 <div className="order-table-wrapper" style={{minHeight:"301px"}}>
                     <div id="orders" className="order-table-container" style={{height:"301px"}}>
                         <DataGrid
+                        key="1"
                         rows={orders}
                         columns={columns}
                         pageSize={50}
