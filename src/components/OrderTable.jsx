@@ -189,7 +189,7 @@
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
-                    console.log("NON-NULL ID", id);
+                    //console.log("NON-NULL ID", id);
             
                     return {
                         ...item,
