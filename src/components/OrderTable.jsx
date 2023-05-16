@@ -203,6 +203,7 @@
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
+                    console.log("Cancelling")
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
@@ -213,6 +214,8 @@
                         ...data,
                         id, key,
                     };
+                    console.log("Prev: ", prev)
+                    console.log("New order: ", newOrder)
                     setOrders((prev) => [newOrder, ...prev]);
                 
                     // Update the existing orders based on the fills array
