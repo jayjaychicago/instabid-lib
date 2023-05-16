@@ -189,12 +189,12 @@
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
-                    const key = id;
+                    
                     console.log("NON-NULL ID", id);
             
                     return {
                         ...item,
-                        id, key,
+                        id, 
                     };
                 });
             
@@ -207,13 +207,13 @@
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
-                    const key = id;
+                    
                     console.log("NON-NULL2 ID", id);
             
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id, key,
+                        id, 
                     };
                     setOrders((prev) => [newOrder, ...prev]);
                 
@@ -236,10 +236,10 @@
                                 return;
                             } else {
                                 // console.log('Order before:', order, 'Data:', data);
-                                console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
+                                //console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
                             }
-                            if (parseInt(order.orderNumber) === parseInt(data.orderNumber)) {
-                                console.log("YEAH! WE ARE REPLACING!!")
+                            if (order.orderNumber == data.orderNumber) {
+                                //console.log("YEAH! WE ARE REPLACING!!")
                                 return { ...order, qtyLeft: 0 }
                             }
                             else {
