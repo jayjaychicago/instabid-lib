@@ -232,7 +232,7 @@
                     console.log("Cancelling")
                     setOrders((prevOrders) => 
                         prevOrders.map((order) => {
-                            console.log("Comparing " + order.orderNumber + " to " + data.orderNumber)
+                            //console.log("Comparing " + order.orderNumber + " to " + data.orderNumber)
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
