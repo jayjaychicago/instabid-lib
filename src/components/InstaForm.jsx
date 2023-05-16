@@ -139,7 +139,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           setButtonState(false);
           setQty("");
           setPrice("");
-          setMessage("order excecuted successfully!");
+          setMessage("Order executed successfully!");
         } else {
           setMessage("Some error occured");
         }
