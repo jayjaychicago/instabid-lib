@@ -161,7 +161,7 @@
                         }
                         let ress = await res.json();
                         //console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
-                        handleData(ress);
+                        if (ress.result.length > 0) {handleData(ress)};
                     } catch (error) {
                         console.error('Fetch error:', error);
                     }
@@ -194,6 +194,7 @@
                     console.log("Nothing to show");
                     return;
                 }
+                
                 const updatedData = data.result.map((item, index) => {
                     if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
                         console.error('Missing one or more required fields for id', { item, index });
