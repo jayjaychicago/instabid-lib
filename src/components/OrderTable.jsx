@@ -155,6 +155,9 @@
                         if (!res.ok) {
                             throw new Error(`HTTP error! status: ${res.status}`);
                         }
+                        else {
+                            console.log('ORDER TABLE GET API CALL returned ', res);
+                        }
         
                         handleData(await res.json());
                     } catch (error) {
