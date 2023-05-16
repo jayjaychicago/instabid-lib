@@ -385,7 +385,7 @@
                 <div className="order-table-wrapper" style={{minHeight:"301px"}}>
                     <div id="orders" className="order-table-container" style={{height:"301px"}}>
                         <DataGrid
-                        rows={orders}
+                        rows={orders.map((row) => ({ ...row, key: row.id }))}
                         columns={columns}
                         pageSize={50}
                         rowsPerPageOptions={[50]}
