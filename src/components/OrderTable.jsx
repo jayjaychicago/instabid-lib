@@ -106,6 +106,10 @@
             const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
             useEffect(() => {
+                console.log('Orders state changed', orders);
+            }, [orders]);
+
+            useEffect(() => {
                 const handleResize = () => setWindowWidth(window.innerWidth);
                 window.addEventListener('resize', handleResize);
             
@@ -156,7 +160,7 @@
                             throw new Error(`HTTP error! status: ${res.status}`);
                         }
                         let ress = await res.json();
-                        console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
+                        //console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
                         handleData(ress);
                     } catch (error) {
                         console.error('Fetch error:', error);
@@ -185,10 +189,10 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
-                if (!data) {
-                    return;
-                }
                 const updatedData = data.result.map((item, index) => {
+                    if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
+                        console.error('Missing one or more required fields for id', { item, index });
+                    }
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
@@ -204,9 +208,6 @@
                 setOrders(updatedData); // Replace old data
             }            
             function handlePusherData(data) {
-                if (!data) {
-                    return;
-                }
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
