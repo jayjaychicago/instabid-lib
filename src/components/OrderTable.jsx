@@ -189,8 +189,8 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
-                console.log("BOUM " + data.length, data)
-                if (data.length == 0) {
+                console.log("BOUM " + data.result.length, data)
+                if (data.result.length == 0) {
                     console.log("Nothing to show");
                     return;
                 }
