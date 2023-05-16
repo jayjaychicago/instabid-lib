@@ -229,18 +229,16 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
-                    console.log("Cancelling")
-                    setOrders((prevOrders) => 
-                        prevOrders.map((order) => {
+                    setOrders((prevOrders) =>
+                        prevOrders.map((order) =>
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
-                        console.log("Just compared " + order.orderNumber + " to " + data.orderNumber)
-                        })
+                        )
                     );
                 }
             }
-
+            
             
             
 
