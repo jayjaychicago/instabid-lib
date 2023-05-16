@@ -207,7 +207,7 @@
                         id, 
                     };
                 });
-            
+                console.log("here1");
                 setOrders(updatedData); // Replace old data
             }            
             function handlePusherData(data) {
@@ -226,10 +226,12 @@
                         ...data,
                         id, 
                     };
+                    console.log("Here2");
                     setOrders((prev) => [newOrder, ...prev]);
                 
                     // Update the existing orders based on the fills array
                     data.fills.forEach((fill) => {
+                        console.log("Here 2a");
                         setOrders((prev) =>
                             prev.map((order) =>
                                 order.orderNumber === fill.orderNumber
@@ -241,6 +243,7 @@
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
                     console.log("INCOMING CANCEL DATA ", data);
+                    console.log("Here 3");
                     setOrders((prevOrders) =>
                         prevOrders.map((order) => {
                             if (!order || !data) {
@@ -380,7 +383,7 @@
                     `}
                 </style>
                 <div className="order-table-wrapper" style={{minHeight:"301px"}}>
-                    <div id="orders" className="order-table-container">
+                    <div id="orders" className="order-table-container" style={{height:"301px"}}>
                         <DataGrid
                         rows={orders}
                         columns={columns}
