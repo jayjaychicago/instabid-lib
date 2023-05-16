@@ -236,7 +236,7 @@
                                 return;
                             } else {
                                 console.log('Order before:', order, 'Data:', data);
-                                console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:', data.orderNumber);
+                                console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
                             }
                             return order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
