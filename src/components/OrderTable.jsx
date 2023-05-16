@@ -376,6 +376,7 @@
                 </style>
                 <div className="order-table-wrapper" style={{minHeight:"301px"}}>
                     <div id="orders" className="order-table-container">
+                    {orders.length > 0 ? (
                         <DataGrid
                         rows={orders}
                         columns={columns}
@@ -383,7 +384,9 @@
                         rowsPerPageOptions={[50]}
                         disableSelectionOnClick
                         disableExtendRowFullWidth
-                        />
+                        />) : (
+                            <div>No orders yet...</div>
+                        )}
                     </div>
                 </div>
                 </>
