@@ -189,6 +189,7 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
+                console.log("BOUM", data)
                 const updatedData = data.result.map((item, index) => {
                     if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
                         console.error('Missing one or more required fields for id', { item, index });
@@ -376,7 +377,6 @@
                 </style>
                 <div className="order-table-wrapper" style={{minHeight:"301px"}}>
                     <div id="orders" className="order-table-container">
-                    {orders.length > 0 ? (
                         <DataGrid
                         rows={orders}
                         columns={columns}
@@ -384,9 +384,7 @@
                         rowsPerPageOptions={[50]}
                         disableSelectionOnClick
                         disableExtendRowFullWidth
-                        />) : (
-                            <div>No orders yet...</div>
-                        )}
+                        />
                     </div>
                 </div>
                 </>
