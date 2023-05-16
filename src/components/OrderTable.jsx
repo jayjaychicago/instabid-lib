@@ -189,11 +189,11 @@
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
-                    //console.log("NON-NULL ID", id);
+                    const key = id;
             
                     return {
                         ...item,
-                        id, 
+                        id, key,
                     };
                 });
             
@@ -203,16 +203,15 @@
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
-                    
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
-                    
+                    const key = id;
             
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id, 
+                        id, key,
                     };
                     setOrders((prev) => [newOrder, ...prev]);
                 
@@ -228,14 +227,12 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
-                    console.log("Cancelling")
-                    setOrders((prevOrders) => 
-                        prevOrders.map((order) => {
+                    setOrders((prevOrders) =>
+                        prevOrders.map((order) =>
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
-                        console.log("Just compared " + order.orderNumber + " to " + data.orderNumber)
-                        })
+                        )
                     );
                 }
             }
