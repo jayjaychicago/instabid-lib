@@ -190,6 +190,7 @@
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
                     const key = id;
+                    console.log("NON-NULL ID", id);
             
                     return {
                         ...item,
@@ -207,6 +208,7 @@
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
                     const key = id;
+                    console.log("NON-NULL2 ID", id);
             
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
@@ -227,16 +229,18 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
-                    setOrders((prevOrders) =>
-                        prevOrders.map((order) =>
+                    console.log("Cancelling")
+                    setOrders((prevOrders) => 
+                        prevOrders.map((order) => {
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
-                        )
+                        console.log("Just compared " + order.orderNumber + " to " + data.orderNumber)
+                        })
                     );
                 }
             }
-            
+
             
             
 

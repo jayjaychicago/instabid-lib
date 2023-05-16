@@ -15,6 +15,7 @@ yarn build
 # Stage and commit changes
 git add .
 git commit -m "bug fix"
+git push
 
 # Publish to NPM
 npm publish
