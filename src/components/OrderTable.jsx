@@ -235,6 +235,7 @@
                                 console.log('Undefined order or data', { order, data });
                                 return;
                             } else {
+                                console.log('Order before:', order, 'Data:', data);
                                 console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:', data.orderNumber);
                             }
                             return order.orderNumber === data.orderNumber
@@ -242,7 +243,7 @@
                                 : order;
                         })
                     );
-                    console.log("Updated orders: ", orders)
+                   
                 }
             }
             
