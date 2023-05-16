@@ -185,12 +185,15 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
+                if (!data) {
+                    return;
+                }
                 const updatedData = data.result.map((item, index) => {
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
                     
-                    console.log("NON-NULL ID", id);
+                    //console.log("NON-NULL ID", id);
             
                     return {
                         ...item,
@@ -201,6 +204,9 @@
                 setOrders(updatedData); // Replace old data
             }            
             function handlePusherData(data) {
+                if (!data) {
+                    return;
+                }
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
