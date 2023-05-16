@@ -197,7 +197,7 @@
                         console.error('Missing one or more required fields for id', { item, index });
                     }
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
-                        ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
+                        ? `${item.exchange}-${item.product}-${item.side}-${item.orderNumber + ''}`
                         : `missing-id-${index}`;
                     
                     //console.log("NON-NULL ID", id);
@@ -209,7 +209,7 @@
                 });
                 console.log("here1");
                 setOrders(updatedData); // Replace old data
-                console.log("Updated data ", updatedData);
+
             }            
             function handlePusherData(data) {
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
@@ -217,7 +217,7 @@
                 if (data.side != "CANCEL") {
                     console.log("INCOMING NON-CANCEL DATA ", data);
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
-                        ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
+                        ? `${data.exchange}-${data.product}-${data.side}-${data.orderNumber + ''}`
                         : `missing-id-${Date.now()}`;
                     
                     console.log("NON-NULL2 ID", id);
