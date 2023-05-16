@@ -231,7 +231,12 @@
                     // Find the corresponding order and update its qtyLeft property to 0
                     setOrders((prevOrders) =>
                         prevOrders.map((order) => {
-                            console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:', data.orderNumber);
+                            if (!order || !data) {
+                                console.log('Undefined order or data', { order, data });
+                                return;
+                            } else {
+                                console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:', data.orderNumber);
+                            }
                             return order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order;
