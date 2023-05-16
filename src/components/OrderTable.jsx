@@ -242,6 +242,7 @@
                                 : order;
                         })
                     );
+                    console.log("Updated orders: ", orders)
                 }
             }
             
