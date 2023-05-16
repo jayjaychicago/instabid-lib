@@ -189,7 +189,10 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
-                console.log("BOUM", data)
+                if (data.length == 0) {
+                    console.log("Nothing to show")
+                    return;
+                }
                 const updatedData = data.result.map((item, index) => {
                     if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
                         console.error('Missing one or more required fields for id', { item, index });
