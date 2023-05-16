@@ -189,11 +189,11 @@
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
-                    const key = id;
+                    console.log("NON-NULL ID", id);
             
                     return {
                         ...item,
-                        id, key,
+                        id, 
                     };
                 });
             
@@ -203,19 +203,17 @@
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
                 if (data.side != "CANCEL") {
-                    console.log("Cancelling")
+                    
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
-                    const key = id;
+                    
             
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id, key,
+                        id, 
                     };
-                    console.log("Prev: ", prev)
-                    console.log("New order: ", newOrder)
                     setOrders((prev) => [newOrder, ...prev]);
                 
                     // Update the existing orders based on the fills array
@@ -230,12 +228,14 @@
                     });
                 } else {
                     // Find the corresponding order and update its qtyLeft property to 0
-                    setOrders((prevOrders) =>
-                        prevOrders.map((order) =>
+                    console.log("Cancelling")
+                    setOrders((prevOrders) => 
+                        prevOrders.map((order) => {
                             order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
                                 : order
-                        )
+                        console.log("Just compared " + order.orderNumber + " to " + data.orderNumber)
+                        })
                     );
                 }
             }
