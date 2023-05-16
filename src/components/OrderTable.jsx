@@ -188,10 +188,11 @@
                     const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
                         ? `${item.exchange}-${item.product}-${item.side}-${item.timestamp}-${item.orderNumber}`
                         : `missing-id-${index}`;
+                    const key = id;
             
                     return {
                         ...item,
-                        id,
+                        id, key,
                     };
                 });
             
@@ -204,11 +205,12 @@
                     const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
                         ? `${data.exchange}-${data.product}-${data.side}-${data.timestamp}-${data.orderNumber}`
                         : `missing-id-${Date.now()}`;
+                    const key = id;
             
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id,
+                        id, key,
                     };
                     setOrders((prev) => [newOrder, ...prev]);
                 
