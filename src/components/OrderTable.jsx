@@ -156,7 +156,7 @@
                             throw new Error(`HTTP error! status: ${res.status}`);
                         }
                         let ress = await res.json();
-                        console.log('ORDER TABLE GET API CALL returned ', ress.result);
+                        console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
                         handleData(ress);
                     } catch (error) {
                         console.error('Fetch error:', error);
