@@ -204,7 +204,7 @@
             
                     return {
                         ...item,
-                        id, key: id
+                        id, key: id + index,
                     };
                 });
                 console.log("here1");
@@ -224,7 +224,7 @@
                     // Add the new order to the top of the DataGrid
                     const newOrder = {
                         ...data,
-                        id, key: id
+                        id, key: id + index,
                     };
                     console.log("Here2");
                     setOrders((prev) => [newOrder, ...prev]);
