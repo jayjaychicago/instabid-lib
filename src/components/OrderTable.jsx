@@ -235,12 +235,19 @@
                                 console.log('Undefined order or data', { order, data });
                                 return;
                             } else {
-                                console.log('Order before:', order, 'Data:', data);
+                                // console.log('Order before:', order, 'Data:', data);
                                 console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
                             }
-                            return order.orderNumber === data.orderNumber
+                            if (order.orderNumber === data.orderNumber) {
+                                console.log("YEAH! WE ARE REPLACING!!")
+                                return { ...order, qtyLeft: 0 }
+                            }
+                            else {
+                                return order;
+                            }
+ /*                           return order.orderNumber === data.orderNumber
                                 ? { ...order, qtyLeft: 0 }
-                                : order;
+                                : order; */
                         })
                     );
                    
