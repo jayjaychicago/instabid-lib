@@ -127,7 +127,9 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
       setPriceIsValid(true);
     }
     
-    if (getOut) {return;}
+    if (getOut) {
+      setButtonState(false);
+      return;}
 
     if (user == undefined) {
       user = "undefined";
@@ -214,6 +216,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
                 e.target.blur();
               }}
             />
+            {qtyIsValid ? null : <div class="invalid-feedback">Please provide a valid Qty.</div>}
           </div>
         </div>
   
