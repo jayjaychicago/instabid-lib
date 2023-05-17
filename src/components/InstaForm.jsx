@@ -298,11 +298,11 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
         {message.text ? 
           <Alert 
             variant={message.type} 
-            onClose={() => setMessage("")} 
+            onClose={() => setMessage({ text: "", type: "primary" })} 
             dismissible
             style={{ textAlign: "center" }}
           >
-            {message}
+            {message.text}
           </Alert> 
           : null}
         
