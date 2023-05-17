@@ -105,23 +105,22 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
 
     if (side != "B" && side != "S") {
       setMessage({ text: "Choose Buy or Sell", type: "danger" });
-      setButtonState(false);
       setSideIsValid(false);
-      return;
+    } else {
+      setSideIsValid(true);
     }
     if (!isInteger(qty)) {
       setMessage({ text: "Enter a valid Qty", type: "danger" });
-      setButtonState(false);
       setQtyIsValid(false);
-      return;
+    } else {
+      setQtyIsValid(true);
     }
     if (!isNumericWithMaxTwoDecimals(price)) {
       setMessage({ text: "Enter a valid Price", type: "danger" });
-      setButtonState(false);
       setPriceIsValid(false);
-      return;
+    } else {
+      setPriceIsValid(true);
     }
-
     
     if (user == undefined) {
       user = "undefined";
@@ -296,7 +295,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
             </button>
           </div>
         </div>
-        {message ? 
+        {message.text ? 
           <Alert 
             variant="primary" 
             onClose={() => setMessage("")} 
