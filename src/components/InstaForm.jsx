@@ -100,8 +100,8 @@
       e.preventDefault();
       setButtonState(true);
 
-      setQty(qty.replace(/[^0-9.,]/g, ''));
-      setPrice(price.replace(/[^0-9.,]/g, ''));
+//      setQty(qty.toString().replace(/[^0-9.,]/g, ''));
+//      setPrice(price.toString().replace(/[^0-9.,]/g, ''));
 
       let getOut = false;
 
