@@ -106,21 +106,21 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     let getOut = false;
 
     if (side != "B" && side != "S") {
-      setMessage({ text: "Choose Buy or Sell", type: "danger" });
+//      setMessage({ text: "Choose Buy or Sell", type: "danger" });
       setSideIsValid(false);
       getOut = true;
     } else {
       setSideIsValid(true);
     }
     if (!isInteger(qty)) {
-      setMessage({ text: "Enter a valid Qty", type: "danger" });
+//      setMessage({ text: "Enter a valid Qty", type: "danger" });
       setQtyIsValid(false);
       getOut = true;
     } else {
       setQtyIsValid(true);
     }
     if (!isNumericWithMaxTwoDecimals(price)) {
-      setMessage({ text: "Enter a valid Price", type: "danger" });
+  //    setMessage({ text: "Enter a valid Price", type: "danger" });
       setPriceIsValid(false);
       getOut = true;
     } else {
@@ -242,6 +242,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               }}
               
             />
+            {priceIsValid ? null : <div class="invalid-feedback">Please provide a valid Price.</div>}
+
           </div>
         </div>
   
@@ -275,6 +277,8 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
                 autoComplete="new-password"
                 onChange={(e) => setSide(e.target.value)}
               />
+              {sideIsValid ? null : <div class="invalid-feedback">Please choose Buy or Sell</div>}
+
               <label
   className="btn btn-outline-secondary"
   htmlFor="placeBidSelltest"
