@@ -1,3 +1,4 @@
+import { isNumber } from "@mui/x-data-grid/internals";
 import React, { useState, useEffect } from "react";
 import {Alert, Spinner} from 'react-bootstrap';
 
@@ -69,6 +70,18 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   const [message, setMessage] = useState("");
   const [buttonState, setButtonState] = useState(false);
 
+  function isNumericWithMaxTwoDecimals(value) {
+    const regex = /^\d+(\.\d{1,2})?$/;
+    return regex.test(value);
+  }
+  
+  function isInteger(value) {
+    // Using a regular expression
+    const regex = /^\d+$/;
+    return regex.test(value);
+  }
+  
+
   useEffect(() => {
     if (selectedOrder) {
       setSide(null);
@@ -77,14 +90,31 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     }
   }, [selectedOrder]);
 
+
+
   let handleSubmit = async (e) => {
     e.preventDefault();
     setButtonState(true);
 
+    setQty(qty.replace(/[^0-9.,]/g, ''));
+    setPrice(price.replace(/[^0-9.,]/g, ''));
+
     if (side != "B" && side != "S") {
       setMessage("Choose Buy or Sell");
+      setButtonState(false);
       return;
     }
+    if (!isInteger(qty)) {
+      setMessage("Enter a valid Qty");
+      setButtonState(false);
+      return;
+    }
+    if (!isNumericWithMaxTwoDecimals(price)) {
+      setMessage("Enter a valid Price");
+      setButtonState(false);
+      return;
+    }
+
     
     if (user == undefined) {
       user = "undefined";
