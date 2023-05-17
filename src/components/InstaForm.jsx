@@ -103,25 +103,32 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     setQty(qty.replace(/[^0-9.,]/g, ''));
     setPrice(price.replace(/[^0-9.,]/g, ''));
 
+    let getOut = false;
+
     if (side != "B" && side != "S") {
       setMessage({ text: "Choose Buy or Sell", type: "danger" });
       setSideIsValid(false);
+      getOut = true;
     } else {
       setSideIsValid(true);
     }
     if (!isInteger(qty)) {
       setMessage({ text: "Enter a valid Qty", type: "danger" });
       setQtyIsValid(false);
+      getOut = true;
     } else {
       setQtyIsValid(true);
     }
     if (!isNumericWithMaxTwoDecimals(price)) {
       setMessage({ text: "Enter a valid Price", type: "danger" });
       setPriceIsValid(false);
+      getOut = true;
     } else {
       setPriceIsValid(true);
     }
     
+    if (getOut) {return;}
+
     if (user == undefined) {
       user = "undefined";
     }
