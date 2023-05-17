@@ -71,7 +71,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
 
   useEffect(() => {
     if (selectedOrder) {
-      setSide(selectedOrder.side);
+      setSide(null);
       setQty(selectedOrder.qty);
       setPrice(selectedOrder.price);
     }
@@ -81,13 +81,11 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     e.preventDefault();
     setButtonState(true);
 
-
-    if (exchange == undefined) {
-      exchange = "Insta";
+    if (side != "B" && side != "S") {
+      setMessage("Choose Buy or Sell");
+      return;
     }
-    if (product == undefined) {
-      product = "prod";
-    }
+    
     if (user == undefined) {
       user = "undefined";
     }
@@ -141,7 +139,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           setPrice("");
           setMessage("Order executed successfully!");
         } else {
-          setMessage("Some error occured");
+          setMessage("An error occured");
         }
       } catch (err) {
         console.log(err);
