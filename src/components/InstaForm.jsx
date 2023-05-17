@@ -277,7 +277,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
                 autoComplete="new-password"
                 onChange={(e) => setSide(e.target.value)}
               />
-              {sideIsValid ? null : <div class="invalid-feedback">Please choose Buy or Sell</div>}
+              
 
               <label
   className="btn btn-outline-secondary"
@@ -285,7 +285,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   style={{ ...customRadioButtonStylesSell, ...customRadioButtonLabelStylesSell }}
 >
   Sell
-</label>
+</label>{sideIsValid ? null : <div class="invalid-feedback">Please choose Buy or Sell</div>}
             </div>
           </div>
           <div className="col text-end">
