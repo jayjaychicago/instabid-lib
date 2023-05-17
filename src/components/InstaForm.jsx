@@ -183,7 +183,7 @@
             setQty("");
             setPrice("");
             setSide(null);
-            setMessage({ text: "Order executed successfully!", type: "success" });
+            setMessage({ text: side + " " + qty + " @ " + price +  " executed successfully!", type: "success" });
           } else {
             setMessage({ text: "An error occurred", type: "danger" });
           }
