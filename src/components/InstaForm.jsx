@@ -71,6 +71,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   const [qtyIsValid, setQtyIsValid] = useState(true);
   const [priceIsValid, setPriceIsValid] = useState(true);
   const [sideIsValid, setSideIsValid] = useState(true);
+  const [buttonState, setButtonState] = useState(false);
 
 
   function isNumericWithMaxTwoDecimals(value) {
@@ -155,7 +156,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           setPrice("");
           //setMessage("Done!");
         } else {
-          setMessage("Some error occured");
+          setMessage({ text: "An error occurred", type: "danger" });
         }
       } catch (err) {
         console.log(err);
@@ -173,9 +174,9 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
           setButtonState(false);
           setQty("");
           setPrice("");
-          setMessage("Order executed successfully!");
+          setMessage({ text: "Order executed successfully!", type: "primary" });;
         } else {
-          setMessage("An error occured");
+          setMessage({ text: "An error occurred", type: "danger" });
         }
       } catch (err) {
         console.log(err);
