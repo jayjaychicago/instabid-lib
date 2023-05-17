@@ -259,6 +259,7 @@
                   value="B"
                   autoComplete="new-password"
                   onChange={(e) => setSide(e.target.value)}
+                  checked={side == 'B'}
                 />
 
                 <label
@@ -277,6 +278,7 @@
                   value="S"
                   autoComplete="new-password"
                   onChange={(e) => setSide(e.target.value)}
+                  checked={side == 'S'}
                 />
                 
 
