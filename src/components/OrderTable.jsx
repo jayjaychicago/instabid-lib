@@ -11,59 +11,6 @@
         width: "90px",
     };
 
-
-function animal(userid) {
-    animals = ['Aardvark', 'Albatross', 'Alligator', 'Alpaca', 'Ant', 'Antelope', 'Ape', 'Armadillo', 
-             'Badger', 'Bat', 'Bear', 'Beaver', 'Bee', 'Bison', 'Boar', 'Buffalo', 'Butterfly', 
-             'Camel', 'Capybara', 'Caribou', 'Cassowary', 'Cat', 'Cheetah', 'Chinchilla', 
-             'Chough', 'Clam', 'Cobra', 'Cockroach', 'Cod', 'Cormorant', 'Coyote', 'Crab', 'Crane', 
-             'Crocodile', 'Crow', 'Curlew', 'Deer', 'Dinosaur', 'Dog', 'Dolphin', 'Donkey', 'Dotterel', 
-             'Dove', 'Dragonfly', 'Duck', 'Dugong', 'Dunlin', 'Eagle', 'Echidna', 'Eel', 'Eland', 'Elephant', 
-             'Elk', 'Emu', 'Falcon', 'Ferret', 'Finch', 'Fish', 'Flamingo', 'Fly', 'Fox', 'Frog', 'Gaur', 
-             'Gazelle', 'Gerbil', 'Giraffe', 'Gnat', 'Gnu', 'Goat', 'Goldfinch', 'Goosander', 'Goose', 
-             'Gorilla', 'Goshawk', 'Grasshopper', 'Grouse', 'Guanaco', 'Gull', 'Hamster', 'Hare', 'Hawk', 
-             'Hedgehog', 'Heron', 'Herring', 'Hippopotamus', 'Hornet', 'Horse', 'Hummingbird', 'Hyena', 
-             'Ibex','Ibis', 'Jackal', 'Jaguar', 'Jay', 'Jellyfish', 'Kangaroo', 'Kingfisher', 'Koala', 
-             'Kookaburra', 'Kouprey', 'Kudu', 'Lapwing', 'Lark', 'Lemur', 'Leopard', 'Lion', 
-             'Llama', 'Lobster', 'Locust', 'Loris', 'Louse', 'Lyrebird', 'Magpie', 'Mallard', 
-             'Manatee', 'Mandrill', 'Mantis', 'Marten', 'Meerkat', 'Mink', 'Mole', 'Mongoose', 
-             'Monkey', 'Moose', 'Mosquito', 'Mouse', 'Mule', 'Narwhal', 'Newt', 'Nightingale', 
-             'Octopus', 'Okapi', 'Opossum', 'Oryx', 'Ostrich', 'Otter', 'Owl', 'Oyster', 'Panther', 
-             'Parrot', 'Partridge', 'Peafowl', 'Pelican', 'Penguin', 'Pheasant', 'Pig', 'Pigeon', 
-             'Pony', 'Porcupine', 'Porpoise', 'Quail', 'Quelea', 'Quetzal', 'Rabbit', 'Raccoon', 
-             'Rail', 'Ram', 'Rat', 'Raven', 'Red deer', 'Red panda', 'Reindeer', 'Rhinoceros', 'Rook', 
-             'Salamander', 'Salmon', 'Sand Dollar', 'Sandpiper', 'Sardine', 'Scorpion', 'Seahorse', 
-             'Seal', 'Shark', 'Sheep', 'Shrew', 'Snail', 'Snake', 'Sparrow', 'Spider', 'Spoonbill', 
-             'Squid', 'Squirrel', 'Starling', 'Stingray', 'Stork', 'Swallow', 'Swan', 
-             'Tapir', 'Tarsier', 'Termite', 'Tiger', 'Toad', 'Trout', 'Turkey', 'Turtle', 'Viper', 
-             'Vulture', 'Wallaby', 'Walrus', 'Wasp', 'Whale', 'Wildcat', 'Wolf', 'Wolverine', 
-             'Wombat', 'Woodcock', 'Woodpecker', 'Worm', 'Wren', 'Yak', 'Zebra']
-    
-             adjectives = ['Friendly', 'Happy', 'Cheerful', 'Joyful', 'Funny', 'Amiable', 'Pleasant', 
-                'Charming', 'Kind', 'Gentle', 'Courteous', 'Polite', 'Helpful', 'Generous', 
-                'Warm', 'Nice', 'Reliable', 'Trustworthy', 'Bright', 'Easygoing', 'Respectful', 
-                'Considerate', 'Gracious', 'Thoughtful', 'Caring', 'Affectionate', 'Loyal', 
-                'Patient', 'Understanding', 'Compassionate', 'Witty', 'Adventurous', 'Brave', 
-                'Creative', 'Determined', 'Enthusiastic', 'Optimistic', 'Passionate', 'Sincere', 
-                'Vibrant', 'Honest', 'Confident', 'Bold', 'Ambitious', 'Inspiring', 'Motivated', 
-                'Energetic', 'Dynamic', 'Innovative', 'Diligent', 'Resilient', 'Resourceful', 
-                'Humorous', 'Jovial', 'Lively', 'Merry', 'Playful', 'Zesty', 'Benevolent', 
-                'Charitable', 'Altruistic', 'Devoted', 'Faithful', 'Harmonious', 'Peaceful', 
-                'Loving', 'Sympathetic', 'Tolerant', 'Unassuming', 'Modest', 'Humble']
-  
-    const hash = crypto.createHash('sha256');
-    hash.update(userid);
-    const hashedUserId = BigInt('0x' + hash.digest('hex'));
-  
-    const adjIndex = Number(hashedUserId % BigInt(adjectives.length));
-    const animalIndex = Number((hashedUserId / BigInt(adjectives.length)) % BigInt(animals.length));
-  
-    const avatarName = adjectives[adjIndex] + ' ' + animals[animalIndex];
-    return avatarName;
-  
-  }
-    
-
     export function OrderTable({ exchange, product, user, devModeApiKey, apiProxy }) {
         const [orders, setOrders] = useState([]);
         const [pusher, setPusher] = useState(undefined);
@@ -323,11 +270,6 @@ function animal(userid) {
                 }
             }
             
-            
-            function userFormatter(userId) {
-                return animal(userId);
-            }
-            
 
             function dateFormatter(timestamp) {
                 const date = new Date(timestamp);
@@ -388,8 +330,7 @@ function animal(userid) {
                 headerName: "User",
                 width: 200,
                 sortable: true,
-                hide: windowWidth < 768,
-                valueGetter: (params) => userFormatter(params.row.user)
+                hide: windowWidth < 768
                 },
                 {
                 field: "cancel",
