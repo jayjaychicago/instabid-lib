@@ -67,8 +67,11 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   const [side, setSide] = useState(selectedOrder?.side || "");
   const [qty, setQty] = useState(selectedOrder?.qty || "");
   const [price, setPrice] = useState(selectedOrder?.price || "");
-  const [message, setMessage] = useState("");
-  const [buttonState, setButtonState] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "primary" });
+  const [qtyIsValid, setQtyIsValid] = useState(true);
+  const [priceIsValid, setPriceIsValid] = useState(true);
+  const [sideIsValid, setSideIsValid] = useState(true);
+
 
   function isNumericWithMaxTwoDecimals(value) {
     const regex = /^\d+(\.\d{1,2})?$/;
@@ -100,18 +103,21 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
     setPrice(price.replace(/[^0-9.,]/g, ''));
 
     if (side != "B" && side != "S") {
-      setMessage("Choose Buy or Sell");
+      setMessage({ text: "Choose Buy or Sell", type: "danger" });
       setButtonState(false);
+      setSideIsValid(false);
       return;
     }
     if (!isInteger(qty)) {
-      setMessage("Enter a valid Qty");
+      setMessage({ text: "Enter a valid Qty", type: "danger" });
       setButtonState(false);
+      setQtyIsValid(false);
       return;
     }
     if (!isNumericWithMaxTwoDecimals(price)) {
-      setMessage("Enter a valid Price");
+      setMessage({ text: "Enter a valid Price", type: "danger" });
       setButtonState(false);
+      setPriceIsValid(false);
       return;
     }
 
@@ -188,7 +194,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               </label>
             </div>
             <input
-              className="form-control"
+              className={`form-control ${qtyIsValid ? "" : "is-invalid"}`}
               type="number"
               id="qty"
               value={qty}
@@ -212,7 +218,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
               </label>
             </div>
             <input
-              className="form-control"
+              className={`form-control ${priceIsValid ? "" : "is-invalid"}`}
               type="number"
               id="price"
               value={price}
@@ -231,7 +237,7 @@ export const InstaForm = ({ exchange, product, user, devModeApiKey, apiProxy, au
   
         <div className="form-row" style={formRowStyles}>
           <div className="col">
-            <div className="btn-group" role="group" data-toggle="buttons" style={buttonGroupStyles}>
+            <div className={`btn-group ${sideIsValid ? "" : "is-invalid"}`} role="group" data-toggle="buttons" style={buttonGroupStyles}>
               <input
                 type="radio"
                 className="btn-check"
