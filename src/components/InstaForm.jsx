@@ -182,7 +182,8 @@
             setButtonState(false);
             setQty("");
             setPrice("");
-            setMessage({ text: "Order executed successfully!", type: "success" });;
+            setSide(null);
+            setMessage({ text: "Order executed successfully!", type: "success" });
           } else {
             setMessage({ text: "An error occurred", type: "danger" });
           }
