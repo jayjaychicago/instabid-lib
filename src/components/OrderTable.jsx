@@ -26,18 +26,6 @@
         setButtonState(true);
     
     
-        if (exchange == undefined) {
-            exchange = "Insta";
-        }
-        if (orderNumber == undefined) {
-            alert("Unknown order number to cancel")
-        }
-        if (user == undefined) {
-            user = "undefined";
-        }
-        if (devModeApiKey == undefined) {
-            devModeApiKey = "undefined";
-        }
         if ((apiProxy == undefined) || apiProxy == "") {
             let apiProxyValue = "https://api.instabid.io/cancel";    
             try {
