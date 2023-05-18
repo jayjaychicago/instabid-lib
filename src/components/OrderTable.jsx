@@ -45,16 +45,17 @@
             //console.log(res.status);
             if (res.status === 200) {
                 //setSide("");
+                console.log("Returned object: ", res)
                 setButtonState(false);
                 setCancellingOrderNumber(null);
                 //setMessage("Done!");
             } else {
-                setMessage("Some error occured");
+                alert("Some error occured");
                 setButtonState(false);
                 setCancellingOrderNumber(null);
             }
             } catch (err) {
-            console.log(err);
+            alert(err);
             setButtonState(false);
             setCancellingOrderNumber(null);
             }
@@ -74,7 +75,7 @@
                 setCancellingOrderNumber(null);
                 //setMessage("Done!");
             } else {
-                setMessage("Some error occured");
+                console.log("Some error occured");
                 setButtonState(false);
                 setCancellingOrderNumber(null);
             }
