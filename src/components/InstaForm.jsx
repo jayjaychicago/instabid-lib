@@ -165,9 +165,12 @@
             //setMessage("Done!");
           } else {
             setMessage({ text: "An error occurred", type: "danger" });
+            setButtonState(false);
           }
         } catch (err) {
           console.log(err);
+          setMessage({ text: "An error happened", type: "danger" });
+          setButtonState(false);
         }
       } else {
         // we're using a proxy to hide the private key
