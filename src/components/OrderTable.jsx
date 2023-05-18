@@ -68,19 +68,20 @@
                 method: "GET"
             });
             let resJson = await res2.json();
-            if (res2.status === 200) {
+            console.log("Returned object: ", resJson)
+            if (resJson.status === 200) {
                 //setSide("");
                 setButtonState(false);
                 setButtonState(false);
                 setCancellingOrderNumber(null);
                 //setMessage("Done!");
             } else {
-                console.log("Some error occured");
+                alert("Some error occured");
                 setButtonState(false);
                 setCancellingOrderNumber(null);
             }
             } catch (err) {
-            console.log(err);
+            alert(err);
             setButtonState(false);
             setCancellingOrderNumber(null);
             }
