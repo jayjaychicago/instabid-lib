@@ -145,13 +145,13 @@
                     const exchangeValue = exchange;
                     const productValue = product;
                     const userValue = user || "";
-                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}&user=${userValue}`
+                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}`
                     console.log("API Proxy value seen " + apiProxy)
                     try { // TODO: ALLOW API PROXYING TOO
                         if ((apiProxy == undefined) || (apiProxy == "")) {
                             console.log("using default API proxy")                            
                         } else {
-                            apiProxyGetValue = apiProxy + "?type=orderGet&exchange=" + `${exchangeValue}&product=${productValue}&user=${userValue}`
+                            apiProxyGetValue = apiProxy + "?type=orderGet&exchange=" + `${exchangeValue}&product=${productValue}`
                         }
 
                         const res = await fetch(apiProxyGetValue);
