@@ -330,7 +330,16 @@
                 headerName: "User",
                 width: 200,
                 sortable: true,
-                hide: windowWidth < 768
+                hide: windowWidth < 768,
+                valueGetter: (params) => {
+                    // if the user field matches the user prop passed in, return "Me"
+                    if(params.row.user === user) {
+                        return 'Me';
+                    } else {
+                        // if not, return the nickname
+                        return params.row.nickName;
+                    }
+                }
                 },
                 {
                 field: "cancel",
