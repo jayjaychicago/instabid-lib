@@ -333,7 +333,7 @@
                 headerName: "Cancel",
                 width: 250,
                 renderCell: (params) =>
-                    (((adminUser.toUpperCase() == "TRUE" || adminUser.toUpperCase() == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
+                    (((adminUser == "TRUE" || adminUser == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"
