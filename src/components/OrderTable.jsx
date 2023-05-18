@@ -43,8 +43,9 @@
             let resJson = await res.json();
             //console.log("received back", JSON.stringify(resJson));
             //console.log(res.status);
-            console.log("Returned object: ", resJson)
-            if (resJson.status === 200) {
+            console.log("Returned call", res);
+            console.log("Returned object: ", resJson);
+            if (res.status === 200) {
                 //setSide("");
                 setButtonState(false);
                 setCancellingOrderNumber(null);
@@ -68,8 +69,9 @@
                 method: "GET"
             });
             let resJson = await res2.json();
+            console.log("Returned call", res2);
             console.log("Returned object: ", resJson)
-            if (resJson.status === 200) {
+            if (res2.status === 200) {
                 //setSide("");
                 setButtonState(false);
                 setButtonState(false);
