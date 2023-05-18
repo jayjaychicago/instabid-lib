@@ -19,6 +19,7 @@
         const [buttonState, setButtonState] = useState(false);
         const [cancellingOrderNumber, setCancellingOrderNumber] = useState(null);
 
+        if (typeof adminUser == "undefined") {adminUser = ""};
 
         const handleSubmit = async (orderNumber, exchange, user, devModeApiKey, apiProxy) => {
         console.log("Cancel has been called for OrderNumber " + orderNumber + " exchange: " + exchange + " user: " + user + " devModeApiKey: " + devModeApiKey + " apiProxy: " + apiProxy);
@@ -333,7 +334,7 @@
                 headerName: "Cancel",
                 width: 250,
                 renderCell: (params) =>
-                    (((adminUser == "TRUE" || adminUser == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
+                    (((adminUser.toUpperCase() == "TRUE" || adminUser.toUpperCase() == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"
