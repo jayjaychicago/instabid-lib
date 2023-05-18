@@ -43,9 +43,9 @@
             let resJson = await res.json();
             //console.log("received back", JSON.stringify(resJson));
             //console.log(res.status);
-            if (res.status === 200) {
+            console.log("Returned object: ", resJson)
+            if (resJson.status === 200) {
                 //setSide("");
-                console.log("Returned object: ", res)
                 setButtonState(false);
                 setCancellingOrderNumber(null);
                 //setMessage("Done!");
