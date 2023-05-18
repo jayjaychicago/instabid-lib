@@ -11,7 +11,7 @@
         width: "90px",
     };
 
-    export function OrderTable({ exchange, product, user, devModeApiKey, apiProxy }) {
+    export function OrderTable({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
         const [orders, setOrders] = useState([]);
         const [pusher, setPusher] = useState(undefined);
         const [currentChannel, setCurrentChannel] = useState(undefined);
@@ -24,7 +24,6 @@
         console.log("Cancel has been called for OrderNumber " + orderNumber + " exchange: " + exchange + " user: " + user + " devModeApiKey: " + devModeApiKey + " apiProxy: " + apiProxy);
         
         setButtonState(true);
-    
     
         if ((apiProxy == undefined) || apiProxy == "") {
             let apiProxyValue = "https://api.instabid.io/cancel";    
@@ -177,7 +176,7 @@
             }, [exchange, product, user, pusher, currentChannel]);
 
             function handleData(data) {
-                console.log("BOUM " + data.result.length, data)
+                //console.log("BOUM " + data.result.length, data)
 
                 
                 const updatedData = data.result.map((item, index) => {
@@ -334,7 +333,7 @@
                 headerName: "Cancel",
                 width: 250,
                 renderCell: (params) =>
-                    params.row.user === user && params.row.qtyLeft !== 0 ? (
+                    (((adminUser.toUpperCase() == "TRUE" || adminUser.toUpperCase() == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"

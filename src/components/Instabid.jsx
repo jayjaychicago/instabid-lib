@@ -4,7 +4,7 @@ import { InstaForm } from "./InstaForm.jsx";
 import { OrderTable } from "./OrderTable.jsx";
 import {Tabs, Tab} from 'react-bootstrap';
 
-export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode }) => {
+export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode, adminUser }) => {
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -45,7 +45,7 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
       exchange={exchange}
       product={product}
       user={user}></DepthTable>
-    <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
+    <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl} adminUser={adminUser}></InstaForm>
   </div>
   );
   }
