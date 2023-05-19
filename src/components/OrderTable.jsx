@@ -69,7 +69,7 @@
                 method: "GET"
             });
             let resJson = await res2.json();
-            console.log("Returned call", res);
+            console.log("Returned call", res2);
             console.log("Returned object: ", resJson)
             if (res2.status === 200) {
                 //setSide("");
