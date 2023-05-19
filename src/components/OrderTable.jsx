@@ -136,8 +136,8 @@
                 console.log("Product: ", product);
                 console.log("User: ", user);
                 console.log("CurrentChannel: ", currentChannel);
-                if (!currentChannel) return;
-                if (typeof currentChannel == undefined) return;
+                //if (!currentChannel) return;
+                //if (typeof currentChannel == undefined) return;
                 if (!pusher) return;
         
                 (async () => {
