@@ -189,9 +189,12 @@
             setMessage({ text: side + " " + qty + " @ " + price +  " executed successfully!", type: "success" });
           } else {
             setMessage({ text: "An error occurred", type: "danger" });
+            setButtonState(false);
           }
         } catch (err) {
           console.log(err);
+          setMessage({ text: "An error happened", type: "danger" });
+          setButtonState(false);
         }
       }
     };
