@@ -69,6 +69,10 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
     }
   }
 
+  DepthTable.defaultProps = {
+    onSelect: () => {}
+};
+
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <div id="sells">
@@ -85,7 +89,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
             {sells
               .filter((order) => order.qty)
               .map((order, i) => (
-                <tr key={i} onClick={() => onSelect({ side: 'B', ...order })}>
+                <tr key={i} onClick={() => onSelect && typeof onSelect === 'function' && onSelect({ side: 'B', ...order })}>
                   <td className="table-data text-center">&nbsp;</td>
                   <td className="table-data text-center">&nbsp;</td>
                   <td className="table-data text-center">${order.price}</td>
@@ -95,7 +99,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
             {buys
               .filter((order) => order.qty)
               .map((order, i) => (
-                <tr key={i} onClick={() => onSelect({ side: 'S', ...order })}>
+                <tr key={i} onClick={() => onSelect && typeof onSelect === 'function' && onSelect({ side: 'S', ...order })}>
                   <td className="table-data text-center">{order.qty}</td>
                   <td className="table-data text-center">${order.price}</td>
                   <td className="table-data text-center">&nbsp;</td>
