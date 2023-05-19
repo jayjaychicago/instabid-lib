@@ -130,55 +130,64 @@
             }, [orders, windowWidth]);
             
 
-            useEffect(() => {
-                if (!pusher) return;
-        
-                (async () => {
-                    const exchangeValue = exchange;
-                    const productValue = product;
-                    const userValue = user || "";
-                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}`
-                    console.log("API Proxy value seen " + apiProxy)
-                    try { // TODO: ALLOW API PROXYING TOO
-                        if ((apiProxy == undefined) || (apiProxy == "")) {
-                            console.log("using default API proxy")                            
-                        } else {
-                            apiProxyGetValue = apiProxy + "?type=orderGet&exchange=" + `${exchangeValue}&product=${productValue}`
-                        }
+                useEffect(() => {
+                    if (!pusher) return;
+                    console.log('exchange:', exchange);
+                    console.log('product:', product);
+                    console.log('user:', user);
+                    console.log('pusher:', pusher);
+            
+                    (async () => {
+                        const exchangeValue = exchange;
+                        const productValue = product;
+                        const userValue = user || "";
+                        let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}`
+                        console.log("API Proxy value seen " + apiProxy)
+                        try { // TODO: ALLOW API PROXYING TOO
+                            if ((apiProxy == undefined) || (apiProxy == "")) {
+                                console.log("using default API proxy")                            
+                            } else {
+                                apiProxyGetValue = apiProxy + "?type=orderGet&exchange=" + `${exchangeValue}&product=${productValue}`
+                            }
 
-                        const res = await fetch(apiProxyGetValue);
-        
-                        if (!res.ok) {
-                            throw new Error(`HTTP error! status: ${res.status}`);
+                            const res = await fetch(apiProxyGetValue);
+            
+                            if (!res.ok) {
+                                throw new Error(`HTTP error! status: ${res.status}`);
+                            }
+                            let ress = await res.json();
+                            //console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
+                            if (ress.result.length > 0) {handleData(ress)};
+                        } catch (error) {
+                            console.error('Fetch error:', error);
                         }
-                        let ress = await res.json();
-                        //console.log('ORDER TABLE GET API CALL returned ', JSON.stringify(ress.result));
-                        if (ress.result.length > 0) {handleData(ress)};
-                    } catch (error) {
-                        console.error('Fetch error:', error);
-                    }
-        
-                    const newChannelName = `${exchangeValue}@${productValue}`;
-        
-                    if (newChannelName !== currentChannel) {
-                        if (currentChannel) {
-                            const oldChannel = pusher.channel(currentChannel);
-                            if (oldChannel) {
-                                oldChannel.unbind(EVENT_NAME);
-                                oldChannel.unsubscribe();
+            
+                        const newChannelName = `${exchangeValue}@${productValue}`;
+
+                        let tempChannel = currentChannel;  // create local variable
+            
+                        if (newChannelName !== tempChannel) {
+                            if (tempChannel) {
+                                const oldChannel = pusher.channel(tempChannel);
+                                if (oldChannel) {
+                                    oldChannel.unbind(EVENT_NAME);
+                                    oldChannel.unsubscribe();
+                                }
+                            }
+                
+                            try {
+                                const channel = pusher.subscribe(newChannelName);
+                                channel.bind(EVENT_NAME, handlePusherData);
+                                tempChannel = newChannelName;  // update local variable
+                            } catch (error) {
+                                console.error('Pusher error:', error);
                             }
                         }
-        
-                        try {
-                            const channel = pusher.subscribe(newChannelName);
-                            channel.bind(EVENT_NAME, handlePusherData);
-                            setCurrentChannel(newChannelName);
-                        } catch (error) {
-                            console.error('Pusher error:', error);
-                        }
-                    }
-                })();
-            }, [exchange, product, user, pusher, currentChannel]);
+                
+                        setCurrentChannel(tempChannel);  // update state only here
+                    })();
+                    React.useDebugValue({ exchange, product, user, pusher });
+                }, [exchange, product, user, pusher]);
 
             function handleData(data) {
                 //console.log("BOUM " + data.result.length, data)
@@ -367,6 +376,9 @@
                     ),
                 },
             ];
+
+
+
 
             return (
                 <>
