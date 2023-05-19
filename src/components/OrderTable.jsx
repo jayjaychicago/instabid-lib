@@ -185,7 +185,7 @@
                         }
                     }
                 })();
-            }, [exchange, product, user, pusher, currentChannel]);
+            }, [exchange, product, user, pusher]);
 
             function handleData(data) {
                 //console.log("BOUM " + data.result.length, data)
