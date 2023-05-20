@@ -211,7 +211,7 @@
       }
     };
 
-    return ((authUrl == undefined || user != "undefined") ? (
+    return ((authUrl == undefined || user != "") ? (
       <div className="InstaForm" style={formStyles}>
         <form className="insta-form" onSubmit={handleSubmit}>
           <div className="form-row" style={formRowStyles}>
