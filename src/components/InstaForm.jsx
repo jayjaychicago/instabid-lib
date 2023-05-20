@@ -109,6 +109,8 @@
 
 
     let handleSubmit = async (e) => {
+      console.log("authUrl: ", authUrl);
+      console.log("user: ", user);
       e.preventDefault();
       setButtonState(true);
 
