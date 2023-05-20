@@ -87,12 +87,24 @@
     
 
     useEffect(() => {
-      if (selectedOrder) {
+      // Declare a mutable variable isMounted
+      let isMounted = true; 
+  
+      // If the component is still mounted when the async operation completes,
+      // then you can safely call the setX functions to update state
+      if (selectedOrder && isMounted) {
         setSide(null);
         setQty(selectedOrder.qty);
         setPrice(selectedOrder.price);
       }
+  
+      // Cleanup function
+      return () => {
+        // Set isMounted to false when the component unmounts
+        isMounted = false; 
+      }
     }, [selectedOrder]);
+    
 
 
 
