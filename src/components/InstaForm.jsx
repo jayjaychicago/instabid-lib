@@ -177,13 +177,16 @@
             setQty("");
             setPrice("");
             //setMessage("Done!");
-          } else {
+          } else if (res.status == 402) {
+            setMessage({ text: "Out of API credits", type: "danger" });
+            setButtonState(false);
+          }
+          else {
             setMessage({ text: "An error occurred", type: "danger" });
             setButtonState(false);
           }
         } catch (err) {
           console.log(err);
-          console.log(resJson);
           setMessage({ text: "An error happened", type: "danger" });
           setButtonState(false);
         }
@@ -202,13 +205,15 @@
             setPrice("");
             setSide(null);
             setMessage({ text: side + " " + qty + " @ " + price +  " executed successfully!", type: "success" });
+          }  else if (res2.status == 402) {
+            setMessage({ text: "Out of API credits", type: "danger" });
+            setButtonState(false);
           } else {
             setMessage({ text: "An error occurred", type: "danger" });
             setButtonState(false);
           }
         } catch (err) {
           console.log(err);
-          console.log(resJson);
           setMessage({ text: "An error happened", type: "danger" });
           setButtonState(false);
         }
