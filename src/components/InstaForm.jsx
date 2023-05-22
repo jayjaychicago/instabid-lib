@@ -183,6 +183,7 @@
           }
         } catch (err) {
           console.log(err);
+          console.log(resJson);
           setMessage({ text: "An error happened", type: "danger" });
           setButtonState(false);
         }
@@ -207,6 +208,7 @@
           }
         } catch (err) {
           console.log(err);
+          console.log(resJson);
           setMessage({ text: "An error happened", type: "danger" });
           setButtonState(false);
         }
