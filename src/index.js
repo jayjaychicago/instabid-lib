@@ -7,4 +7,4 @@ import {Test} from "./components/Test.jsx"
 
 export default Instabid;
 
-export { DepthTable, InstaForm, OrderTable, Test };
+export { DepthTable, InstaForm, OrderTable, Test }; 
