@@ -1,6 +1,6 @@
 {
   "name": "instabid",
-  "version": "0.2.284",
+  "version": "0.2.285",
   "private": false,
   "main": "dist/index.bundle.js",
   "module": "dist/index.bundle.js",
