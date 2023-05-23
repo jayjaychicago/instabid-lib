@@ -13,7 +13,7 @@
     };
 */
     export function FillTable({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
-        const [orders, setOrders] = useState([]);
+        const [fills, setFills] = useState([]);
         const [pusher, setPusher] = useState(undefined);
         const [currentChannel, setCurrentChannel] = useState(undefined);
         const [tableHeight, setTableHeight] = useState(300);
@@ -22,74 +22,7 @@
 
         if (typeof adminUser == "undefined") {adminUser = ""};
 
-        const handleSubmit = async (orderNumber, exchange, user, devModeApiKey, apiProxy) => {
-        console.log("Cancel has been called for OrderNumber " + orderNumber + " exchange: " + exchange + " user: " + user + " devModeApiKey: " + devModeApiKey + " apiProxy: " + apiProxy);
         
-        setButtonState(true);
-    
-        if ((apiProxy == undefined) || apiProxy == "") {
-            let apiProxyValue = "https://api.instabid.io/cancel";    
-            try {
-            let body = {
-                exchange: exchange,
-                orderNumber: orderNumber,
-                user: user,
-                apiKey: devModeApiKey,
-            };
-    
-            let res = await fetch(apiProxyValue, {
-                method: "POST",
-                body: JSON.stringify(body),
-            });
-            let resJson = await res.json();
-            //console.log("received back", JSON.stringify(resJson));
-            //console.log(res.status);
-            console.log("Returned call", res);
-            console.log("Returned object: ", resJson);
-            if (res.status === 200) {
-                //setSide("");
-                setButtonState(false);
-                setCancellingOrderNumber(null);
-                //setMessage("Done!");
-            } else {
-                alert("Some error occured");
-                setButtonState(false);
-                setCancellingOrderNumber(null);
-            }
-            } catch (err) {
-            alert(err);
-            setButtonState(false);
-            setCancellingOrderNumber(null);
-            }
-        } else {
-            // we're using a proxy to hide the private key
-            // so we'll use get methods locally instead that will in turn pass the POST to the server
-            let apiProxyValue = apiProxy + "?type=cancel&exchange=" + exchange + "&orderNumber=" + orderNumber + "&user=" + user
-            try {
-            let res2 = await fetch(apiProxyValue, {
-                method: "GET"
-            });
-            let resJson = await res2.json();
-            console.log("Returned call", res2);
-            console.log("Returned object: ", resJson)
-            if (res2.status === 200) {
-                //setSide("");
-                setButtonState(false);
-                setButtonState(false);
-                setCancellingOrderNumber(null);
-                //setMessage("Done!");
-            } else {
-                alert("Some error occured");
-                setButtonState(false);
-                setCancellingOrderNumber(null);
-            }
-            } catch (err) {
-            alert(err);
-            setButtonState(false);
-            setCancellingOrderNumber(null);
-            }
-        }
-        };
     
 /*
             const rowHeight = 52; // Set the desired row height (default is 52px)
@@ -99,8 +32,8 @@
             const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 */
             useEffect(() => {
-                console.log('Orders state changed', orders);
-            }, [orders]);
+                console.log('Orders state changed', fills);
+            }, [fills]);
 /*
             useEffect(() => {
                 const handleResize = () => setWindowWidth(window.innerWidth);
@@ -122,13 +55,13 @@
   /*          
             useEffect(() => {
                 const minHeight = 300;
-                if (orders === undefined) {
+                if (fills === undefined) {
                     setTableHeight(300);
                 } else {
-                    setTableHeight(Math.max(Math.min(orders.length * rowHeight + headerHeight, maxHeight), minHeight));
+                    setTableHeight(Math.max(Math.min(fills.length * rowHeight + headerHeight, maxHeight), minHeight));
                 }
-                    // This will run every time orders or WindowWith changes
-            }, [orders, windowWidth]);
+                    // This will run every time fills or WindowWith changes
+            }, [fills, windowWidth]);
     */        
 
             useEffect(() => {
@@ -193,11 +126,11 @@
 
                 
                 const updatedData = data.result.map((item, index) => {
-                    if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.orderNumber) {
+                    if (!item.exchange || !item.product || !item.side || !item.timestamp || !item.fillNumber) {
                         console.error('Missing one or more required fields for id', { item, index });
                     }
-                    const id = item.exchange && item.product && item.side && item.timestamp && item.orderNumber
-                        ? `${item.exchange}-${item.product}-${item.side}-${item.orderNumber + ''}`
+                    const id = item.exchange && item.product && item.side && item.timestamp && item.fillNumber
+                        ? `${item.exchange}-${item.product}-${item.side}-${item.fillNumber + ''}`
                         : `missing-id-${index}`;
                     
                     //console.log("NON-NULL ID", id);
@@ -208,7 +141,7 @@
                     };
                 });
                 console.log("here1");
-                setOrders(updatedData); // Replace old data
+                setFills(updatedData); // Replace old data
 
             }            
 
@@ -217,54 +150,54 @@
             
                 if (data.side != "CANCEL") {
                     console.log("INCOMING NON-CANCEL DATA ", data);
-                    const id = data.exchange && data.product && data.side && data.timestamp && data.orderNumber
-                        ? `${data.exchange}-${data.product}-${data.side}-${data.orderNumber + ''}`
+                    const id = data.exchange && data.product && data.side && data.timestamp && data.fillNumber
+                        ? `${data.exchange}-${data.product}-${data.side}-${data.fillNumber + ''}`
                         : `missing-id-${Date.now()}`;
                     
                     console.log("NON-NULL2 ID", id);
             
-                    // Add the new order to the top of the DataGrid
+                    // Add the new fill to the top of the DataGrid
                     const newOrder = {
                         ...data,
                         id, 
                     };
                     console.log("Here2");
-                    setOrders((prev) => [newOrder, ...prev]);
+                    setFills((prev) => [newOrder, ...prev]);
                 
-                    // Update the existing orders based on the fills array
+                    // Update the existing fills based on the fills array
                     data.fills.forEach((fill) => {
                         console.log("Here 2a");
-                        setOrders((prev) =>
-                            prev.map((order) =>
-                                order.orderNumber === fill.orderNumber
-                                    ? { ...order, qtyLeft: order.qtyLeft - parseInt(fill.qty) }
-                                    : order
+                        setFills((prev) =>
+                            prev.map((fill) =>
+                                fill.fillNumber === fill.fillNumber
+                                    ? { ...fill, qtyLeft: fill.qtyLeft - parseInt(fill.qty) }
+                                    : fill
                             )
                         );
                     });
                 } else {
-                    // Find the corresponding order and update its qtyLeft property to 0
+                    // Find the corresponding fill and update its qtyLeft property to 0
                     console.log("INCOMING CANCEL DATA ", data);
                     console.log("Here 3");
-                    setOrders((prevOrders) =>
-                        prevOrders.map((order) => {
-                            if (!order || !data) {
-                                console.log('Undefined order or data', { order, data });
+                    setFills((prevOrders) =>
+                        prevOrders.map((fill) => {
+                            if (!fill || !data) {
+                                console.log('Undefined fill or data', { fill, data });
                                 return;
                             } else {
-                                // console.log('Order before:', order, 'Data:', data);
-                                //console.log('order.orderNumber:', order.orderNumber + ' VS data.orderNumber:'+ data.orderNumber,  order.orderNumber === data.orderNumber);
+                                // console.log('Order before:', fill, 'Data:', data);
+                                //console.log('fill.fillNumber:', fill.fillNumber + ' VS data.fillNumber:'+ data.fillNumber,  fill.fillNumber === data.fillNumber);
                             }
-                            if (order.orderNumber == data.orderNumber) {
+                            if (fill.fillNumber == data.fillNumber) {
                                 //console.log("YEAH! WE ARE REPLACING!!")
-                                return { ...order, qtyLeft: 0 }
+                                return { ...fill, qtyLeft: 0 }
                             }
                             else {
-                                return order;
+                                return fill;
                             }
- /*                           return order.orderNumber === data.orderNumber
-                                ? { ...order, qtyLeft: 0 }
-                                : order; */
+ /*                           return fill.fillNumber === data.fillNumber
+                                ? { ...fill, qtyLeft: 0 }
+                                : fill; */
                         })
                     );
                    
@@ -282,31 +215,11 @@
                 return time.toLocaleTimeString();
             }
 
-            function cancelOrderBtn(cell, row) {
-                if (row.qtyLeft !== 0 && row.user === "julien@instabid.io") {
-                return (
-                    <button className="btn btn-danger btn-sm" onClick={() => cancelOrder(row.orderNumber)}>
-                    Cancel
-                    </button>
-                );
-                }
-                return "";
-            }
 
-            function cancelOrder(orderNumber) {
-                console.log("Cancel order:", orderNumber);
-                // Implement your cancel order logic here
-            }
-
-
-            const handleChangePage = (event, newPage) => {
-                setPage(newPage);
-            };
             const columns = [
-                { field: "orderNumber", headerName: "#", width: 50, sortable: true },
+                { field: "fillNumber", headerName: "#", width: 50, sortable: true },
                 { field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
                 { field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
-                { field: "side", headerName: "Side", width: 50, sortable: true, filterable: true },
                 {
                 field: "date",
                 headerName: "Date",
@@ -325,10 +238,9 @@
                 },
                 { field: "price", headerName: "Price", width: 50, sortable: true },
                 { field: "qty", headerName: "Qty", width: 100, sortable: true },
-                { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
                 {
-                field: "user",
-                headerName: "User",
+                field: "BuyerNickName",
+                headerName: "Buyer",
                 width: 200,
                 sortable: true,
                 //hide: windowWidth < 768,
@@ -343,33 +255,37 @@
                 }
                 },
                 {
-                field: "cancel",
-                headerName: "Cancel",
+                    field: "SellerNickName",
+                    headerName: "Seller",
+                    width: 200,
+                    sortable: true,
+                    //hide: windowWidth < 768,
+                    valueGetter: (params) => {
+                        // if the user field matches the user prop passed in, return "Me"
+                        if(params.row.user === user) {
+                            return 'Me';
+                        } else {
+                            // if not, return the nickname
+                            return params.row.nickName;
+                        }
+                    }
+                },
+                {
+                field: "confirmation",
+                headerName: "confirmation",
                 width: 250,
                 renderCell: (params) =>
-                    (((adminUser.toUpperCase() == "TRUE" || adminUser.toUpperCase() == "YES") && params.row.qtyLeft !== 0) || (params.row.user === user && params.row.qtyLeft !== 0)) ? (
+                    (true) ? (
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"
                         
-                        onClick={() => {
-                            setCancellingOrderNumber(params.row.orderNumber);
-                            handleSubmit(
-                              params.row.orderNumber, 
-                              params.row.exchange, 
-                              user, 
-                              devModeApiKey, 
-                              apiProxy
-                            )
+                        onClick={() => {console.log("Clicked!");
                           }}
                           
                         disabled={buttonState}
                     >
-                        {cancellingOrderNumber === params.row.orderNumber ? (
-        <Spinner animation="border" role="status" size="sm" />
-      ) : (
-        "Cancel"
-      )}
+                        Confirmation
                     </button>
                     ) : (
                     ""
@@ -379,10 +295,10 @@
 
             return (
                 <>
-                <div className="order-table-wrapper" >
-                    <div id="orders" className="order-table-container">
+                <div className="fill-table-wrapper" >
+                    <div id="fills" className="fill-table-container">
                         <DataGrid
-                        rows={orders}
+                        rows={fills}
                         columns={columns}
                         pageSize={50}
                         rowsPerPageOptions={[50]}
