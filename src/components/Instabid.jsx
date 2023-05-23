@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { DepthTable } from "./DepthTable.jsx";
 import { InstaForm } from "./InstaForm.jsx";
 import { OrderTable } from "./OrderTable.jsx";
+import { FillTable } from "./FillTable.jsx";
 import {Tabs, Tab} from 'react-bootstrap';
 
 export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode, adminUser }) => {
@@ -35,6 +36,13 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
               product={product}
               user={user}
               devModeApiKey={devModeApiKey} apiProxy={apiProxy}></OrderTable>
+                  </Tab>
+                  <Tab eventKey="fills" title="Fills">
+                  <FillTable
+              exchange={exchange}
+              product={product}
+              user={user}
+              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></FillTable>
                   </Tab>
                   </Tabs>
       </div>
