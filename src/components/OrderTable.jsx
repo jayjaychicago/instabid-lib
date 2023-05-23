@@ -4,15 +4,15 @@
     import Spinner from 'react-bootstrap/Spinner';
 
 
-    const EVENT_NAME = "ORDERUPDATE";
+    const EVENT_NAME = "ORDERUPDATE"; 
 
     /*
-    const cancelButtonStyles = {
+    const cancelButtonStyles = { 
         height: "38px",
         width: "90px",
     };
 */
-    export function OrderTable2({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
+    export function OrderTable({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
         const [orders, setOrders] = useState([]);
         const [pusher, setPusher] = useState(undefined);
         const [currentChannel, setCurrentChannel] = useState(undefined);
