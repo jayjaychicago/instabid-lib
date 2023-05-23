@@ -6,12 +6,13 @@
 
     const EVENT_NAME = "ORDERUPDATE";
 
+    /*
     const cancelButtonStyles = {
         height: "38px",
         width: "90px",
     };
-
-    export function OrderTable({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
+*/
+    export function OrderTable2({ exchange, product, user, devModeApiKey, apiProxy, adminUser }) {
         const [orders, setOrders] = useState([]);
         const [pusher, setPusher] = useState(undefined);
         const [currentChannel, setCurrentChannel] = useState(undefined);
@@ -90,17 +91,17 @@
         }
         };
     
-
+/*
             const rowHeight = 52; // Set the desired row height (default is 52px)
             const headerHeight = 52; // Set the desired header height (default is 52px)
             const maxHeight = 750; // Set the maximum height for the DataGrid
             
             const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+*/
             useEffect(() => {
                 console.log('Orders state changed', orders);
             }, [orders]);
-
+/*
             useEffect(() => {
                 const handleResize = () => setWindowWidth(window.innerWidth);
                 window.addEventListener('resize', handleResize);
@@ -109,7 +110,7 @@
                 window.removeEventListener('resize', handleResize);
                 };
             }, []);
-
+*/
             useEffect(() => {
                 setPusher(
                 new Pusher("122f17b065e8921fa6e0", {
@@ -118,7 +119,7 @@
                 );
                 // This will run only once when the component mounts
             }, []);
-            
+  /*          
             useEffect(() => {
                 const minHeight = 300;
                 if (orders === undefined) {
@@ -128,7 +129,7 @@
                 }
                     // This will run every time orders or WindowWith changes
             }, [orders, windowWidth]);
-            
+    */        
 
             useEffect(() => {
                 console.log("UseEffect to call the API");
@@ -210,6 +211,7 @@
                 setOrders(updatedData); // Replace old data
 
             }            
+
             function handlePusherData(data) {
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
@@ -310,7 +312,7 @@
                 headerName: "Date",
                 width: 100,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => dateFormatter(params.row.timestamp),
                 },
                 {
@@ -318,7 +320,7 @@
                 headerName: "Time",
                 width: 120,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => timeFormatter(params.row.timestamp),
                 },
                 { field: "price", headerName: "Price", width: 50, sortable: true },
@@ -329,7 +331,7 @@
                 headerName: "User",
                 width: 200,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => {
                     // if the user field matches the user prop passed in, return "Me"
                     if(params.row.user === user) {
@@ -349,7 +351,7 @@
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"
-                        style={cancelButtonStyles}
+                        
                         onClick={() => {
                             setCancellingOrderNumber(params.row.orderNumber);
                             handleSubmit(
@@ -377,20 +379,8 @@
 
             return (
                 <>
-                <style>
-                    {`
-                    .order-table-container {
-                        height: ${tableHeight}px; 
-                        min-height: 301px
-                        width: 90%; 
-                        max-width: 95%;
-                        overflow: auto;
-                    }
-            
-                    `}
-                </style>
-                <div className="order-table-wrapper" style={{minHeight:"301px"}}>
-                    <div id="orders" className="order-table-container" style={{height:"301px"}}>
+                <div className="order-table-wrapper" >
+                    <div id="orders" className="order-table-container">
                         <DataGrid
                         rows={orders}
                         columns={columns}

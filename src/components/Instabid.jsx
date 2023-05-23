@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DepthTable } from "./DepthTable.jsx";
 import { InstaForm } from "./InstaForm.jsx";
-import { OrderTable2 } from "./OrderTable2.jsx";
+import { OrderTable } from "./OrderTable.jsx";
 import {Tabs, Tab} from 'react-bootstrap';
 
 export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, authUrl, mode, adminUser }) => {
@@ -30,11 +30,11 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
             <InstaForm exchange={exchange} product={product} selectedOrder={selectedOrder} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
                   </Tab>
                   <Tab eventKey="orders" title="Orders">
-                  <OrderTable2
+                  <OrderTable
               exchange={exchange}
               product={product}
               user={user}
-              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></OrderTable2>
+              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></OrderTable>
                   </Tab>
                   </Tabs>
       </div>
