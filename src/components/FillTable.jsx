@@ -218,8 +218,8 @@
 
             const columns = [
                 { field: "fillNumber", headerName: "#", width: 50, sortable: true },
-                { field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
-                { field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
+                //{ field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
+                //{ field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
                 {
                 field: "date",
                 headerName: "Date",
@@ -236,8 +236,8 @@
                 //hide: windowWidth < 768,
                 valueGetter: (params) => timeFormatter(params.row.timestamp),
                 },
-                { field: "price", headerName: "Price", width: 50, sortable: true },
                 { field: "qty", headerName: "Qty", width: 100, sortable: true },
+                { field: "price", headerName: "Price", width: 50, sortable: true },
                 {
                 field: "buyer",
                 headerName: "Buyer",
@@ -246,7 +246,7 @@
                 //hide: windowWidth < 768,
                 valueGetter: (params) => {
                     // if the user field matches the user prop passed in, return "Me"
-                    console.log("Buyer from API is: " + params.row.buyer + " VS user " + user);
+                    //console.log("Buyer from API is: " + params.row.buyer + " VS user " + user);
                     if(params.row.buyer === user) {
                         return 'Me';
                     } else {

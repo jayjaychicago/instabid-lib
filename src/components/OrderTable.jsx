@@ -304,8 +304,8 @@
             };
             const columns = [
                 { field: "orderNumber", headerName: "#", width: 50, sortable: true },
-                { field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
-                { field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
+                //{ field: "exchange", headerName: "Exchange", width: 100, sortable: true, filterable: true },
+                //{ field: "product", headerName: "Product", width: 100, sortable: true, filterable: true },
                 { field: "side", headerName: "Side", width: 50, sortable: true, filterable: true },
                 {
                 field: "date",
@@ -323,9 +323,9 @@
                 //hide: windowWidth < 768,
                 valueGetter: (params) => timeFormatter(params.row.timestamp),
                 },
-                { field: "price", headerName: "Price", width: 50, sortable: true },
                 { field: "qty", headerName: "Qty", width: 100, sortable: true },
                 { field: "qtyLeft", headerName: "Qty Left", width: 100, sortable: true },
+                { field: "price", headerName: "Price", width: 50, sortable: true },
                 {
                 field: "user",
                 headerName: "User",
