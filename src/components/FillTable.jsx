@@ -292,9 +292,7 @@
                         var wndMail;
                         wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
                         if(wndMail)
-                        {
-                            wndMail.close();    
-                        }
+
 
                           }}
                           
@@ -318,10 +316,6 @@
                                         + "body=" + body;
                                 var wndMail;
                                 wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
-                                if(wndMail)
-                                {
-                                    wndMail.close();    
-                                }
         
                                   }}
                                   
