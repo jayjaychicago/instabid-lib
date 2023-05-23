@@ -239,34 +239,35 @@
                 { field: "price", headerName: "Price", width: 50, sortable: true },
                 { field: "qty", headerName: "Qty", width: 100, sortable: true },
                 {
-                field: "BuyerNickName",
+                field: "buyer",
                 headerName: "Buyer",
                 width: 200,
                 sortable: true,
                 //hide: windowWidth < 768,
                 valueGetter: (params) => {
                     // if the user field matches the user prop passed in, return "Me"
-                    if(params.row.user === user) {
+                    console.log("Buyer from API is: " + params.row.buyer + " VS user " + user);
+                    if(params.row.buyer === user) {
                         return 'Me';
                     } else {
                         // if not, return the nickname
-                        return params.row.nickName;
+                        return params.row.BuyerNickName;
                     }
                 }
                 },
                 {
-                    field: "SellerNickName",
+                    field: "seller",
                     headerName: "Seller",
                     width: 200,
                     sortable: true,
                     //hide: windowWidth < 768,
                     valueGetter: (params) => {
                         // if the user field matches the user prop passed in, return "Me"
-                        if(params.row.user === user) {
+                        if(params.row.seller === user) {
                             return 'Me';
                         } else {
                             // if not, return the nickname
-                            return params.row.nickName;
+                            return params.row.SellerNickName;
                         }
                     }
                 },
