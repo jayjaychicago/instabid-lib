@@ -312,7 +312,7 @@
                 headerName: "Date",
                 width: 100,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => dateFormatter(params.row.timestamp),
                 },
                 {
@@ -320,7 +320,7 @@
                 headerName: "Time",
                 width: 120,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => timeFormatter(params.row.timestamp),
                 },
                 { field: "price", headerName: "Price", width: 50, sortable: true },
@@ -331,7 +331,7 @@
                 headerName: "User",
                 width: 200,
                 sortable: true,
-                hide: windowWidth < 768,
+                //hide: windowWidth < 768,
                 valueGetter: (params) => {
                     // if the user field matches the user prop passed in, return "Me"
                     if(params.row.user === user) {
