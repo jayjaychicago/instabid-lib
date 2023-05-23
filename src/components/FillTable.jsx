@@ -273,23 +273,65 @@
                 },
                 {
                 field: "confirmation",
-                headerName: "confirmation",
+                headerName: "Confirmation",
                 width: 250,
                 renderCell: (params) =>
-                    (true) ? (
+                    (params.row.buyer === user && typeof params.row.SellerEmail != "undefined" && params.row.SellerEmail != "") ? (
                     <button
                         className="btn btn-primary btn-sm"
                         type="submit"
                         
                         onClick={() => {console.log("Clicked!");
+
+                                                var addresses = params.row.SellerEmail;//between the speech mark goes the receptient. Seperate addresses with a ;
+                        var body = "Hi, " + params.row.SellerFirstName + ", can we finalize Instabid.io/" + params.row.exchange + "/" + params.row.product + "fill# " + params.row.fillNumber //write the message text between the speech marks or put a variable in the place of the speech marks
+                        var subject = "Finalizing Instabid.io/" + params.row.exchange + "/" + params.row.product + "fill# " + params.row.fillNumber//between the speech marks goes the subject of the message
+                        var href = "mailto:" + addresses + "?"
+                                + "subject=" + subject + "&"
+                                + "body=" + body;
+                        var wndMail;
+                        wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
+                        if(wndMail)
+                        {
+                            wndMail.close();    
+                        }
+
                           }}
                           
                         disabled={buttonState}
                     >
-                        Confirmation
+                        Contact Seller
                     </button>
                     ) : (
-                    ""
+                        (params.row.seller === user && typeof params.row.BuyerEmail != "undefined" && params.row.BuyerEmail != "") ? (
+                            <button
+                                className="btn btn-primary btn-sm"
+                                type="submit"
+                                
+                                onClick={() => {console.log("Clicked!");
+        
+                                var addresses = params.row.BuyerEmail;//between the speech mark goes the receptient. Seperate addresses with a ;
+                                var body = "Hi, " + params.row.BuyerFirstName + ", can we finalize Instabid.io/" + params.row.exchange + "/" + params.row.product + "fill# " + params.row.fillNumber //write the message text between the speech marks or put a variable in the place of the speech marks
+                                var subject = "Finalizing Instabid.io/" + params.row.exchange + "/" + params.row.product + "fill# " + params.row.fillNumber//between the speech marks goes the subject of the message
+                                var href = "mailto:" + addresses + "?"
+                                        + "subject=" + subject + "&"
+                                        + "body=" + body;
+                                var wndMail;
+                                wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
+                                if(wndMail)
+                                {
+                                    wndMail.close();    
+                                }
+        
+                                  }}
+                                  
+                                disabled={buttonState}
+                            >
+                                Contact Buyer
+                            </button>
+                            ) : (
+                            ""
+                            )
                     ),
                 },
             ];
