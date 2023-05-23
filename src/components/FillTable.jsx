@@ -291,8 +291,7 @@
                                 + "body=" + body;
                         var wndMail;
                         wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
-                        if(wndMail)
-
+            
 
                           }}
                           
@@ -316,6 +315,7 @@
                                         + "body=" + body;
                                 var wndMail;
                                 wndMail = window.open(href, "_blank", "scrollbars=yes,resizable=yes,width=10,height=10");
+
         
                                   }}
                                   
