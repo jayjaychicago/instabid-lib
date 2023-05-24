@@ -4,7 +4,7 @@
     import Spinner from 'react-bootstrap/Spinner';
 
 
-    const EVENT_NAME = "ORDERUPDATE"; 
+    const EVENT_NAME = "FILLUPDATE"; 
 
     /*
     const cancelButtonStyles = { 
@@ -148,60 +148,23 @@
             function handlePusherData(data) {
                 console.log("Instabidlib ORDER (AND CANCEL) TABLE processing via PUSHER " + JSON.stringify(data));
             
-                if (data.side != "CANCEL") {
-                    console.log("INCOMING NON-CANCEL DATA ", data);
-                    const id = data.exchange && data.product && data.side && data.timestamp && data.fillNumber
-                        ? `${data.exchange}-${data.product}-${data.side}-${data.fillNumber + ''}`
+                    console.log("INCOMING NON-CANCEL FILL DATA ", data);
+                    const id = data.exchange && data.product && data.timestamp && data.fillNumber
+                        ? `${data.exchange}-${data.product}-${data.timestamp}-${data.fillNumber + ''}`
                         : `missing-id-${Date.now()}`;
                     
-                    console.log("NON-NULL2 ID", id);
+//                    console.log("NON-NULL2 ID", id);
             
                     // Add the new fill to the top of the DataGrid
-                    const newOrder = {
+                    const newFill = {
                         ...data,
                         id, 
+                        fillNumber: data.fillNumber,
                     };
                     console.log("Here2");
-                    setFills((prev) => [newOrder, ...prev]);
+                    setFills((prev) => [newFill, ...prev]);
                 
-                    // Update the existing fills based on the fills array
-                    data.fills.forEach((fill) => {
-                        console.log("Here 2a");
-                        setFills((prev) =>
-                            prev.map((fill) =>
-                                fill.fillNumber === fill.fillNumber
-                                    ? { ...fill, qtyLeft: fill.qtyLeft - parseInt(fill.qty) }
-                                    : fill
-                            )
-                        );
-                    });
-                } else {
-                    // Find the corresponding fill and update its qtyLeft property to 0
-                    console.log("INCOMING CANCEL DATA ", data);
-                    console.log("Here 3");
-                    setFills((prevOrders) =>
-                        prevOrders.map((fill) => {
-                            if (!fill || !data) {
-                                console.log('Undefined fill or data', { fill, data });
-                                return;
-                            } else {
-                                // console.log('Order before:', fill, 'Data:', data);
-                                //console.log('fill.fillNumber:', fill.fillNumber + ' VS data.fillNumber:'+ data.fillNumber,  fill.fillNumber === data.fillNumber);
-                            }
-                            if (fill.fillNumber == data.fillNumber) {
-                                //console.log("YEAH! WE ARE REPLACING!!")
-                                return { ...fill, qtyLeft: 0 }
-                            }
-                            else {
-                                return fill;
-                            }
- /*                           return fill.fillNumber === data.fillNumber
-                                ? { ...fill, qtyLeft: 0 }
-                                : fill; */
-                        })
-                    );
-                   
-                }
+
             }
             
 
