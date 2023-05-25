@@ -11,13 +11,23 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);
 
-  useEffect(() => {
+ /* useEffect(() => {
     setPusher(
       new Pusher("122f17b065e8921fa6e0", {
         cluster: "us2", channelAuthorization: { endpoint: "/api/pusherAuth"}
       })
     );
-  }, []);
+  }, []); */
+
+    useEffect(() => {
+    setPusher(
+      new Pusher("122f17b065e8921fa6e0", {
+        cluster: "us2"
+      })
+    );
+  }, []); 
+
+
 
   useEffect(() => {
     if (!pusher) return;
@@ -48,7 +58,9 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       }
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
-      const channel = pusher.subscribe("private-" + exchange + "@" + product);
+      //const channel = pusher.subscribe("private-" + exchange + "@" + product);
+      // TOO COMPLEX FOR NOW. WILL ADD LATER
+      const channel = pusher.subscribe(exchange + "@" + product);
       channel.bind(EVENT_NAME, handleData);
 
       return () => {
