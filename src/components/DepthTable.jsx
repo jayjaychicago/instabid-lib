@@ -20,8 +20,16 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
     });
   
     pusherInstance.connection.bind('connected', async () => {
-      console.log("####### Trying to get pusher auth from ",`https://api.instabid.io/pusher/?socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`)
-      const res = await fetch(`https://api.instabid.io/pusher/?socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`);
+
+      if ((apiProxy == undefined) || apiProxy == "") {
+        apiProxy = "https://api.instabid.io/pusher/&apiKey=" + devModeApiKey;  
+      }
+      else {
+        apiProxy = apiProxy + "/?type=pusher"
+      }
+
+      console.log("####### Trying to get pusher auth from ",`${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`)
+      const res = await fetch(`${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`);
       
       if (res.status != 200) {
         console.log("Did not get auth for Pusher!")
