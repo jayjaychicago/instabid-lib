@@ -91,13 +91,13 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       console.log("Am I subscribed?", channel.subscribed)
       channel.bind(EVENT_NAME, handleData);
       channel.bind('pusher:subscription_succeeded', function() {
-        console.log("Successfully subscribed!");
+        console.log("!!!!!!!! Successfully subscribed!");
       });
       channel.bind('pusher:subscription_error', function(statusCode) {
-        console.log("Subscription error with status code ", statusCode);
+        console.log("!!! Subscription error with status code ", statusCode);
       });
       pusher.connection.bind('state_change', function(states) {
-        console.log('Pusher connection state is now: ', states.current);
+        console.log('!!! Pusher connection state is now: ', states.current);
       });
           
 
