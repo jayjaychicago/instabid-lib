@@ -90,7 +90,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   }, [pusher]);
 
   function handleData(data) {
-    console.log("Received a depth update via Pusher: " + JSON.stringify(data));
+    console.log("!!! Received a depth update via Pusher: " + JSON.stringify(data));
     let orderedSells = data.sells;
     let orderedBuys = data.buys;
     if (orderedBuys.length > 0) {
