@@ -48,7 +48,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
           }
         });
       
-        console.log("!!!Auth set", pusherInstance.config.auth);
+        //console.log("!!!Auth set", pusherInstance.config.auth);
         setPusher(pusherInstance);
         console.log("Pusher instance set in state");
       }
