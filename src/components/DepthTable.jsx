@@ -11,10 +11,11 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   const [sells, setSells] = useState([]);
   const [pusher, setPusher] = useState(undefined);
 
- /* useEffect(() => {
+ /* // TOO COMPLEX FOR NOW WILL ADD LATER 
+ useEffect(() => {
     setPusher(
       new Pusher("122f17b065e8921fa6e0", {
-        cluster: "us2", channelAuthorization: { endpoint: "/api/pusherAuth"}
+        cluster: "us2", channelAuthorization: { endpoint: "/api/pusherAuth?apiKey={devModeApiKey}"}
       })
     );
   }, []); */
