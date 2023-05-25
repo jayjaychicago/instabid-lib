@@ -37,15 +37,22 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         const data = await res.json();
         console.log("Got auth from pusher", data.auth)
         console.log("Setting auth...");
-        pusherInstance.config.auth = {
-          headers: {
-            'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
+      
+        // Subscribe to the channel here with the auth info.
+        const channel = pusherInstance.subscribe({
+          channel: 'private-' + exchange + '@' + product,
+          auth: {
+            headers: {
+              'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
+            }
           }
-        };
+        });
+      
         console.log("!!!Auth set", pusherInstance.config.auth);
         setPusher(pusherInstance);
-        console.log("!Pusher instance set in state");
+        console.log("Pusher instance set in state");
       }
+      
       setPusher(pusherInstance);
       console.log("!Pusher instance set in state");
     };
