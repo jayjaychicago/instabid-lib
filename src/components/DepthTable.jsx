@@ -96,6 +96,10 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       channel.bind('pusher:subscription_error', function(statusCode) {
         console.log("Subscription error with status code " + statusCode);
       });
+      pusher.connection.bind('state_change', function(states) {
+        console.log('Pusher connection state is now: ' + states.current);
+      });
+          
 
       return () => {
         channel.unbind(EVENT_NAME);
