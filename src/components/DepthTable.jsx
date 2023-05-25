@@ -14,11 +14,26 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   console.log("LIB DepthTable has apiProxy= ", apiProxy)
 
   useEffect(() => {
+    (async () => {
+      console.log("Trying to get pusher auth from ",`https://api.instabid.io/pusher/?socket_id=${pusher.connection.socket_id}&exchange=${exchange}&product=${product}`)
+      const res = await fetch(`https://api.instabid.io/pusher/?socket_id=${pusher.connection.socket_id}&exchange=${exchange}&product=${product}`);
+      if (res.status != 200) {
+        console.log("Did not get auth for Pusher!")
+      }
+      const data = await res.json();
     setPusher(
       new Pusher("122f17b065e8921fa6e0", {
         cluster: "us2",
+        authEndpoint: 'https://api.instabid.io/pusher/',
+        auth: {
+          headers: {
+            'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
+          }
+        }
       })
     );
+
+    })
   }, []);
 
   useEffect(() => {
@@ -50,7 +65,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       }
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
-      const channel = pusher.subscribe(exchange + "@" + product);
+      const channel = pusher.subscribe("private-" + exchange + "@" + product);
       channel.bind(EVENT_NAME, handleData);
 
       return () => {
