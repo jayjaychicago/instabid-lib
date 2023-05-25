@@ -51,6 +51,10 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
     };
 
     pusherInstance.connection.bind('connected', handleConnected);
+
+    pusherInstance.connection.bind('error', function(err) {
+      console.log('Error from Pusher:', err);
+    });
   
     return () => {
       pusherInstance.connection.unbind('connected', handleConnected);
