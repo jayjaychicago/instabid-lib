@@ -16,7 +16,11 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   useEffect(() => {
     const pusherInstance = new Pusher("122f17b065e8921fa6e0", {
       cluster: "us2",
-      authEndpoint: 'https://api.instabid.io/pusher/', 
+      auth: {
+        headers: {
+          'Authorization': ''
+        }
+      }
     });
 
     const handleConnected = async () => {
@@ -28,33 +32,26 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         apiProxy = apiProxy + "/?type=pusher"
       }
 
-      console.log("####### Trying to get pusher auth from ",`${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`)
-      const res = await fetch(`${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`);
+      const authEndpoint = `${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`;
+      pusherInstance.config.authEndpoint = authEndpoint;
+      
+      console.log("####### Trying to get pusher auth from ", authEndpoint);
+      const res = await fetch(authEndpoint);
       
       if (res.status != 200) {
         console.log("Did not get auth for Pusher!")
       } else {
         const data = await res.json();
         console.log("Got auth from pusher", data.auth)
+        pusherInstance.config.auth.headers.Authorization = `Bearer ${data.auth}`;
         console.log("Setting auth...");
-      
+
         // Subscribe to the channel here with the auth info.
-        const channel = pusherInstance.subscribe({
-          channel: 'private-' + exchange + '@' + product,
-          auth: {
-            headers: {
-              'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
-            }
-          }
-        });
-      
+        const channel = pusherInstance.subscribe("private-" + exchange + "@" + product);
         //console.log("!!!Auth set", pusherInstance.config.auth);
         setPusher(pusherInstance);
         console.log("Pusher instance set in state");
       }
-      
-      setPusher(pusherInstance);
-      console.log("!Pusher instance set in state");
     };
 
     pusherInstance.connection.bind('connected', handleConnected);
@@ -68,6 +65,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       pusherInstance.disconnect();
     };
   }, []);
+
   
 
   useEffect(() => {
