@@ -14,27 +14,33 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   console.log("LIB DepthTable has apiProxy= ", apiProxy)
 
   useEffect(() => {
-    (async () => {
-      console.log("####### Trying to get pusher auth from ",`https://api.instabid.io/pusher/?socket_id=${pusher.connection.socket_id}&exchange=${exchange}&product=${product}`)
-      const res = await fetch(`https://api.instabid.io/pusher/?socket_id=${pusher.connection.socket_id}&exchange=${exchange}&product=${product}`);
+    const pusherInstance = new Pusher("122f17b065e8921fa6e0", {
+      cluster: "us2",
+      authEndpoint: 'https://api.instabid.io/pusher/',
+    });
+  
+    pusherInstance.connection.bind('connected', async () => {
+      console.log("####### Trying to get pusher auth from ",`https://api.instabid.io/pusher/?socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`)
+      const res = await fetch(`https://api.instabid.io/pusher/?socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`);
+      
       if (res.status != 200) {
         console.log("Did not get auth for Pusher!")
-      }
-      const data = await res.json();
-    setPusher(
-      new Pusher("122f17b065e8921fa6e0", {
-        cluster: "us2",
-        authEndpoint: 'https://api.instabid.io/pusher/',
-        auth: {
+      } else {
+        const data = await res.json();
+        pusherInstance.config.auth = {
           headers: {
             'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
           }
-        }
-      })
-    );
-
-    })
+        };
+        setPusher(pusherInstance);
+      }
+    });
+  
+    return () => {
+      pusherInstance.disconnect();
+    };
   }, []);
+  
 
   useEffect(() => {
     if (!pusher) return;
