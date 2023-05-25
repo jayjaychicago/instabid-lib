@@ -14,7 +14,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   useEffect(() => {
     setPusher(
       new Pusher("122f17b065e8921fa6e0", {
-        cluster: "us2", channelAuthorization: { endpoint: "https://api.instabid.io/pusher"}
+        cluster: "us2", channelAuthorization: { endpoint: "/api/pusherAuth"}
       })
     );
   }, []);
