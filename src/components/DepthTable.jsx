@@ -35,6 +35,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         console.log("Did not get auth for Pusher!")
       } else {
         const data = await res.json();
+        console.log("Got auth from pusher", data.auth)
         pusherInstance.config.auth = {
           headers: {
             'Authorization': `Bearer ${data.auth}` // Use the token returned by the Lambda function
