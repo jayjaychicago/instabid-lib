@@ -52,6 +52,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   
 
   useEffect(() => {
+    console.log("!!!In second useEffect, pusher is", pusher);
     if (!pusher) return;
 
     (async () => {
@@ -80,6 +81,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       }
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
+      console.log("!!!Subscribing to channel and binding to event: ","private-" + exchange + "@" + product);
       const channel = pusher.subscribe("private-" + exchange + "@" + product);
       channel.bind(EVENT_NAME, handleData);
 
