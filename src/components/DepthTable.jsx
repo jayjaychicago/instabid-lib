@@ -14,61 +14,59 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
   console.log("LIB DepthTable has apiProxy= ", apiProxy)
 
   useEffect(() => {
-    const pusherInstance = new Pusher("122f17b065e8921fa6e0", {
-      cluster: "us2",
-      auth: {
-        headers: {
-          'Authorization': ''
-        }
-      }
-    });
-
-    const handleConnected = async () => {
-      console.log("#### BEFORE PUSHER PROXY", apiProxy)
-      if ((apiProxy == undefined) || apiProxy == "") {
-        apiProxy = "https://api.instabid.io/pusher/&apiKey=" + devModeApiKey;  
-      }
-      else {
-        apiProxy = apiProxy + "/?type=pusher"
-      }
-
-      const authEndpoint = `${apiProxy}&socket_id=${pusherInstance.connection.socket_id}&exchange=${exchange}&product=${product}`;
-      pusherInstance.config.authEndpoint = authEndpoint;
-      
-      console.log("####### Trying to get pusher auth from ", authEndpoint);
-      const res = await fetch(authEndpoint);
-      
-      if (res.status != 200) {
-        console.log("Did not get auth for Pusher!")
+    const initializePusher = async () => {
+      // Construct API endpoint
+      let apiProxyTemp = apiProxy;
+      if (!apiProxyTemp || apiProxyTemp === "") {
+        apiProxyTemp = "https://api.instabid.io/pusher/&apiKey=" + devModeApiKey;
       } else {
-        const data = await res.json();
-        console.log("Got auth from pusher", data.auth)
-        pusherInstance.config.auth.headers.Authorization = `Bearer ${data.auth}`;
-        console.log("Setting auth...");
-
-        // Subscribe to the channel here with the auth info.
-        console.log("**Exchange:", exchange);
-        console.log("**Product:", product);
-        console.log("**Channel string:", "private-" + exchange + "@" + product);
-
-        const channel = pusherInstance.subscribe("private-" + exchange + "@" + product);
-        //console.log("!!!Auth set", pusherInstance.config.auth);
+        apiProxyTemp = apiProxyTemp + "/?type=pusher";
+      }
+      
+      const socketIdEndpoint = `${apiProxyTemp}&exchange=${exchange}&product=${product}`;
+  
+      // Fetch token
+      const res = await fetch(socketIdEndpoint);
+      let data;
+      if (res.status !== 200) {
+        console.log("Did not get auth for Pusher!");
+      } else {
+        data = await res.json();
+        console.log("Got auth from pusher", data.auth);
+      }
+  
+      // Initialize Pusher with fetched token
+      const pusherInstance = new Pusher("122f17b065e8921fa6e0", {
+        cluster: "us2",
+        auth: {
+          headers: {
+            'Authorization': `Bearer ${data?.auth}`,
+          },
+        },
+      });
+  
+      const handleConnected = async () => {
+        // Rest of your connected handler logic
+        // ...
         setPusher(pusherInstance);
         console.log("Pusher instance set in state");
-      }
-    };
-
-    pusherInstance.connection.bind('connected', handleConnected);
-
-    pusherInstance.connection.bind('error', function(err) {
-      console.log('Error from Pusher:', err);
-    });
+      };
   
-    return () => {
-      pusherInstance.connection.unbind('connected', handleConnected);
-      pusherInstance.disconnect();
+      pusherInstance.connection.bind('connected', handleConnected);
+  
+      pusherInstance.connection.bind('error', function(err) {
+        console.log('Error from Pusher:', err);
+      });
+  
+      return () => {
+        pusherInstance.connection.unbind('connected', handleConnected);
+        pusherInstance.disconnect();
+      };
     };
+  
+    initializePusher();
   }, []);
+  
 
   
 
