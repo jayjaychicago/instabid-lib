@@ -20,7 +20,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
     });
   
     pusherInstance.connection.bind('connected', async () => {
-
+      console.log("#### BEFORE PUSHER PROXY", apiProxy)
       if ((apiProxy == undefined) || apiProxy == "") {
         apiProxy = "https://api.instabid.io/pusher/&apiKey=" + devModeApiKey;  
       }
