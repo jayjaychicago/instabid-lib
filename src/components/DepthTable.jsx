@@ -18,8 +18,8 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       cluster: "us2",
       authEndpoint: 'https://api.instabid.io/pusher/', 
     });
-  
-    pusherInstance.connection.bind('connected', async () => {
+
+    const handleConnected = async () => {
       console.log("#### BEFORE PUSHER PROXY", apiProxy)
       if ((apiProxy == undefined) || apiProxy == "") {
         apiProxy = "https://api.instabid.io/pusher/&apiKey=" + devModeApiKey;  
@@ -46,78 +46,65 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         setPusher(pusherInstance);
         console.log("Pusher instance set in state");
       }
-    });
+      setPusher(pusherInstance);
+      console.log("Pusher instance set in state");
+    };
+
+    pusherInstance.connection.bind('connected', handleConnected);
   
     return () => {
+      pusherInstance.connection.unbind('connected', handleConnected);
       pusherInstance.disconnect();
     };
   }, []);
   
 
   useEffect(() => {
-    console.log("!!!In second useEffect, pusher is", pusher);
     if (!pusher) return;
-    console.log("!!! Here's the auth previously fetched", pusher.config.auth);
 
-    (async () => {
-      if (exchange === undefined) {
-        exchange = "Insta";
-      }
-      if (product === undefined) {
-        product = "prod";
-      }
-      if (user === undefined) {
-        user = "julien";
-      }
-      let apiProxyGetValue = `https://api.instabid.io/depth?exchange=${exchange}&product=${product}&user=${user}`
-      console.log("API Proxy value seen for depthGet " + apiProxy)
-      try { 
-          if ((apiProxy == undefined) || (apiProxy == "")) {
-              console.log("using default API proxy")                            
-          } else {
-              apiProxyGetValue = apiProxy + "?type=depthGet&exchange=" + `${exchange}&product=${product}&user=${user}`
-          }
-          const res = await fetch(apiProxyGetValue);
-          handleData(await res.json());
-        } catch(e)
-        {
-            console.error("Problem getting depths ",e)
-      }
+    const handleSubscriptionSucceeded = () => {
+      console.log('Successfully subscribed!');
+    };
 
-      //const channel = pusher.subscribe(CHANNEL_NAME);
-      console.log("!!!Subscribing to channel and binding to event: ","private-" + exchange + "@" + product);
-      const channel = pusher.subscribe("private-" + exchange + "@" + product);
-      console.log("!!! Heres the result from the subscription", channel)
-      console.log("Am I subscribed?", channel.subscribed)
-      channel.bind(EVENT_NAME, handleData);
-      channel.bind('pusher:subscription_succeeded', function() {
-        console.log("!!!!!!!! Successfully subscribed!");
-      });
-      channel.bind('pusher:subscription_error', function(statusCode) {
-        console.log("!!! Subscription error with status code ", statusCode);
-      });
-      pusher.connection.bind('state_change', function(states) {
-        console.log('!!! Pusher connection state is now: ', states.current);
-      });
-          
+    const handleSubscriptionError = (statusCode) => {
+      console.log("Subscription error with status code ", statusCode);
+    };
 
-      return () => {
-        channel.unbind(EVENT_NAME);
-      };
-    })();
+    const handleStateChange = (states) => {
+      console.log('Pusher connection state is now: ', states.current);
+    };
+
+    const handleData = (data) => {
+      console.log("Received a depth update via Pusher: " + JSON.stringify(data));
+      let orderedSells = data.sells;
+      let orderedBuys = data.buys;
+      if (orderedBuys.length > 0) {
+        setBuys((prev) => updateSortedOrders(prev, orderedBuys));
+      }
+      if (orderedSells.length > 0) {
+        setSells((prev) => updateSortedOrders(prev, orderedSells));
+      }
+    };
+
+    pusher.connection.bind('state_change', handleStateChange);
+
+    const channel = pusher.subscribe("private-" + exchange + "@" + product);
+    channel.bind('pusher:subscription_succeeded', handleSubscriptionSucceeded);
+    channel.bind('pusher:subscription_error', handleSubscriptionError);
+    channel.bind(EVENT_NAME, handleData);
+
+    return () => {
+      channel.unbind('pusher:subscription_succeeded', handleSubscriptionSucceeded);
+      channel.unbind('pusher:subscription_error', handleSubscriptionError);
+      channel.unbind(EVENT_NAME, handleData);
+      pusher.connection.unbind('state_change', handleStateChange);
+    };
   }, [pusher]);
 
-  function handleData(data) {
-    console.log("!!! Received a depth update via Pusher: " + JSON.stringify(data));
-    let orderedSells = data.sells;
-    let orderedBuys = data.buys;
-    if (orderedBuys.length > 0) {
-      setBuys((prev) => updateSortedOrders(prev, orderedBuys));
-    }
-    if (orderedSells.length > 0) {
-      setSells((prev) => updateSortedOrders(prev, orderedSells));
-    }
-  }
+
+
+
+  
 
   DepthTable.defaultProps = {
     onSelect: () => {}
