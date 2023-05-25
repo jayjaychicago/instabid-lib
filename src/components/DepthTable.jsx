@@ -48,7 +48,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       }
 
       //const channel = pusher.subscribe(CHANNEL_NAME);
-      const channel = pusher.subscribe(exchange + "@" + product);
+      const channel = pusher.subscribe("private-" + exchange + "@" + product);
       channel.bind(EVENT_NAME, handleData);
 
       return () => {
