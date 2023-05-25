@@ -9,7 +9,7 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-  console.log("LIB Instabid has apiProxy=", apiProxy)
+  console.log("LIB Instabid has apiProxy= ", apiProxy)
 
   const onSelect = (order) => {
     setSelectedOrder(order);
@@ -50,10 +50,12 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
   } else {
   return (  <div>
     <DepthTable
-      exchange={exchange}
-      product={product}
-      user={user}></DepthTable>
-    <InstaForm exchange={exchange} product={product} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl} adminUser={adminUser}></InstaForm>
+              exchange={exchange}
+              product={product}
+              onSelect={onSelect}
+              user={user}
+              devModeApiKey={devModeApiKey} apiProxy={apiProxy}></DepthTable>
+    <InstaForm exchange={exchange} product={product} selectedOrder={selectedOrder} user={user} devModeApiKey={devModeApiKey} apiProxy={apiProxy} authUrl={authUrl}></InstaForm>
   </div>
   );
   }
