@@ -9,7 +9,7 @@ export const Instabid = ({ exchange, product, user, devModeApiKey, apiProxy, aut
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-
+  console.log("LIB Instabid has apiProxy=", apiProxy)
 
   const onSelect = (order) => {
     setSelectedOrder(order);
