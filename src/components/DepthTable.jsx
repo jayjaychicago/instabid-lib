@@ -47,6 +47,10 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         console.log("Setting auth...");
 
         // Subscribe to the channel here with the auth info.
+        console.log("Exchange:", exchange);
+        console.log("Product:", product);
+        console.log("Channel string:", "private-" + exchange + "@" + product);
+
         const channel = pusherInstance.subscribe("private-" + exchange + "@" + product);
         //console.log("!!!Auth set", pusherInstance.config.auth);
         setPusher(pusherInstance);
