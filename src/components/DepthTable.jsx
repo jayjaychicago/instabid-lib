@@ -44,10 +44,10 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
         };
         console.log("!!!Auth set", pusherInstance.config.auth);
         setPusher(pusherInstance);
-        console.log("Pusher instance set in state");
+        console.log("!Pusher instance set in state");
       }
       setPusher(pusherInstance);
-      console.log("Pusher instance set in state");
+      console.log("!Pusher instance set in state");
     };
 
     pusherInstance.connection.bind('connected', handleConnected);
@@ -63,19 +63,19 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
     if (!pusher) return;
 
     const handleSubscriptionSucceeded = () => {
-      console.log('Successfully subscribed!');
+      console.log('!!! Successfully subscribed!');
     };
 
     const handleSubscriptionError = (statusCode) => {
-      console.log("Subscription error with status code ", statusCode);
+      console.log("!!! Subscription error with status code ", statusCode);
     };
 
     const handleStateChange = (states) => {
-      console.log('Pusher connection state is now: ', states.current);
+      console.log('!!! Pusher connection state is now: ', states.current);
     };
 
     const handleData = (data) => {
-      console.log("Received a depth update via Pusher: " + JSON.stringify(data));
+      console.log("!!!Received a depth update via Pusher: " + JSON.stringify(data));
       let orderedSells = data.sells;
       let orderedBuys = data.buys;
       if (orderedBuys.length > 0) {
