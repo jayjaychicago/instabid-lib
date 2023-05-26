@@ -37,3 +37,5 @@ For secure Prod, use your own self-autenticated API proxy to hide your secret AP
 ```
       <Instabid exchange="Insta" product="prod" user="YOUR_USER_IDENTIFIER" apiProxy="https://myapi.proxy.com/order"></Instabid>
 ```
+
+Questions: https://github.com/jayjaychicago/instabid-lib/issues/new
