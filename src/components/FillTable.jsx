@@ -19,6 +19,7 @@
         const [tableHeight, setTableHeight] = useState(300);
         const [buttonState, setButtonState] = useState(false);
         const [cancellingOrderNumber, setCancellingOrderNumber] = useState(null);
+        const [isLoading, setIsLoading] = useState(true);
 
         if (typeof adminUser == "undefined") {adminUser = ""};
 
@@ -97,6 +98,8 @@
                         if (ress.result.length > 0) {handleData(ress)};
                     } catch (error) {
                         console.error('Fetch error:', error);
+                    } finally {
+                        setIsLoading(false);
                     }
         
                     const newChannelName = `${exchangeValue}@${productValue}`;
@@ -261,14 +264,15 @@
                 <>
                 <div className="fill-table-wrapper" >
                     <div id="fills" className="fill-table-container">
-                        <DataGrid
+                    {isLoading ? (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "100px" }}><Spinner animation="border" role="status" /></div>) 
+                        : (<DataGrid
                         rows={fills}
                         columns={columns}
                         pageSize={50}
                         rowsPerPageOptions={[50]}
                         disableSelectionOnClick
                         disableExtendRowFullWidth
-                        />
+                        />)}
                     </div>
                 </div>
                 </>
