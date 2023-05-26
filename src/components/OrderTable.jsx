@@ -384,7 +384,7 @@
                 <>
                 <div className="order-table-wrapper" >
                     <div id="orders" className="order-table-container">
-                        {isLoading ? (<Spinner animation="border" role="status" size="sm" />) : (<DataGrid
+                        {isLoading ? (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Spinner animation="border" role="status" /></div>) : (<DataGrid
                         rows={orders}
                         columns={columns}
                         pageSize={50}
