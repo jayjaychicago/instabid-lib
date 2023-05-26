@@ -43,7 +43,7 @@ export function DepthTable({ exchange, product, user, devModeApiKey, apiProxy, o
       if (user === undefined) {
         user = "julien";
       }
-      let apiProxyGetValue = `https://api.instabid.io/depth?exchange=${exchange}&product=${product}&user=${user}`
+      let apiProxyGetValue = `https://api.instabid.io/depth?exchange=${exchange}&product=${product}&user=${user}&apiKey=${devModeApiKey}`
       console.log("API Proxy value seen for depthGet " + apiProxy)
       try { 
           if ((apiProxy == undefined) || (apiProxy == "")) {

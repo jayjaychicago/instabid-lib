@@ -146,7 +146,7 @@
                     const exchangeValue = exchange;
                     const productValue = product;
                     const userValue = user || "";
-                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}`
+                    let apiProxyGetValue = `https://api.instabid.io/orders?exchange=${exchangeValue}&product=${productValue}&apiKey=${devModeApiKey}`
                     console.log("API Proxy value seen " + apiProxy)
                     try { // TODO: ALLOW API PROXYING TOO
                         if ((apiProxy == undefined) || (apiProxy == "")) {
