@@ -204,7 +204,7 @@
             setQty("");
             setPrice("");
             setSide(null);
-            setMessage({ text: side + " " + qty + " @ $" + price +  " executed successfully!", type: "success" });
+            setMessage({ text: side + " " + qty + " at $" + price +  " executed successfully!", type: "success" });
           }  else if (res2.status == 402) {
             setMessage({ text: "Out of API credits", type: "danger" });
             setButtonState(false);
